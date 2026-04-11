@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #003B5C;
+  --color-ocean: #005F8D;
+  --color-charcoal: #1D1F21;
+  --color-ice-blue: #E1F5FE;
+  --color-white: #FFFFFF;
+
+  --font-display: var(--font-cormorant-garamond);
+  --font-heading: var(--font-syne);
+  --font-body: var(--font-dm-sans);
+  --font-accent: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
+
+  --shadow-default: 0 4px 20px rgba(0, 59, 92, 0.08);
+  --shadow-hover: 0 10px 30px rgba(0, 59, 92, 0.18);
+  --shadow-button: 0 4px 15px rgba(0, 95, 141, 0.30);
+}
+
+@layer base {
+  body {
+    @apply bg-white text-charcoal font-body antialiased selection:bg-ocean selection:text-white;
+    overflow-x: hidden;
+  }
+
+  h1, .h1 {
+    @apply font-display font-bold leading-tight;
+  }
+
+  h2, h3, .h2, .h3 {
+    @apply font-heading font-bold leading-snug;
+  }
+
+  h4, .h4 {
+    @apply font-accent font-semibold leading-normal;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply py-20 md:py-32 px-6 md:px-12 lg:px-24;
+  }
+
+  .container-wide {
+    @apply max-w-[1440px] mx-auto;
+  }
+
+  .btn-hover {
+    @apply transition-all duration-300 ease-in-out hover:scale-[1.03] active:scale-[0.98];
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-hover;
+  }
+
+  .img-reveal {
+    @apply overflow-hidden;
+    img {
+      @apply transition-transform duration-500 ease-out hover:scale-[1.04];
+    }
+  }
+}
+
+/* Lenis Smooth Scroll Fix */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
