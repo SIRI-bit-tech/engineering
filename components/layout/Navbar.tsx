@@ -70,11 +70,11 @@ export const Navbar = () => {
               <li key={link.href} className="relative group">
                 <Link
                   href={link.href}
-                  className={`flex items-center space-x-1 font-accent font-bold text-[11px] uppercase tracking-[0.2em] transition-colors duration-500 ${pathname === link.href ? "text-ocean" : "text-charcoal/60 hover:text-primary"
+                  className={`flex items-center space-x-1 font-accent font-bold text-[11px] uppercase tracking-[0.2em] transition-colors duration-500 ${pathname === link.href ? "text-ocean" : (isMobileMenuOpen ? "text-white/80 hover:text-white" : "text-charcoal/60 hover:text-primary")
                     }`}
                 >
                   <span>{link.label}</span>
-                  {link.children && <ChevronDown size={12} className="group-hover:rotate-180 transition-transform duration-500 text-ocean" />}
+                  {link.children && <ChevronDown size={12} className={`group-hover:rotate-180 transition-transform duration-500 ${isMobileMenuOpen ? "text-white/60" : "text-ocean"}`} />}
                 </Link>
 
                 {/* Dropdown (Tonal Layering) */}

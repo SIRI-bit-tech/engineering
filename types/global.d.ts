@@ -21,7 +21,7 @@ declare global {
 
   // Common UI
   type ColorVariant = 'primary' | 'secondary' | 'accent' | 'dark' | 'light';
-  
+
   // Forms
   interface ContactFormData {
     name: string;
@@ -67,6 +67,11 @@ declare global {
     mainImage: string;
     gallery?: string[];
     stats?: { label: string; value: string }[];
+    // Extended project details
+    technicalAnalysis?: string[];
+    implementationTimeline?: string[];
+    keyTechnologies?: string[];
+    environmentalImpact?: string[];
   }
 
   interface Stat {
@@ -114,4 +119,4 @@ declare global {
   }
 }
 
-export {};
+export { };

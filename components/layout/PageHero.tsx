@@ -41,7 +41,7 @@ export const PageHero = ({
   return (
     <section
       ref={containerRef}
-      className="relative pt-48 pb-24 md:pt-64 md:pb-40 bg-primary overflow-hidden"
+      className="relative pt-32 sm:pt-40 md:pt-48 lg:pt-64 pb-16 sm:pb-20 md:pb-24 lg:pb-40 bg-primary overflow-hidden"
     >
       {/* Background Layer */}
       <div className="absolute inset-0 z-0">
@@ -58,15 +58,15 @@ export const PageHero = ({
       {/* Content Layer */}
       <div className="hero-content relative z-10 container-wide">
         <div className="max-w-3xl">
-          <Badge variant="ocean" className="mb-8">
+          <Badge variant="ocean" className="mb-6 sm:mb-8">
             {badge}
           </Badge>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-8 tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-white mb-6 sm:mb-8 tracking-tight leading-tight">
             {title}
           </h1>
 
-          <p className="text-lg md:text-xl text-white/70 font-body leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-white/70 font-body leading-relaxed">
             {description}
           </p>
         </div>

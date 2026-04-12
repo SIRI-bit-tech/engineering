@@ -43,11 +43,11 @@
 
 @layer components {
   .section-padding {
-    @apply py-20 md:py-32 px-6 md:px-12 lg:px-24;
+    @apply py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6 md:px-12 lg:px-24;
   }
 
   .container-wide {
-    @apply max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24;
+    @apply max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 lg:px-24;
   }
 
   .btn-hover {
@@ -63,6 +63,64 @@
     img {
       @apply transition-transform duration-500 ease-out hover:scale-[1.04];
     }
+  }
+
+  /* Responsive text utilities */
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm;
+  }
+
+  .text-responsive-sm {
+    @apply text-sm sm:text-base;
+  }
+
+  .text-responsive-base {
+    @apply text-base sm:text-lg;
+  }
+
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl;
+  }
+
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl;
+  }
+
+  .text-responsive-2xl {
+    @apply text-2xl sm:text-3xl;
+  }
+
+  .text-responsive-3xl {
+    @apply text-3xl sm:text-4xl;
+  }
+
+  .text-responsive-4xl {
+    @apply text-4xl sm:text-5xl;
+  }
+
+  /* Responsive spacing utilities */
+  .space-responsive-y-4 {
+    @apply space-y-2 sm:space-y-4;
+  }
+
+  .space-responsive-y-6 {
+    @apply space-y-4 sm:space-y-6;
+  }
+
+  .space-responsive-y-8 {
+    @apply space-y-6 sm:space-y-8;
+  }
+
+  .gap-responsive-4 {
+    @apply gap-2 sm:gap-4;
+  }
+
+  .gap-responsive-6 {
+    @apply gap-4 sm:gap-6;
+  }
+
+  .gap-responsive-8 {
+    @apply gap-6 sm:gap-8;
   }
 }
 

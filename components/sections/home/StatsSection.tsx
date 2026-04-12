@@ -61,22 +61,22 @@ export const StatsSection = () => {
   return (
     <section 
       ref={containerRef}
-      className="py-24 bg-primary-container relative dot-grid overflow-hidden"
+      className="py-16 sm:py-20 md:py-24 bg-primary-container relative dot-grid overflow-hidden"
     >
-      <div className="max-w-screen-2xl mx-auto px-12 grid grid-cols-2 md:grid-cols-4 gap-12 text-center relative z-10">
+      <div className="max-w-screen-2xl mx-auto px-6 sm:px-8 md:px-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 text-center relative z-10">
         {STATS.map((stat, index) => (
           <div 
             key={stat.label} 
             className="stat-item"
           >
             <div 
-              className="stat-number font-mono text-5xl md:text-6xl text-on-primary-container block mb-4"
+              className="stat-number font-mono text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-on-primary-container block mb-3 sm:mb-4"
               data-value={stat.value}
               data-suffix={stat.suffix}
             >
               0{stat.suffix}
             </div>
-            <span className="font-label text-white/60 text-xs tracking-widest uppercase">
+            <span className="font-label text-white/60 text-[10px] sm:text-xs tracking-widest uppercase">
               {stat.label}
             </span>
           </div>

@@ -78,8 +78,8 @@ export const HeroSection = () => {
       <div className="container-wide w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
         {/* Left Content (Asymmetric) */}
         <div className="lg:col-span-6 relative z-10">
-          <div className="flex items-center gap-4 mb-8">
-            <span className="w-12 h-[2px] bg-ocean" />
+          <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <span className="w-8 sm:w-12 h-[2px] bg-ocean" />
             <span className="font-accent text-xs uppercase tracking-[0.2em] text-ocean">
               Leading the Energy Transition
             </span>
@@ -87,14 +87,14 @@ export const HeroSection = () => {
 
           <h1
             ref={headlineRef}
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-primary leading-[1.05] mb-8"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold text-primary leading-[1.05] mb-6 sm:mb-8"
           >
             Certified Electrical & <br />Renewable Energy <br />Engineering Solutions
           </h1>
 
           <p
             ref={subheadlineRef}
-            className="text-lg md:text-xl text-charcoal/80 font-body mb-12 max-w-xl leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-charcoal/80 font-body mb-8 sm:mb-12 max-w-xl leading-relaxed"
           >
             Delivering high-performance electrical design, renewable energy integration, and sustainable infrastructure across the United States.
           </p>
@@ -118,7 +118,7 @@ export const HeroSection = () => {
         </div>
 
         {/* Right Image (Architectural Layering) */}
-        <div className="lg:col-span-6 relative h-[60vh] lg:h-[80vh] w-full">
+        <div className="lg:col-span-6 relative h-[50vh] sm:h-[60vh] lg:h-[80vh] w-full">
           <div className="hero-image-container absolute inset-0 overflow-hidden rounded-none">
             <Image
               src="/images/hero/main.png"
@@ -133,11 +133,11 @@ export const HeroSection = () => {
           </div>
 
           {/* Technical Stat Accent */}
-          <div className="absolute -bottom-8 -left-8 bg-white p-8 rounded-none shadow-hover hidden md:block border-l-4 border-ocean">
-            <div className="font-mono text-4xl font-bold text-primary mb-1">
+          <div className="absolute -bottom-4 -left-4 sm:-bottom-8 sm:-left-8 bg-white p-4 sm:p-6 md:p-8 rounded-none shadow-hover hidden md:block border-l-4 border-ocean">
+            <div className="font-mono text-2xl md:text-4xl font-bold text-primary mb-1">
               150<span className="text-ocean">+</span>
             </div>
-            <div className="font-accent text-[10px] uppercase tracking-widest text-charcoal/60">
+            <div className="font-accent text-[8px] md:text-[10px] uppercase tracking-widest text-charcoal/60">
               Projects Delivered
             </div>
           </div>

@@ -47,27 +47,27 @@ export const ServicesSnapshot = () => {
   return (
     <section
       ref={containerRef}
-      className="py-32 bg-[#E1F5FE]"
+      className="py-20 sm:py-24 md:py-32 bg-[#E1F5FE]"
     >
       <div className="container-wide">
-        <div className="mb-20">
-          <h2 className="accent-line font-headline text-4xl text-primary tracking-tight leading-tight">
+        <div className="mb-16 sm:mb-20">
+          <h2 className="accent-line font-headline text-2xl sm:text-3xl md:text-4xl text-primary tracking-tight leading-tight">
             Technical Engineering<br />Core Services
           </h2>
         </div>
-        <div className="services-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {SERVICES.map((service, idx) => (
             <div
               key={service.id}
-              className="service-card bg-surface-container-lowest p-10 hover:shadow-2xl transition-all duration-300 group"
+              className="service-card bg-surface-container-lowest p-6 sm:p-8 hover:shadow-2xl transition-all duration-300 group"
             >
-              <div className="text-secondary mb-6">
+              <div className="text-secondary mb-4 sm:mb-6">
                 {getIcon(idx)}
               </div>
-              <h3 className="font-label text-xl font-bold text-primary mb-4 uppercase tracking-tight">
+              <h3 className="font-label text-lg sm:text-xl font-bold text-primary mb-3 sm:mb-4 uppercase tracking-tight">
                 {service.title}
               </h3>
-              <p className="text-charcoal/70 mb-8 text-sm leading-relaxed font-body">
+              <p className="text-charcoal/70 mb-6 sm:mb-8 text-sm leading-relaxed font-body">
                 {service.description}
               </p>
               <Link

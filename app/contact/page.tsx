@@ -21,9 +21,9 @@ export default function ContactPage() {
         image="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop"
       />
       
-      <div className="bg-white py-24 md:py-40 relative">
+      <div className="bg-white py-16 sm:py-20 md:py-24 lg:py-40 relative">
         <div className="container-wide">
-          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+          <div className="flex flex-col lg:flex-row gap-12 sm:gap-16 lg:gap-24 items-start">
             {/* Contact Info (40%) */}
             <div className="lg:w-[40%]">
               <ContactInfo />
@@ -31,10 +31,10 @@ export default function ContactPage() {
 
             {/* Contact Form (60%) */}
             <div className="lg:w-[60%]">
-              <div className="bg-white p-12 md:p-16 shadow-[0_32px_96px_-12px_rgba(0,37,59,0.1)] border border-platinum/50 rounded-none relative overflow-hidden">
+              <div className="bg-white p-8 sm:p-12 md:p-16 shadow-[0_32px_96px_-12px_rgba(0,37,59,0.1)] border border-platinum/50 rounded-none relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-1 h-full bg-navy" />
-                <div className="mb-12">
-                  <h3 className="font-headline text-3xl md:text-4xl text-navy mb-4">
+                <div className="mb-8 sm:mb-12">
+                  <h3 className="font-headline text-2xl sm:text-3xl md:text-4xl text-navy mb-4">
                     Project Inquiry
                   </h3>
                   <p className="text-sm font-body text-slate-500 max-w-md">
@@ -47,7 +47,7 @@ export default function ContactPage() {
           </div>
 
           {/* Additional Protocol Sections */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-32 md:mt-48 pt-24 border-t border-platinum">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 mt-20 sm:mt-24 md:mt-32 lg:mt-48 pt-16 sm:pt-20 md:pt-24 border-t border-platinum">
             <div className="relative group">
               <span className="absolute -top-12 left-0 text-7xl font-sans font-black text-slate-100/50 group-hover:text-navy/5 transition-colors duration-500">01</span>
               <h4 className="font-headline text-xl text-navy mb-4 relative z-10">Response Protocol</h4>

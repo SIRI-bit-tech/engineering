@@ -47,15 +47,15 @@ export const ServicesGrid = () => {
   return (
     <section 
       ref={containerRef}
-      className="bg-white py-24 md:py-40 overflow-hidden"
+      className="bg-white py-16 sm:py-20 md:py-24 lg:py-40 overflow-hidden"
     >
       <div className="container-wide px-6 md:px-12 lg:px-24">
-        <div className="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
+        <div className="services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 md:gap-16">
           {SERVICES.map((service, idx) => (
             <NextLink 
               key={service.id} 
               href={`/services/${service.slug}`}
-              className="service-card group relative flex flex-col h-[600px] bg-primary rounded-none shadow-default hover:shadow-hover hover:-translate-y-4 transition-all duration-700 overflow-hidden"
+              className="service-card group relative flex flex-col h-[500px] sm:h-[550px] md:h-[600px] bg-primary rounded-none shadow-default hover:shadow-hover hover:-translate-y-4 transition-all duration-700 overflow-hidden"
             >
               {/* Background Image with Hover Reveal */}
               <div className="absolute inset-0 z-0">
@@ -71,41 +71,43 @@ export const ServicesGrid = () => {
               {/* Tonal Card Accents */}
               <div className="absolute top-0 right-0 w-40 h-40 bg-ocean/10 -mr-20 -mt-20 rounded-none group-hover:scale-[3] transition-transform duration-1000 z-10" />
               
-              <div className="relative z-20 flex flex-col h-full p-12">
+              <div className="relative z-20 flex flex-col h-full p-8 sm:p-10 md:p-12">
                 {/* Technical Marker */}
-                <div className="font-mono text-[10px] tracking-[0.2em] text-white/40 mb-12 flex items-center gap-4">
+                <div className="font-mono text-[8px] sm:text-[10px] tracking-[0.2em] text-white/40 mb-8 sm:mb-12 flex items-center gap-2 sm:gap-4">
                   <span className="text-ocean font-bold">0{idx + 1}</span>
-                  <div className="h-px w-8 bg-white/10 group-hover:w-16 transition-all duration-700" />
-                  <span>SPEC-ID: {service.id.toUpperCase()}</span>
+                  <div className="h-px w-6 sm:w-8 bg-white/10 group-hover:w-12 sm:group-hover:w-16 transition-all duration-700" />
+                  <span className="hidden sm:inline">SPEC-ID: {service.id.toUpperCase()}</span>
+                  <span className="sm:hidden">ID: {service.id.toUpperCase()}</span>
                 </div>
 
-                <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-none flex items-center justify-center mb-10 group-hover:bg-primary transition-all duration-700 shadow-sm border border-white/10">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/10 backdrop-blur-md rounded-none flex items-center justify-center mb-6 sm:mb-10 group-hover:bg-primary transition-all duration-700 shadow-sm border border-white/10">
                   <div className="text-white">
                     {getIcon(idx)}
                   </div>
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-6 leading-tight group-hover:text-ocean transition-colors duration-500">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-4 sm:mb-6 leading-tight group-hover:text-ocean transition-colors duration-500">
                   {service.title}
                 </h3>
                 
-                <p className="text-base text-white/70 font-body mb-12 leading-relaxed italic">
+                <p className="text-sm sm:text-base text-white/70 font-body mb-8 sm:mb-12 leading-relaxed italic">
                   {service.description}
                 </p>
 
                 <div className="mt-auto">
-                  <ul className="space-y-4 mb-14">
+                  <ul className="space-y-3 sm:space-y-4 mb-10 sm:mb-14">
                     {service.features.slice(0, 3).map((feature) => (
-                      <li key={feature} className="flex items-start text-sm font-body text-white/60">
-                        <div className="w-1.5 h-1.5 bg-ocean/50 mr-4 rounded-full mt-1.5 group-hover:bg-ocean transition-colors duration-500" />
+                      <li key={feature} className="flex items-start text-xs sm:text-sm font-body text-white/60">
+                        <div className="w-1.5 h-1.5 bg-ocean/50 mr-3 sm:mr-4 rounded-full mt-1.5 group-hover:bg-ocean transition-colors duration-500" />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
 
                   <div className="inline-flex items-center text-ocean font-accent font-bold text-xs uppercase tracking-[0.3em] group/link">
-                    <span>View Technical Protocol</span>
-                    <ArrowRight size={14} className="ml-4 transition-transform duration-500 group-hover/link:translate-x-4" />
+                    <span className="hidden sm:inline">View Technical Protocol</span>
+                    <span className="sm:hidden">View Details</span>
+                    <ArrowRight size={14} className="ml-2 sm:ml-4 transition-transform duration-500 group-hover/link:translate-x-4" />
                   </div>
                 </div>
               </div>
