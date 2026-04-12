@@ -90,7 +90,7 @@ export const ContactForm = () => {
             id="company"
             {...register("company")}
             className={`w-full bg-white border ${errors.company ? "border-red-500" : "border-ocean/20"} py-3 px-4 font-body text-primary focus:outline-none focus:border-ocean transition-colors`}
-            placeholder="Lagos Manufacturing Ltd"
+            placeholder="Global Manufacturing Corp"
           />
           {errors.company && <p className="text-[10px] text-red-500 font-accent uppercase font-bold">{errors.company.message}</p>}
         </div>

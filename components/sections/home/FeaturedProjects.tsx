@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { PROJECTS } from "@/constants/constants";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export const FeaturedProjects = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,18 +44,17 @@ export const FeaturedProjects = () => {
             <span className="font-label text-secondary text-xs font-bold tracking-[0.3em] uppercase block mb-4">Portfolio</span>
             <h2 className="font-headline text-5xl tracking-tight leading-tight">Infrastructural Impact</h2>
           </div>
-          <div className="flex space-x-4">
-            <button className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all">
-              <ArrowLeft size={20} />
-            </button>
-            <button className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all">
-              <ArrowRight size={20} />
-            </button>
-          </div>
+          <Link
+            href="/projects"
+            className="group inline-flex items-center gap-3 px-6 py-3 border border-white/20 rounded-full hover:bg-white/10 transition-all"
+          >
+            <span className="font-label text-xs font-bold tracking-widest uppercase">View All Projects</span>
+            <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
         </div>
 
         <div className="projects-grid grid grid-cols-1 md:grid-cols-3 gap-8">
-          {PROJECTS.map((project, idx) => {
+          {PROJECTS.slice(0, 3).map((project, idx) => {
             const PROJECT_IMAGES = [
               "https://lh3.googleusercontent.com/aida-public/AB6AXuBLCcvVadarpxJ6nldK4-VxdLveUxDEwSlQB2wE5F1AkRTXX8pI4LCqUdESKZUKtD3Ywz9CFRtB7SbKzmAC6fthbUBpdHxXxvaqkcMmzX-QqYGstC_HIsVSoIfmnr6lmbLuGTekfQaXdV4PCw9kx1DpWBo3d3jgwBgahvD7bLxU3hF_rD-EJvAEEw1W3Cl5O_JvzyMq7KBiVSoFz_TnjRcPljvBywWSp75OyBbLMRD_1KLlAZ40xW-JdZOd7soJUlupglxz62wBAkL4",
               "https://lh3.googleusercontent.com/aida-public/AB6AXuAcFj2FN7YWrRawlsszd4QgDYFhNsttOB0rnUWPFmxJ5HDoh2chQpRSwUTRaimIgeRDGR5v2-3T4arfgbrUQY6ZhSNOvx4YO_r_mO5nFjm2sA3kB2G0FIIj7sZMKRVB2L9A3SCtTDqSLf62fPYYrlyUpJ8pLsmyRNn4ez2qBl-rnWFoXCcU5RKbJHdPasrUk7Cqtd9OapNxcpRkc8gKKYYTmyODEeHpFrHK8t3qCe7peqHHBo38EeBqjlalllV6pD6RmzsC9S0tiz2q",
@@ -72,7 +71,7 @@ export const FeaturedProjects = () => {
                   src={projectImage}
                   alt={project.title}
                   fill
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-primary via-transparent to-transparent opacity-80"></div>

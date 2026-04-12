@@ -24,16 +24,16 @@ export const TrustBar = () => {
   }, { scope: containerRef });
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="py-12 bg-surface overflow-hidden border-b border-surface-container"
     >
-      <div className="ticker-content flex whitespace-nowrap items-center opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
+      <div className="ticker-content flex whitespace-nowrap items-center transition-all duration-700">
         {/* Double the list for seamless looping */}
         {[...PARTNERS, ...PARTNERS].map((partner, index) => (
-          <div 
+          <div
             key={`${partner.name}-${index}`}
-            className="flex-shrink-0 px-12 flex items-center justify-center"
+            className="shrink-0 px-12 flex items-center justify-center"
           >
             <div className="relative h-12 w-32 flex items-center justify-center">
               <Image

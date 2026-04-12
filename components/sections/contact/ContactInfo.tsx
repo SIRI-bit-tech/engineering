@@ -19,13 +19,17 @@ export const ContactInfo = () => {
   return (
     <div className="flex flex-col space-y-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Head Office */}
+        {/* Locations */}
         <div className="bg-white p-8 border border-platinum shadow-sm group hover:border-navy transition-colors duration-500">
           <MapPin size={20} className="text-navy mb-6 group-hover:scale-110 transition-transform duration-500" />
-          <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Head Office</h4>
+          <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Locations</h4>
           <p className="text-sm font-body text-navy leading-relaxed">
-            4400 Precision Way<br />
-            Technical District, CA 90210
+            United States<br />
+            Canada<br />
+            Mexico<br />
+            Europe<br />
+            Asia<br />
+            Australia
           </p>
         </div>
 
@@ -34,8 +38,7 @@ export const ContactInfo = () => {
           <Phone size={20} className="text-navy mb-6 group-hover:scale-110 transition-transform duration-500" />
           <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Phone</h4>
           <p className="text-sm font-body text-navy leading-relaxed">
-            +1 (555) 010-8842<br />
-            +1 (555) 010-8843
+            +1 (800)-VOLTAEDGE
           </p>
         </div>
 

@@ -89,14 +89,14 @@ export const HeroSection = () => {
             ref={headlineRef}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold text-primary leading-[1.05] mb-6 sm:mb-8"
           >
-            Certified Electrical & <br />Renewable Energy <br />Engineering Solutions
+            Energy Systems & <br />Infrastructure <br />Power Engineering
           </h1>
 
           <p
             ref={subheadlineRef}
             className="text-base sm:text-lg md:text-xl text-charcoal/80 font-body mb-8 sm:mb-12 max-w-xl leading-relaxed"
           >
-            Delivering high-performance electrical design, renewable energy integration, and sustainable infrastructure across the United States.
+            Delivering high-performance electrical design, renewable energy integration, and sustainable infrastructure across the United States and the world.
           </p>
 
           <div

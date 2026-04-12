@@ -89,17 +89,6 @@ declare global {
     avatar?: string;
   }
 
-  interface TeamMember {
-    name: string;
-    role: string;
-    bio: string;
-    initials: string;
-    qualifications?: string[];
-    socials?: {
-      linkedin?: string;
-      twitter?: string;
-    };
-  }
 
   interface Partner {
     name: string;

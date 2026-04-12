@@ -7,6 +7,8 @@ export const SITE_EMAIL = "[EMAIL_ADDRESS]";
 export const SITE_PHONE = "+1 (800)-VOLTAEDGE";
 export const SITE_ADDRESS = "United States, Canada, Mexico, Europe, Asia, Australia";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://voltaedge.com";
+export const MISSION_STATEMENT = "To deliver elite-tier electrical engineering and renewable energy infrastructure through technical precision, innovative design, and unwavering integrity, architecting a resilient future for global industry.";
+export const VISION_STATEMENT = "To become the definitive global benchmark for technical authority in energy architecture, pioneering the transition to sustainable industrial autonomy through elite energy engineering.";
 
 export const KEYWORDS = [
   "Electrical Engineering",
@@ -48,7 +50,7 @@ export const SERVICES: Service[] = [
     title: "Electrical System Design",
     slug: "electrical-design",
     description: "High-precision schematics and blueprint development for complex infrastructure projects.",
-    longDescription: "Our Electrical System Design department specializes in the architectural blueprinting of high-performance energy networks. Using advanced BIM (Building Information Modeling) and CAD software, we create scalable, safety-first electrical infrastructures for industrial complexes and commercial high-rises. Our designs prioritize future-proofing, allowing for seamless capacity upgrades as your operational needs evolve.",
+    longDescription: "Our Electrical System Design department specializes in the architectural blueprinting of high-performance energy networks. Using modern BIM (Building Information Modeling) and CAD software, we create scalable, safety-first electrical infrastructures for industrial complexes and commercial high-rises. Our designs prioritize future-proofing, allowing for seamless capacity upgrades as your operational needs evolve.",
     technicalAnalysis: [
       "BIM-Integrated Infrastructure Blueprinting",
       "Short Circuit & Coordination Studies",
@@ -244,7 +246,7 @@ export const SERVICES: Service[] = [
 ];
 
 export const STATS: Stat[] = [
-  { label: "Projects Delivered", value: 150, suffix: "+", description: "Successful engineering deployments across the continent." },
+  { label: "Projects Delivered", value: 150, suffix: "+", description: "Successful engineering deployments across the globe." },
   { label: "Years Industry Experience", value: 20, suffix: "+", description: "Two decades of power and innovation excellence." },
   { label: "Client Satisfaction", value: 98, suffix: "%", description: "Consistent high-quality project delivery and support." },
   { label: "Senior Engineers", value: 40, suffix: "+", description: "PE-certified experts leading our technical councils." },
@@ -324,73 +326,6 @@ export const CORE_VALUES = [
     description: "Building long-term relationships through reliability and consistent project delivery.",
     icon: "handshake",
     ref: "VE-V06"
-  }
-];
-
-export const TEAM_MEMBERS: TeamMember[] = [
-  {
-    name: "Alistair Abernathy",
-    role: "Principal Grid Architect",
-    bio: "Principal architect of high-performance electrical infrastructure and grid modernization.",
-    initials: "AA",
-    qualifications: ["PE CERTIFIED", "IEEE FELLOW"],
-    socials: { linkedin: "https://linkedin.com/in/alistair-abernathy" }
-  },
-  {
-    name: "Elena Moretti",
-    role: "Head of Renewable Systems",
-    bio: "Leading the transition to resilient renewable infrastructure through world-class electrical and sustainable engineering.",
-    initials: "EM",
-    qualifications: ["PH.D RENEWABLES", "NABCEP"],
-    socials: { linkedin: "https://linkedin.com/in/elena-moretti" }
-  },
-  {
-    name: "Julian Kwong",
-    role: "Lead Systems Engineer",
-    bio: "Expert in complex systems synchronization and industrial power optimization.",
-    initials: "JK",
-    qualifications: ["PE CERTIFIED", "LEED AP"],
-    socials: { linkedin: "https://linkedin.com/in/julian-kwong" }
-  },
-  {
-    name: "Sarah Rothschild",
-    role: "Operations Director",
-    bio: "Directing nationwide infrastructure operations and strategic project management.",
-    initials: "SR",
-    qualifications: ["MBA INFRASTRUCTURE", "PMP"],
-    socials: { linkedin: "https://linkedin.com/in/sarah-rothschild" }
-  },
-  {
-    name: "Marcus Vance",
-    role: "Structural Engineer",
-    bio: "Specializing in high-voltage structural analysis and infrastructure resilience.",
-    initials: "MV",
-    qualifications: ["SE CERTIFIED"],
-    socials: { linkedin: "https://linkedin.com/in/marcus-vance" }
-  },
-  {
-    name: "Lydia Thorne",
-    role: "Energy Storage Specialist",
-    bio: "Expert in utility-scale battery storage and energy management systems.",
-    initials: "LT",
-    qualifications: ["MS ELECTRICAL", "IEEE"],
-    socials: { linkedin: "https://linkedin.com/in/lydia-thorne" }
-  },
-  {
-    name: "David Baek",
-    role: "Quality Assurance Lead",
-    bio: "Ensuring uncompromising technical precision and ISO standards compliance.",
-    initials: "DB",
-    qualifications: ["ISO 9001 AUDITOR"],
-    socials: { linkedin: "https://linkedin.com/in/david-baek" }
-  },
-  {
-    name: "Nora Helder",
-    role: "Environmental Consultant",
-    bio: "Specialist in environmental impact assessments for large-scale energy projects.",
-    initials: "NH",
-    qualifications: ["EIA SPECIALIST"],
-    socials: { linkedin: "https://linkedin.com/in/nora-helder" }
   }
 ];
 
@@ -1071,7 +1006,7 @@ export const PROCESS_STEPS: { title: string; description: string; number: string
   {
     number: "03",
     title: "Design",
-    description: "Advanced modeling and electrical architectural planning for maximum efficiency."
+    description: "Expert modeling and electrical architectural planning for maximum efficiency."
   },
   {
     number: "04",
@@ -1102,7 +1037,6 @@ export const FOOTER_LINKS = {
   COMPANY: [
     { label: "About Us", href: "/about" },
     { label: "Our History", href: "/about/our-story" },
-    { label: "Leadership", href: "/about/team" },
     { label: "Careers", href: "/careers" },
   ],
   SERVICES: [
@@ -1158,7 +1092,7 @@ export const COMPANY_MILESTONES = [
   {
     year: "2024",
     title: "Digital Twin Tech",
-    description: "Launch of our proprietary predictive maintenance software for asset management."
+    description: "Launch of our proprietary predictive maintenance software for industrial asset management."
   },
   {
     year: "2025",

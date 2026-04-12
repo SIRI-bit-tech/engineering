@@ -33,7 +33,7 @@ export const PartnersSection = () => {
   }, { scope: containerRef });
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="bg-white py-20 md:py-24 border-t border-b border-ocean/10 overflow-hidden"
     >
@@ -55,17 +55,17 @@ export const PartnersSection = () => {
 
       <div className="relative w-full flex items-center">
         {/* Left Gradient Overlay */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-white to-transparent z-10 pointer-events-none" />
+
         {/* Logo Ticker */}
-        <div 
+        <div
           ref={tickerRef}
           className="flex items-center whitespace-nowrap py-8"
         >
           {PARTNERS.map((partner, index) => (
-            <div 
+            <div
               key={`${partner.name}-${index}`}
-              className="logo-item flex items-center justify-center px-16 md:px-24 opacity-50 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 group cursor-pointer"
+              className="logo-item flex items-center justify-center px-16 md:px-24 opacity-100 hover:scale-110 transition-all duration-500 group cursor-pointer"
             >
               <div className="relative h-16 md:h-20 w-32 md:w-48 flex items-center justify-center">
                 <Image
@@ -81,7 +81,7 @@ export const PartnersSection = () => {
         </div>
 
         {/* Right Gradient Overlay */}
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-white to-transparent z-10 pointer-events-none" />
       </div>
     </section>
   );
