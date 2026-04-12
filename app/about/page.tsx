@@ -7,25 +7,25 @@ import { SITE_NAME } from "@/constants/constants";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: `About Us | ${SITE_NAME}`,
-  description: "VoltaEdge Engineering is a premier electrical and renewable energy engineering firm delivering innovative power solutions across Africa.",
-  keywords: ["about VoltaEdge", "electrical engineering firm Nigeria", "sustainable energy experts", "COREN certified engineers"],
+  title: `About VoltaEdge | ${SITE_NAME}`,
+  description: "A premier American electrical and renewable energy engineering firm delivering world-class infrastructure through precision and integrity.",
+  keywords: ["about VoltaEdge", "electrical engineering firm", "sustainable energy experts", "certified engineers", "PE certified"],
 };
 
 export default function AboutPage() {
   return (
     <div className="flex flex-col">
       <PageHero
-        badge="Engineering Legacy"
-        title="Powering Tomorrow, Today"
-        description="We are a multidisciplinary engineering firm dedicated to solving Africa's most complex energy and infrastructure challenges through precision, innovation, and global expertise."
-        image="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop"
+        badge="Technical Authority"
+        title="Engineering Precision & Industrial Legacy"
+        description="VoltaEdge is a multidisciplinary engineering firm dedicated to solving complex energy and infrastructure challenges through precision, innovation, and global expertise."
+        image="https://lh3.googleusercontent.com/aida-public/AB6AXuB53GBeWUP6xV_WeW-qhkEfYVsv8-FHd7F39tOKG-gLuPS_256XsQ1hEtwYxB_gc43jxdOfdhpfz0OTDDWnVgPY_Fq161Y_9TlZGWHLY1QkU59TgArQx_YQAenN5jpLnRahixpTx32l8FUdSPc6OGF8Vq6Hcm6a-OxFxsVd8KMfT5qNI9nuCPbxAW2izb7h0n-6Z-YzUbU359Q3slOZ025be9OZtT1Y2hOr9VZ5SqQ46EhbjVEjQ8UAcwgyKRDamdlTOTQzkcueoivA"
       />
-      
+
       <StorySection />
-      
+
       <TimelineSection />
-      
+
       <ValuesSection />
     </div>
   );

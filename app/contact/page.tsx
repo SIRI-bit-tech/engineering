@@ -7,36 +7,67 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: `Contact Us | ${SITE_NAME}`,
-  description: "Get in touch with VoltaEdge Engineering for technical consultations, engineering audits, or renewable energy project planning.",
-  keywords: ["contact VoltaEdge", "engineering consultation Nigeria", "technical support electrical systems", "energy audit request"],
+  description: "Get in touch with VoltaEdge Engineering for technical consultations, engineering audits, or renewable energy project planning across the United States.",
+  keywords: ["contact VoltaEdge", "engineering consultation", "technical support electrical systems", "energy audit request", "certified engineers USA", "PE certified"],
 };
 
 export default function ContactPage() {
   return (
     <div className="flex flex-col">
       <PageHero
-        badge="Connect with Us"
-        title="Engineering Support & Consultations"
-        description="Whether you have a technical query or need a comprehensive energy deployment plan, our certified engineers are ready to support your infrastructure needs."
-        image="https://images.unsplash.com/photo-1516387012670-29a26390172d?q=80&w=2070&auto=format&fit=crop"
+        badge="CONNECT WITH OUR CONSULTANTS"
+        title="Contact Our Engineering Team"
+        description="Whether you have a complex technical query or require a structural deployment plan, our elite engineering team is ready to provide precise technical architectural solutions."
+        image="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop"
       />
       
-      <div className="bg-white py-24 md:py-32">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
-          <div className="flex flex-col lg:flex-row gap-20">
-            {/* Contact Info */}
-            <div className="lg:w-1/3">
+      <div className="bg-white py-24 md:py-40 relative">
+        <div className="container-wide">
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+            {/* Contact Info (40%) */}
+            <div className="lg:w-[40%]">
               <ContactInfo />
             </div>
 
-            {/* Contact Form */}
-            <div className="lg:w-2/3">
-              <div className="bg-ice-blue/30 p-10 md:p-16 border border-ocean/5 shadow-default">
-                <h3 className="text-3xl font-heading font-bold text-primary mb-10 leading-tight">
-                  Request Engineering Consultation
-                </h3>
+            {/* Contact Form (60%) */}
+            <div className="lg:w-[60%]">
+              <div className="bg-white p-12 md:p-16 shadow-[0_32px_96px_-12px_rgba(0,37,59,0.1)] border border-platinum/50 rounded-none relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-1 h-full bg-navy" />
+                <div className="mb-12">
+                  <h3 className="font-headline text-3xl md:text-4xl text-navy mb-4">
+                    Project Inquiry
+                  </h3>
+                  <p className="text-sm font-body text-slate-500 max-w-md">
+                    Complete the form below to connect with a lead structural engineer regarding your infrastructure project.
+                  </p>
+                </div>
                 <ContactForm />
               </div>
+            </div>
+          </div>
+
+          {/* Additional Protocol Sections */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-32 md:mt-48 pt-24 border-t border-platinum">
+            <div className="relative group">
+              <span className="absolute -top-12 left-0 text-7xl font-sans font-black text-slate-100/50 group-hover:text-navy/5 transition-colors duration-500">01</span>
+              <h4 className="font-headline text-xl text-navy mb-4 relative z-10">Response Protocol</h4>
+              <p className="text-sm font-body text-slate-500 leading-relaxed">
+                Our team typically initiates structural reviews within 24 business hours. Each inquiry is assigned a unique technical ticket.
+              </p>
+            </div>
+            <div className="relative group">
+              <span className="absolute -top-12 left-0 text-7xl font-sans font-black text-slate-100/50 group-hover:text-navy/5 transition-colors duration-500">02</span>
+              <h4 className="font-headline text-xl text-navy mb-4 relative z-10">Initial Consultation</h4>
+              <p className="text-sm font-body text-slate-500 leading-relaxed">
+                Standard project audits include a complimentary 30-minute scope review with a PE-certified structural engineer.
+              </p>
+            </div>
+            <div className="relative group">
+              <span className="absolute -top-12 left-0 text-7xl font-sans font-black text-slate-100/50 group-hover:text-navy/5 transition-colors duration-500">03</span>
+              <h4 className="font-headline text-xl text-navy mb-4 relative z-10">Site Security</h4>
+              <p className="text-sm font-body text-slate-500 leading-relaxed">
+                Physical visits require Level-1 safety certification verification 48 hours prior. Access protocols vary by infrastructure type.
+              </p>
             </div>
           </div>
         </div>

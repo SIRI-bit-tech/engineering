@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -10,7 +10,7 @@ import { Loader2, Send } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid engineering email address"),
+  email: z.email({ error: "Invalid engineering email address" }),
   company: z.string().min(2, "Company name is required for consultation"),
   subject: z.string().min(5, "Subject must be at least 5 characters"),
   message: z.string().min(10, "Message must be at least 10 characters"),
@@ -47,6 +47,7 @@ export const ContactForm = () => {
         toast.error("Failed to send technical enquiry. Please try again or call us directly.");
       }
     } catch (error) {
+      console.error("Contact form submission error:", error);
       toast.error("An unexpected error occurred. Please contact technical support.");
     } finally {
       setIsSubmitting(false);
@@ -101,7 +102,7 @@ export const ContactForm = () => {
             id="subject"
             {...register("subject")}
             className={`w-full bg-white border ${errors.subject ? "border-red-500" : "border-ocean/20"} py-3 px-4 font-body text-primary focus:outline-none focus:border-ocean transition-colors`}
-            placeholder="Solar Farm Consultation"
+            placeholder="Renewable Energy Systems Design"
           />
           {errors.subject && <p className="text-[10px] text-red-500 font-accent uppercase font-bold">{errors.subject.message}</p>}
         </div>
@@ -123,14 +124,14 @@ export const ContactForm = () => {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full flex items-center justify-center space-x-3 py-4"
+        className="w-full flex items-center justify-between px-10 py-5 bg-navy text-white rounded-none font-label font-bold uppercase tracking-widest hover:bg-navy/90 transition-all duration-300 group"
       >
         {isSubmitting ? (
-          <Loader2 size={18} className="animate-spin" />
+          <Loader2 size={18} className="animate-spin mx-auto" />
         ) : (
           <>
-            <span>Submit Technical Request</span>
-            <Send size={18} className="ml-2" />
+            <span>Initialize Consultation</span>
+            <Send size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
           </>
         )}
       </Button>

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -11,7 +12,7 @@ import { ArrowRight } from "lucide-react";
 const TEAM_PREVIEW = [
   { name: "Engr. David Adeyemi", role: "CEO & Principal Engineer", initials: "DA" },
   { name: "Engr. Sarah Adams", role: "Head of Operations", initials: "SA" },
-  { name: "Engr. Michael Chen", role: "Solar Solutions Lead", initials: "MC" }
+  { name: "Engr. Michael Chen", role: "Renewable Systems Lead", initials: "MC" }
 ];
 
 export const TeamSnapshot = () => {
@@ -38,7 +39,7 @@ export const TeamSnapshot = () => {
   }, { scope: containerRef });
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="bg-white py-24 md:py-32 border-t border-ocean/10"
     >
@@ -50,19 +51,21 @@ export const TeamSnapshot = () => {
             description="Our certified engineering team brings global expertise to solve Africa's most complex energy and infrastructure challenges."
             className="mb-0"
           />
-          <Button href="/about/team" variant="outline" className="mb-2 group">
-            <span>Meet All Engineers</span>
-            <ArrowRight size={18} className="ml-3 transition-transform duration-300 group-hover:translate-x-2" />
+          <Button asChild variant="outline" className="mb-2 group">
+            <Link href="/about/team">
+              <span>Meet All Engineers</span>
+              <ArrowRight size={18} className="ml-3 transition-transform duration-300 group-hover:translate-x-2" />
+            </Link>
           </Button>
         </div>
 
         <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
           {TEAM_PREVIEW.map((member) => (
-            <div 
+            <div
               key={member.name}
               className="team-item group flex items-center p-10 bg-ice-blue/30 border border-ocean/5 shadow-default hover:shadow-hover hover:-translate-y-2 transition-all duration-300"
             >
-              <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-primary to-ocean flex items-center justify-center text-white font-heading font-bold text-xl mr-8 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <div className="w-20 h-20 rounded-full bg-linear-to-tr from-primary to-ocean flex items-center justify-center text-white font-heading font-bold text-xl mr-8 shadow-lg group-hover:scale-110 transition-transform duration-300">
                 {member.initials}
               </div>
               <div>

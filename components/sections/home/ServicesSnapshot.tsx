@@ -1,18 +1,27 @@
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { SERVICES } from "@/constants/constants";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Button } from "@/components/ui/Button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, DraftingCompass, Leaf, Zap, ClipboardCheck, Cpu, BatteryCharging } from "lucide-react";
 
 export const ServicesSnapshot = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const getIcon = (idx: number) => {
+    switch (idx) {
+      case 0: return <DraftingCompass size={40} />;
+      case 1: return <Leaf size={40} />;
+      case 2: return <Zap size={40} />;
+      case 3: return <ClipboardCheck size={40} />;
+      case 4: return <Cpu size={40} />;
+      case 5: return <BatteryCharging size={40} />;
+      default: return <Zap size={40} />;
+    }
+  };
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -36,64 +45,56 @@ export const ServicesSnapshot = () => {
   }, { scope: containerRef });
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      className="bg-ice-blue py-24 md:py-32"
+      className="py-32 bg-[#E1F5FE]"
     >
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
-        <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
-          <SectionHeading
-            badge="Engineering Expertise"
-            title="World-Class Energy Solutions"
-            description="From industrial power distribution to sustainable solar installations, we deliver precision engineering tailored to Africa's unique infrastructure challenges."
-            className="mb-0"
-          />
-          <Button href="/services" variant="outline" className="mb-2">
-            View All Services
-          </Button>
+      <div className="container-wide">
+        <div className="mb-20">
+          <h2 className="accent-line font-headline text-4xl text-primary tracking-tight leading-tight">
+            Technical Engineering<br />Core Services
+          </h2>
         </div>
-
-        <div className="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {SERVICES.slice(0, 6).map((service) => (
-            <div 
-              key={service.id} 
-              className="service-card group relative bg-white p-10 border border-ocean/10 shadow-default transition-all duration-300 hover:-translate-y-2 hover:shadow-hover hover:border-l-4 hover:border-l-ocean"
+        <div className="services-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+          {SERVICES.map((service, idx) => (
+            <div
+              key={service.id}
+              className="service-card bg-surface-container-lowest p-10 hover:shadow-2xl transition-all duration-300 group"
             >
-              {/* Icon / Indicator */}
-              <div className="w-14 h-14 bg-ocean/5 flex items-center justify-center mb-8 group-hover:bg-ocean transition-colors duration-300">
-                <span className="text-ocean group-hover:text-white transition-colors duration-300 font-mono text-xl font-bold">
-                  {service.id.split("-").map(w => w[0]).join("").toUpperCase()}
-                </span>
+              <div className="text-secondary mb-6">
+                {getIcon(idx)}
               </div>
-
-              <h3 className="text-2xl font-heading font-bold text-primary mb-4 group-hover:text-ocean transition-colors duration-300">
+              <h3 className="font-label text-xl font-bold text-primary mb-4 uppercase tracking-tight">
                 {service.title}
               </h3>
-              
-              <p className="text-charcoal/70 font-body mb-8 line-clamp-3 leading-relaxed">
+              <p className="text-charcoal/70 mb-8 text-sm leading-relaxed font-body">
                 {service.description}
               </p>
-
-              <ul className="space-y-3 mb-10">
-                {service.features.slice(0, 3).map((feature) => (
-                  <li key={feature} className="flex items-center text-sm font-body text-charcoal/60">
-                    <span className="w-1.5 h-1.5 bg-ocean/40 mr-3 rounded-full group-hover:bg-ocean transition-colors duration-300" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              <Link 
-                href={`/services/${service.slug}`} 
-                className="inline-flex items-center text-ocean font-accent font-semibold text-sm uppercase tracking-wider group/link"
+              <Link
+                href={`/services/${service.slug}`}
+                className="inline-flex items-center text-secondary font-label text-xs font-bold tracking-widest group-hover:translate-x-2 transition-transform"
               >
-                <span>Explore Solution</span>
-                <ArrowRight size={16} className="ml-2 transition-transform duration-300 group-hover/link:translate-x-2" />
+                EXPLORE SERVICE <ArrowRight size={14} className="ml-2" />
               </Link>
             </div>
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        .accent-line {
+          position: relative;
+        }
+        .accent-line::before {
+          content: '';
+          position: absolute;
+          top: -8px;
+          left: 0;
+          width: 48px;
+          height: 3px;
+          background-color: #005F8D;
+        }
+      `}</style>
     </section>
   );
 };

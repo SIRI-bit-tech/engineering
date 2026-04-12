@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
@@ -12,12 +12,12 @@ import { ArrowRight, Calendar, Clock } from "lucide-react";
 
 const BLOG_PREVIEW = [
   {
-    title: "The Future of Solar Energy in Nigeria's Industrial Zones",
-    slug: "future-solar-nigeria-industrial",
-    excerpt: "Exploring how large-scale solar farm deployments are transforming power stability for manufacturing plants.",
+    title: "Navigating Renewable Transitions in Industrial Districts",
+    slug: "navigating-renewable-transitions-industrial",
+    excerpt: "Exploring how integrated renewable hubs are transforming power stability and grid resilience for manufacturing ecosystems.",
     date: "2024-04-05",
-    category: "Renewable Energy",
-    image: "https://images.unsplash.com/photo-1509391366360-fe5bb58583bb?q=80&w=2070&auto=format&fit=crop",
+    category: "Infrastructure",
+    image: "https://images.unsplash.com/photo-1466611653911-95282fc3656b?q=80&w=2070&auto=format&fit=crop",
     readTime: "6 min"
   },
   {
@@ -55,7 +55,7 @@ export const BlogPreview = () => {
   }, { scope: containerRef });
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="bg-ice-blue/30 py-24 md:py-32 border-t border-ocean/10"
     >
@@ -67,15 +67,15 @@ export const BlogPreview = () => {
             description="Our engineers share deep-dive insights into renewable energy, industrial automation, and the future of Africa's power infrastructure."
             className="mb-0"
           />
-          <Button href="/blog" variant="outline" className="mb-2">
-            View All Insights
+          <Button asChild variant="outline" className="mb-2">
+            <Link href="/blog">View All Insights</Link>
           </Button>
         </div>
 
         <div className="blog-grid grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
           {BLOG_PREVIEW.map((post) => (
-            <Link 
-              key={post.slug} 
+            <Link
+              key={post.slug}
               href={`/blog/${post.slug}`}
               className="blog-card group flex flex-col md:flex-row bg-white border border-ocean/5 shadow-default hover:shadow-hover hover:-translate-y-2 transition-all duration-300 overflow-hidden"
             >

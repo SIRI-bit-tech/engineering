@@ -7,10 +7,22 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { SERVICES } from "@/constants/constants";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, DraftingCompass, Sun, Zap, ClipboardCheck, Cpu, BatteryCharging } from "lucide-react";
 
 export const ServicesGrid = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const getIcon = (idx: number) => {
+    switch (idx) {
+      case 0: return <DraftingCompass size={32} />;
+      case 1: return <Sun size={32} />;
+      case 2: return <Zap size={32} />;
+      case 3: return <ClipboardCheck size={32} />;
+      case 4: return <Cpu size={32} />;
+      case 5: return <BatteryCharging size={32} />;
+      default: return <Zap size={32} />;
+    }
+  };
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -35,43 +47,53 @@ export const ServicesGrid = () => {
   return (
     <section 
       ref={containerRef}
-      className="bg-white py-24 md:py-32"
+      className="bg-white py-24 md:py-40 overflow-hidden"
     >
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
-        <div className="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-          {SERVICES.map((service) => (
+      <div className="container-wide px-6 md:px-12 lg:px-24">
+        <div className="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
+          {SERVICES.map((service, idx) => (
             <NextLink 
               key={service.id} 
               href={`/services/${service.slug}`}
-              className="service-card group flex flex-col bg-white border border-ocean/10 p-10 hover:-translate-y-2 hover:shadow-hover transition-all duration-300 hover:border-l-4 hover:border-l-ocean"
+              className="service-card group relative flex flex-col bg-ice-blue/10 p-12 rounded-none hover:bg-white hover:shadow-hover hover:-translate-y-4 transition-all duration-700 overflow-hidden"
             >
-              <div className="w-16 h-16 bg-ocean/10 flex items-center justify-center mb-10 group-hover:bg-ocean transition-colors duration-300">
-                <span className="text-ocean group-hover:text-white transition-colors duration-300 font-mono text-2xl font-bold uppercase">
-                  {service.id.split("-").map(w => w[0]).join("")}
-                </span>
+              {/* Tonal Card Accents */}
+              <div className="absolute top-0 right-0 w-40 h-40 bg-ocean/5 -mr-20 -mt-20 rounded-none group-hover:scale-[3] transition-transform duration-1000" />
+              
+              {/* Technical Marker */}
+              <div className="relative z-10 font-mono text-[10px] tracking-[0.2em] text-charcoal/40 mb-12 flex items-center gap-4">
+                <span className="text-ocean font-bold">0{idx + 1}</span>
+                <div className="h-px w-8 bg-charcoal/10 group-hover:w-16 transition-all duration-700" />
+                <span>SPEC-ID: {service.id.toUpperCase()}</span>
               </div>
 
-              <h3 className="text-2xl md:text-3xl font-heading font-bold text-primary mb-6 group-hover:text-ocean transition-colors duration-300 leading-tight">
+              <div className="relative z-10 w-16 h-16 bg-white rounded-none flex items-center justify-center mb-10 group-hover:bg-primary transition-all duration-700 shadow-sm group-hover:shadow-button">
+                <div className="text-primary group-hover:text-white transition-colors duration-500">
+                  {getIcon(idx)}
+                </div>
+              </div>
+
+              <h3 className="relative z-10 text-2xl md:text-3xl font-display font-bold text-primary mb-6 leading-tight group-hover:text-ocean transition-colors duration-500">
                 {service.title}
               </h3>
               
-              <p className="text-charcoal/70 font-body mb-10 leading-relaxed">
+              <p className="relative z-10 text-base text-charcoal/60 font-body mb-12 leading-relaxed italic">
                 {service.description}
               </p>
 
-              <div className="mt-auto">
-                <ul className="space-y-4 mb-12">
+              <div className="relative z-10 mt-auto">
+                <ul className="space-y-5 mb-14">
                   {service.features.map((feature) => (
                     <li key={feature} className="flex items-start text-sm font-body text-charcoal/60">
-                      <CheckCircle2 size={16} className="mr-3 text-ocean shrink-0 mt-0.5" />
+                      <div className="w-1.5 h-1.5 bg-ocean/30 mr-4 rounded-full mt-1.5 group-hover:bg-ocean transition-colors duration-500" />
                       <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="inline-flex items-center text-ocean font-accent font-semibold text-sm uppercase tracking-widest group/link">
-                  <span>View Technical Details</span>
-                  <ArrowRight size={18} className="ml-3 transition-transform duration-300 group-hover/link:translate-x-2" />
+                <div className="inline-flex items-center text-ocean font-accent font-bold text-xs uppercase tracking-[0.3em] group/link">
+                  <span>View Technical Case Study</span>
+                  <ArrowRight size={14} className="ml-4 transition-transform duration-500 group-hover/link:translate-x-4" />
                 </div>
               </div>
             </NextLink>

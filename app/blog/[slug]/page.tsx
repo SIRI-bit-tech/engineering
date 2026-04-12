@@ -1,80 +1,17 @@
-import React from "react";
+import { SITE_NAME, BLOG_POSTS } from "@/constants/constants";
 import { PageHero } from "@/components/layout/PageHero";
-import { SITE_NAME } from "@/constants/constants";
 import { notFound } from "next/navigation";
-import Image from "next/image";
-import { Calendar, Clock, User, ArrowLeft, ArrowRight, Share2 } from "lucide-react";
+import { Calendar, Clock, User, ArrowLeft, Share2 } from "lucide-react";
+import { LinkedinIcon, TwitterIcon } from "@/components/ui/BrandIcons";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-
-// Placeholder blog data - same as in app/blog/page.tsx
-const BLOG_POSTS = [
-  {
-    title: "The Future of Solar Energy in Nigeria's Industrial Zones",
-    slug: "future-solar-nigeria-industrial",
-    excerpt: "Exploring how large-scale solar farm deployments are transforming power stability for manufacturing plants across Lagos and Ogun states.",
-    content: `
-      <p>The industrial landscape of Nigeria is undergoing a massive shift towards sustainable energy. As the national grid continues to face challenges, large-scale solar farm deployments are emerging as the most reliable solution for high-demand manufacturing facilities.</p>
-      
-      <h2>Reliability in the Industrial Belt</h2>
-      <p>Lagos and Ogun states, being the industrial heartbeat of the country, require constant and stable power to maintain production cycles. Solar technology, integrated with advanced battery storage systems, is now capable of meeting these needs.</p>
-      
-      <h3>Technical Integration</h3>
-      <p>Our engineers have developed hybrid inverter systems that seamlessly switch between solar, grid, and diesel generation, ensuring that industrial processes are never interrupted. These systems are monitored in real-time using SCADA technology, allowing for predictive maintenance and optimized energy usage.</p>
-      
-      <blockquote>"Sustainable power is not just an environmental choice; it's a critical economic imperative for the African industrial sector." - Engr. David Adeyemi</blockquote>
-      
-      <h2>Economic Viability</h2>
-      <p>While the initial capital expenditure for a 15MW solar farm is significant, the long-term operational savings are undeniable. We have seen manufacturing plants reduce their energy costs by over 40% within the first two years of deployment.</p>
-    `,
-    date: "2024-04-05",
-    author: "Engr. David Adeyemi",
-    category: "Renewable Energy",
-    image: "https://images.unsplash.com/photo-1509391366360-fe5bb58583bb?q=80&w=2070&auto=format&fit=crop",
-    readTime: "6 min read"
-  },
-  {
-    title: "Optimizing Power Quality for Industrial Automation",
-    slug: "optimizing-power-quality-automation",
-    excerpt: "A technical guide on mitigating voltage fluctuations to protect sensitive PLC and SCADA systems in high-demand industrial environments.",
-    content: `
-      <p>In the world of industrial automation, power quality is paramount. Even minor voltage fluctuations can cause catastrophic failures in sensitive PLC and SCADA systems, leading to significant production downtime.</p>
-      
-      <h2>Identifying Power Quality Issues</h2>
-      <p>Our energy audit teams often find that many industrial facilities suffer from harmonic distortion and transient voltage surges that go unnoticed until a system failure occurs.</p>
-      
-      <h3>Mitigation Strategies</h3>
-      <p>Implementing active power filters and robust surge protection systems is the first step in safeguarding automation infrastructure. We also recommend regular power quality analysis using advanced thermal imaging and harmonic analyzers.</p>
-    `,
-    date: "2024-03-28",
-    author: "Engr. Sarah Adams",
-    category: "Industrial Automation",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop",
-    readTime: "8 min read"
-  },
-  {
-    title: "The Role of Smart Grids in Sustainable Urban Development",
-    slug: "smart-grids-urban-development",
-    excerpt: "How modern electrical distribution networks are supporting the growth of smart cities and reducing carbon emissions in African urban centers.",
-    content: `
-      <p>As African urban centers grow, the demand for smart, sustainable infrastructure becomes more urgent. Smart grids are at the heart of this urban evolution, providing the intelligence needed to manage complex energy flows.</p>
-      
-      <h2>Urban Energy Management</h2>
-      <p>Modern electrical distribution networks are no longer just about moving power from point A to point B. They are now dynamic systems that can integrate renewable sources, manage peak loads, and provide real-time data for urban planners.</p>
-    `,
-    date: "2024-03-15",
-    author: "Engr. Michael Chen",
-    category: "Power Distribution",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop",
-    readTime: "5 min read"
-  }
-];
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps) {
+export async function generateMetadata(props: Readonly<BlogPostPageProps>) {
+  const { params } = props;
   const { slug } = await params;
   const post = BLOG_POSTS.find((p) => p.slug === slug);
   if (!post) return { title: "Article Not Found" };
@@ -85,7 +22,8 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   };
 }
 
-export default async function BlogPostDetailPage({ params }: BlogPostPageProps) {
+export default async function BlogPostDetailPage(props: Readonly<BlogPostPageProps>) {
+  const { params } = props;
   const { slug } = await params;
   const post = BLOG_POSTS.find((p) => p.slug === slug);
   if (!post) notFound();
@@ -99,82 +37,95 @@ export default async function BlogPostDetailPage({ params }: BlogPostPageProps) 
         image={post.image}
       />
 
-      <section className="bg-white py-24 md:py-32">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
-          <div className="flex flex-col lg:flex-row gap-20">
-            {/* Main Content */}
+      <section className="bg-white py-24 md:py-40 relative overflow-hidden">
+        {/* Background Architectural Accent */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-ice-blue/10 -skew-x-12 translate-x-1/2 z-0" />
+
+        <div className="container-wide px-6 md:px-12 lg:px-24 relative z-10">
+          <div className="flex flex-col lg:flex-row gap-24 lg:gap-32">
+            {/* Main Article Content */}
             <div className="lg:w-2/3">
-              <div className="mb-12 flex flex-wrap items-center gap-8 text-charcoal/40 font-mono text-xs uppercase tracking-widest border-b border-ocean/10 pb-8">
+              <div className="flex items-center space-x-8 mb-12 text-charcoal/40 font-mono text-[10px] uppercase tracking-[0.2em]">
                 <div className="flex items-center">
-                  <Calendar size={16} className="mr-3 text-ocean" />
+                  <Calendar size={14} className="mr-3 text-ocean" />
                   {post.date}
                 </div>
                 <div className="flex items-center">
-                  <Clock size={16} className="mr-3 text-ocean" />
+                  <Clock size={14} className="mr-3 text-ocean" />
                   {post.readTime}
                 </div>
                 <div className="flex items-center">
-                  <User size={16} className="mr-3 text-ocean" />
+                  <User size={14} className="mr-3 text-ocean" />
                   {post.author}
                 </div>
               </div>
 
-              <div 
-                className="prose prose-lg prose-ocean max-w-none font-body text-charcoal/70 leading-relaxed
-                prose-headings:font-heading prose-headings:font-bold prose-headings:text-primary prose-headings:mb-8 prose-headings:mt-16
-                prose-p:mb-8 prose-blockquote:border-l-4 prose-blockquote:border-ocean prose-blockquote:bg-ice-blue/30 prose-blockquote:p-8 prose-blockquote:italic
-                prose-strong:text-primary prose-li:mb-2 prose-h2:text-3xl prose-h3:text-2xl"
+              <div
+                className="prose prose-lg max-w-none prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-p:font-body prose-p:text-charcoal/70 prose-blockquote:border-l-8 prose-blockquote:border-ocean prose-blockquote:bg-ice-blue/10 prose-blockquote:p-10 prose-blockquote:rounded-r-3xl prose-blockquote:italic prose-blockquote:text-2xl prose-blockquote:text-primary"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
 
-              <div className="mt-20 pt-12 border-t border-ocean/10 flex items-center justify-between">
-                <Link href="/blog" className="flex items-center text-ocean font-accent font-bold uppercase tracking-widest text-xs hover:-translate-x-2 transition-transform duration-300">
-                  <ArrowLeft size={18} className="mr-3" />
-                  Back to Engineering Insights
-                </Link>
-                <button className="flex items-center text-ocean font-accent font-bold uppercase tracking-widest text-xs hover:scale-110 transition-transform duration-300">
-                  <Share2 size={18} className="mr-3" />
-                  Share Technical Insight
-                </button>
-              </div>
-            </div>
-
-            {/* Sidebar */}
-            <div className="lg:w-1/3">
-              <div className="sticky top-32 space-y-12">
-                <div className="p-10 bg-ice-blue/30 border border-ocean/5 shadow-default">
-                  <h4 className="text-xl font-heading font-bold text-primary mb-8">Related Insights</h4>
-                  <div className="space-y-10">
-                    {BLOG_POSTS.filter(p => p.slug !== slug).slice(0, 2).map((p) => (
-                      <Link key={p.slug} href={`/blog/${p.slug}`} className="group block">
-                        <div className="relative aspect-video overflow-hidden mb-6">
-                          <Image
-                            src={p.image}
-                            alt={p.title}
-                            fill
-                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          />
-                        </div>
-                        <h5 className="text-lg font-heading font-bold text-primary group-hover:text-ocean transition-colors duration-300 leading-tight mb-4">
-                          {p.title}
-                        </h5>
-                        <div className="flex items-center text-ocean font-accent font-bold uppercase tracking-widest text-[10px]">
-                          <span>Read Article</span>
-                          <ArrowRight size={14} className="ml-2 transition-transform duration-300 group-hover:translate-x-2" />
-                        </div>
-                      </Link>
-                    ))}
+              <div className="mt-24 pt-12 border-t border-charcoal/5 flex flex-col sm:flex-row justify-between items-center gap-8">
+                <div className="flex items-center gap-6">
+                  <span className="font-accent font-bold uppercase tracking-[0.2em] text-[10px] text-primary/40">Share Protocol</span>
+                  <div className="flex gap-4">
+                    <button className="w-12 h-12 rounded-full border border-primary/5 flex items-center justify-center text-primary hover:bg-ocean hover:text-white transition-all duration-500">
+                      <LinkedinIcon size={18} />
+                    </button>
+                    <button className="w-12 h-12 rounded-full border border-primary/5 flex items-center justify-center text-primary hover:bg-ocean hover:text-white transition-all duration-500">
+                      <TwitterIcon size={18} />
+                    </button>
+                    <button className="w-12 h-12 rounded-full border border-primary/5 flex items-center justify-center text-primary hover:bg-ocean hover:text-white transition-all duration-500">
+                      <Share2 size={18} />
+                    </button>
                   </div>
                 </div>
 
-                <div className="p-10 bg-primary text-white border-l-4 border-ocean shadow-xl">
-                  <h5 className="font-heading font-bold text-xl mb-6">Engineering Consultation</h5>
-                  <p className="text-sm text-white/70 font-body mb-10 leading-relaxed">
-                    Need a technical audit or project plan? Our certified engineers are ready to support your energy infrastructure.
+                <Link
+                  href="/blog"
+                  className="flex items-center gap-4 text-ocean font-accent font-bold uppercase tracking-[0.2em] text-xs group"
+                >
+                  <ArrowLeft size={16} className="transition-transform duration-500 group-hover:-translate-x-2" />
+                  <span>Back to All Insights</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Sidebar (Editorial Style) */}
+            <div className="lg:w-1/3">
+              <div className="sticky top-32 space-y-12">
+                <div className="p-12 bg-white rounded-[2.5rem] shadow-[0_32px_64px_rgba(0,37,59,0.08)] border border-primary/5">
+                  <h4 className="text-xl font-display font-bold text-primary mb-10 italic">Author Profile</h4>
+                  <div className="flex items-center gap-6 mb-8">
+                    <div className="w-16 h-16 rounded-2xl bg-ocean flex items-center justify-center text-white font-display font-bold text-2xl">
+                      {post.author.split(" ").map(n => n[0]).join("")}
+                    </div>
+                    <div>
+                      <div className="text-lg font-display font-bold text-primary">{post.author}</div>
+                      <div className="text-[10px] font-accent font-bold text-ocean uppercase tracking-[0.2em]">Senior Technical Lead</div>
+                    </div>
+                  </div>
+                  <p className="text-sm text-charcoal/60 font-body leading-relaxed">
+                    Expert in large-scale industrial energy deployments and smart grid architecture.
                   </p>
-                  <Button href="/contact/get-a-quote" className="w-full py-4">
-                    Request Technical Quote
-                  </Button>
+                </div>
+
+                <div className="p-10 bg-primary text-white rounded-[2rem] border-l-8 border-ocean shadow-button relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 -mr-12 -mt-12 rounded-full group-hover:scale-150 transition-transform duration-700" />
+                  <h5 className="font-display font-bold text-2xl mb-6 leading-tight relative z-10 italic">&quot;Stay Informed&quot;</h5>
+                  <p className="text-base text-white/60 font-body mb-8 leading-relaxed relative z-10">
+                    Subscribe to our engineering protocol updates for the latest in global energy infrastructure.
+                  </p>
+                  <form className="relative z-10">
+                    <input
+                      type="email"
+                      placeholder="Engineering Email"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-6 py-4 text-white font-body text-sm focus:outline-none focus:border-ocean transition-all duration-500 mb-4"
+                    />
+                    <Button className="w-full bg-white text-primary hover:bg-ocean hover:text-white rounded-xl py-4 font-accent font-bold text-[10px] uppercase tracking-[0.3em] transition-all duration-500">
+                      Join Protocol
+                    </Button>
+                  </form>
                 </div>
               </div>
             </div>

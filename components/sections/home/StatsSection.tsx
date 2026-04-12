@@ -61,32 +61,34 @@ export const StatsSection = () => {
   return (
     <section 
       ref={containerRef}
-      className="bg-white py-24 md:py-32 border-b border-ocean/10"
+      className="py-24 bg-primary-container relative dot-grid overflow-hidden"
     >
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16">
-          {STATS.map((stat, index) => (
+      <div className="max-w-screen-2xl mx-auto px-12 grid grid-cols-2 md:grid-cols-4 gap-12 text-center relative z-10">
+        {STATS.map((stat, index) => (
+          <div 
+            key={stat.label} 
+            className="stat-item"
+          >
             <div 
-              key={stat.label} 
-              className="stat-item flex flex-col items-center text-center"
+              className="stat-number font-mono text-5xl md:text-6xl text-on-primary-container block mb-4"
+              data-value={stat.value}
+              data-suffix={stat.suffix}
             >
-              <div 
-                className="stat-number text-4xl md:text-6xl font-mono font-bold text-ocean mb-4"
-                data-value={stat.value}
-                data-suffix={stat.suffix}
-              >
-                0{stat.suffix}
-              </div>
-              <div className="text-sm font-accent font-semibold uppercase tracking-widest text-primary mb-4 h-12 flex items-center">
-                {stat.label}
-              </div>
-              <p className="text-sm text-charcoal/60 font-body max-w-[220px] leading-relaxed">
-                {stat.description}
-              </p>
+              0{stat.suffix}
             </div>
-          ))}
-        </div>
+            <span className="font-label text-white/60 text-xs tracking-widest uppercase">
+              {stat.label}
+            </span>
+          </div>
+        ))}
       </div>
+
+      <style jsx>{`
+        .dot-grid {
+          background-image: radial-gradient(rgba(204, 229, 255, 0.1) 1px, transparent 1px);
+          background-size: 24px 24px;
+        }
+      `}</style>
     </section>
   );
 };

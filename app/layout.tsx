@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Syne, DM_Sans, Space_Grotesk, JetBrains_Mono, Geist } from "next/font/google";
+import { Newsreader, Syne, Manrope, Space_Grotesk, JetBrains_Mono, Geist } from "next/font/google";
 import "@/styles/globals.css";
 import { SITE_NAME, SITE_DESCRIPTION, KEYWORDS } from "@/constants/constants";
 import { LenisProvider } from "@/components/layout/LenisProvider";
@@ -9,10 +9,11 @@ import { cn } from "@/lib/utils";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
-const cormorantGaramond = Cormorant_Garamond({
+const newsreader = Newsreader({
   subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-cormorant-garamond",
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-newsreader",
   display: "swap",
 });
 
@@ -23,10 +24,10 @@ const syne = Syne({
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-dm-sans",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-manrope",
   display: "swap",
 });
 
@@ -53,7 +54,7 @@ export const metadata: Metadata = {
   keywords: KEYWORDS,
   openGraph: {
     type: "website",
-    locale: "en_NG",
+    locale: "en_US",
     url: "https://voltaedge.com",
     siteName: SITE_NAME,
     title: SITE_NAME,
@@ -84,9 +85,9 @@ export default function RootLayout({
     <html lang="en" className={cn("scroll-smooth", "font-sans", geist.variable)}>
       <body
         className={`
-          ${cormorantGaramond.variable}
+          ${newsreader.variable}
           ${syne.variable}
-          ${dmSans.variable}
+          ${manrope.variable}
           ${spaceGrotesk.variable}
           ${jetbrainsMono.variable}
           antialiased

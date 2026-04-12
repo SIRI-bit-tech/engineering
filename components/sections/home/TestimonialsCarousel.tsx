@@ -1,31 +1,100 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useCallback, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { TESTIMONIALS } from "@/constants/constants";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Quote } from "lucide-react";
+import { Quote, ArrowLeft, ArrowRight } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
 
 export const TestimonialsCarousel = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  // Auto-play effect
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    let intervalId: NodeJS.Timeout;
+
+    const startAutoPlay = () => {
+      stopAutoPlay(); // Prevent multiple intervals
+      intervalId = setInterval(() => {
+        if (emblaApi.canScrollNext()) {
+          emblaApi.scrollNext();
+        } else {
+          emblaApi.scrollTo(0);
+        }
+      }, 4000); // 4 seconds for better readability but noticeable movement
+    };
+
+    const stopAutoPlay = () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+
+    // Events for better interaction handling
+    emblaApi.on("pointerDown", stopAutoPlay);
+    emblaApi.on("pointerUp", startAutoPlay);
+    emblaApi.on("select", startAutoPlay); // Reset timer on manual selection too
+
+    const emblaNode = emblaApi.rootNode();
+    if (emblaNode) {
+      emblaNode.addEventListener("mouseenter", stopAutoPlay);
+      emblaNode.addEventListener("mouseleave", startAutoPlay);
+    }
+    
+    startAutoPlay();
+
+    return () => {
+      stopAutoPlay();
+      emblaApi.off("pointerDown", stopAutoPlay);
+      emblaApi.off("pointerUp", startAutoPlay);
+      emblaApi.off("select", startAutoPlay);
+      if (emblaNode) {
+        emblaNode.removeEventListener("mouseenter", stopAutoPlay);
+        emblaNode.removeEventListener("mouseleave", startAutoPlay);
+      }
+    };
+  }, [emblaApi]);
 
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.fromTo(
-      ".testimonial-card",
+      ".testimonial-heading",
       { y: 30, opacity: 0 },
       {
         y: 0,
         opacity: 1,
         duration: 1,
-        stagger: 0.2,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: ".testimonials-grid",
+          trigger: containerRef.current,
           start: "top 80%",
+        },
+      }
+    );
+
+    gsap.fromTo(
+      ".embla",
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".embla",
+          start: "top 85%",
         },
       }
     );
@@ -34,42 +103,65 @@ export const TestimonialsCarousel = () => {
   return (
     <section 
       ref={containerRef}
-      className="bg-white py-24 md:py-32 overflow-hidden border-t border-ocean/10"
+      className="py-32 bg-white overflow-hidden"
     >
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
-        <SectionHeading
-          badge="Engineering Trust"
-          title="What Our Partners Say"
-          description="We build long-term relationships with industrial and commercial leaders through precision and reliability."
-          align="center"
-          className="mb-20"
-        />
-
-        <div className="testimonials-grid grid grid-cols-1 md:grid-cols-2 gap-12">
-          {TESTIMONIALS.map((testimonial, i) => (
-            <div 
-              key={i}
-              className="testimonial-card relative bg-ice-blue/30 p-12 md:p-16 border border-ocean/5 shadow-default hover:shadow-hover hover:-translate-y-2 transition-all duration-300 group"
+      <div className="max-w-screen-2xl mx-auto px-12">
+        <div className="testimonial-heading flex justify-between items-end mb-20">
+          <div>
+            <span className="font-label text-secondary text-xs font-bold tracking-[0.3em] uppercase block mb-4">Engineering Trust</span>
+            <h2 className="font-headline text-5xl text-primary tracking-tight leading-tight">Client Technical<br/>Validation</h2>
+          </div>
+          <div className="flex space-x-4">
+            <button 
+              onClick={scrollPrev}
+              className="w-14 h-14 rounded-full border border-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-500"
+              aria-label="Previous testimonial"
             >
-              <Quote size={48} className="text-ocean/10 group-hover:text-ocean/20 transition-colors duration-300 mb-8" />
-              
-              <blockquote className="text-xl md:text-2xl font-body italic text-primary/80 mb-12 leading-relaxed">
-                "{testimonial.quote}"
-              </blockquote>
+              <ArrowLeft size={20} />
+            </button>
+            <button 
+              onClick={scrollNext}
+              className="w-14 h-14 rounded-full border border-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-500"
+              aria-label="Next testimonial"
+            >
+              <ArrowRight size={20} />
+            </button>
+          </div>
+        </div>
 
-              <div className="flex items-center pt-10 border-t border-ocean/10">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-primary to-ocean flex items-center justify-center text-white font-heading font-bold text-lg mr-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  {testimonial.author.split(" ").map(n => n[0]).join("")}
-                </div>
-                <div>
-                  <div className="text-lg font-heading font-bold text-primary mb-1">{testimonial.author}</div>
-                  <div className="text-xs font-accent font-bold uppercase tracking-widest text-ocean">
-                    {testimonial.role}, {testimonial.company}
+        <div className="embla overflow-hidden" ref={emblaRef}>
+          <div className="embla__container flex">
+            {TESTIMONIALS.map((testimonial, idx) => (
+              <div 
+                key={idx}
+                className="embla__slide flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_40%] min-w-0 px-6"
+              >
+                <div className="h-full bg-ice-blue/10 p-12 md:p-16 flex flex-col justify-between group hover:bg-white hover:shadow-hover transition-all duration-700 relative">
+                  {/* Technical Accent */}
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-ocean/5 -mr-12 -mt-12 rounded-none group-hover:scale-150 transition-transform duration-700" />
+                  
+                  <div>
+                    <Quote size={48} className="text-secondary/20 mb-10 group-hover:text-secondary/40 transition-colors" />
+                    <blockquote className="font-display italic text-2xl text-primary leading-relaxed mb-12">
+                      "{testimonial.quote}"
+                    </blockquote>
+                  </div>
+
+                  <div className="flex items-center space-x-6 pt-10 border-t border-charcoal/5">
+                    <div className="w-16 h-16 bg-primary flex items-center justify-center text-white font-headline text-xl group-hover:bg-secondary transition-colors duration-500">
+                      {testimonial.author.split(" ").map(n => n[0]).join("")}
+                    </div>
+                    <div>
+                      <h4 className="font-headline text-xl text-primary mb-1">{testimonial.author}</h4>
+                      <p className="font-label text-secondary text-[10px] font-bold tracking-widest uppercase">
+                        {testimonial.role} <span className="text-charcoal/30 mx-2">|</span> {testimonial.company}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

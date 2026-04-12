@@ -23,13 +23,13 @@ export default function Home() {
     "logo": "https://voltaedge.com/logo.png",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "12 Power Avenue, Victoria Island",
-      "addressLocality": "Lagos",
-      "addressCountry": "NG"
+      "streetAddress": "1250 Energy Boulevard",
+      "addressLocality": "Houston, TX",
+      "addressCountry": "US"
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+234 800 123 4567",
+      "telephone": "+1 (800) 865-8233",
       "contactType": "technical support",
       "email": "info@voltaedge.com"
     }

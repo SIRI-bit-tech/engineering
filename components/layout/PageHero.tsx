@@ -11,7 +11,6 @@ interface PageHeroProps {
   title: string;
   description: string;
   image?: string;
-  dark?: boolean;
 }
 
 export const PageHero = ({
@@ -19,7 +18,6 @@ export const PageHero = ({
   title,
   description,
   image = "https://images.unsplash.com/photo-1466611653911-954ff21b6748?q=80&w=2070&auto=format&fit=crop",
-  dark = true,
 }: PageHeroProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -41,7 +39,7 @@ export const PageHero = ({
   }, { scope: containerRef });
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="relative pt-48 pb-24 md:pt-64 md:pb-40 bg-primary overflow-hidden"
     >
@@ -54,16 +52,16 @@ export const PageHero = ({
           priority
           className="hero-bg object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/50 to-primary" />
+        <div className="absolute inset-0 bg-linear-to-b from-primary/90 via-primary/50 to-primary" />
       </div>
 
       {/* Content Layer */}
-      <div className="hero-content relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
+      <div className="hero-content relative z-10 container-wide">
         <div className="max-w-3xl">
           <Badge variant="ocean" className="mb-8">
             {badge}
           </Badge>
-          
+
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-8 tracking-tight leading-tight">
             {title}
           </h1>
@@ -75,8 +73,8 @@ export const PageHero = ({
       </div>
 
       {/* Decorative Engineering Elements */}
-      <div className="absolute bottom-0 right-0 w-1/3 h-px bg-gradient-to-l from-ocean to-transparent opacity-30" />
-      <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-ocean/10 to-transparent opacity-20" />
+      <div className="absolute bottom-0 right-0 w-1/3 h-px bg-linear-to-l from-ocean to-transparent opacity-30" />
+      <div className="absolute top-0 right-1/4 w-px h-full bg-linear-to-b from-ocean/10 to-transparent opacity-20" />
     </section>
   );
 };

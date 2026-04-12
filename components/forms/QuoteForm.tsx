@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -10,21 +10,15 @@ import { Loader2, Send, Upload, FileCheck, X } from "lucide-react";
 import { SERVICES } from "@/constants/constants";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ACCEPTED_FILE_TYPES = [
-  "application/pdf",
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xlsx
-  "application/acad", // .dwg
-  "image/vnd.dwg", // .dwg
-];
 
 const quoteSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid engineering email address"),
+  email: z.email("Invalid engineering email address"),
   company: z.string().min(2, "Company name is required"),
   serviceType: z.string().min(1, "Please select a service type"),
   projectLocation: z.string().min(5, "Project location is required"),
   estimatedBudget: z.string().optional(),
-  message: z.string().min(10, "Project description must be at least 10 characters"),
+  message: z.string().min(10, { message: "Project description must be at least 10 characters" }),
 });
 
 type QuoteFormValues = z.infer<typeof quoteSchema>;
@@ -42,7 +36,7 @@ export const QuoteForm = () => {
     resolver: zodResolver(quoteSchema),
   });
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -55,7 +49,7 @@ export const QuoteForm = () => {
     // we'll check the extension as a fallback.
     const ext = file.name.split(".").pop()?.toLowerCase();
     const validExtensions = ["pdf", "xlsx", "dwg"];
-    
+
     if (!validExtensions.includes(ext || "")) {
       toast.error("Invalid file type. Please upload .pdf, .dwg, or .xlsx only.");
       return;
@@ -92,6 +86,7 @@ export const QuoteForm = () => {
         toast.error("Failed to send technical quote request. Please try again.");
       }
     } catch (error) {
+      console.error("Quote form submission error:", error);
       toast.error("An unexpected engineering system error occurred.");
     } finally {
       setIsSubmitting(false);
@@ -102,8 +97,9 @@ export const QuoteForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-2">
-          <label className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Full Name</label>
+          <label htmlFor="name" className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Full Name</label>
           <input
+            id="name"
             {...register("name")}
             className={`w-full bg-white border ${errors.name ? "border-red-500" : "border-ocean/20"} py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors`}
             placeholder="John Engineer"
@@ -112,8 +108,9 @@ export const QuoteForm = () => {
         </div>
 
         <div className="space-y-2">
-          <label className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Work Email</label>
+          <label htmlFor="email" className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Work Email</label>
           <input
+            id="email"
             {...register("email")}
             className={`w-full bg-white border ${errors.email ? "border-red-500" : "border-ocean/20"} py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors`}
             placeholder="john@company.com"
@@ -124,8 +121,9 @@ export const QuoteForm = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-2">
-          <label className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Company / Organization</label>
+          <label htmlFor="company" className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Company / Organization</label>
           <input
+            id="company"
             {...register("company")}
             className={`w-full bg-white border ${errors.company ? "border-red-500" : "border-ocean/20"} py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors`}
             placeholder="Lagos Manufacturing Ltd"
@@ -134,8 +132,9 @@ export const QuoteForm = () => {
         </div>
 
         <div className="space-y-2">
-          <label className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Service Type</label>
+          <label htmlFor="serviceType" className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Service Type</label>
           <select
+            id="serviceType"
             {...register("serviceType")}
             className={`w-full bg-white border ${errors.serviceType ? "border-red-500" : "border-ocean/20"} py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors appearance-none`}
           >
@@ -150,8 +149,9 @@ export const QuoteForm = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-2">
-          <label className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Project Location</label>
+          <label htmlFor="projectLocation" className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Project Location</label>
           <input
+            id="projectLocation"
             {...register("projectLocation")}
             className={`w-full bg-white border ${errors.projectLocation ? "border-red-500" : "border-ocean/20"} py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors`}
             placeholder="Victoria Island, Lagos"
@@ -160,8 +160,9 @@ export const QuoteForm = () => {
         </div>
 
         <div className="space-y-2">
-          <label className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Estimated Budget (Optional)</label>
+          <label htmlFor="estimatedBudget" className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Estimated Budget (Optional)</label>
           <input
+            id="estimatedBudget"
             {...register("estimatedBudget")}
             className="w-full bg-white border border-ocean/20 py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors"
             placeholder="₦50,000,000+"
@@ -170,8 +171,9 @@ export const QuoteForm = () => {
       </div>
 
       <div className="space-y-2">
-        <label className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Project Brief / Specifications</label>
+        <label htmlFor="message" className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Project Brief / Specifications</label>
         <textarea
+          id="message"
           rows={6}
           {...register("message")}
           className={`w-full bg-white border ${errors.message ? "border-red-500" : "border-ocean/20"} py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors resize-none`}
@@ -182,11 +184,31 @@ export const QuoteForm = () => {
 
       {/* File Upload - Rule 11 */}
       <div className="space-y-4">
-        <label className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Technical Documentation (.pdf, .dwg, .xlsx)</label>
-        
-        {!selectedFile ? (
+        <label htmlFor="attachment" className="text-xs font-accent font-bold uppercase tracking-widest text-primary">Technical Documentation (.pdf, .dwg, .xlsx)</label>
+
+        {selectedFile ? (
+          <div className="flex items-center justify-between p-6 bg-ocean/5 border border-ocean/20">
+            <div className="flex items-center">
+              <div className="w-10 h-10 bg-ocean/10 flex items-center justify-center mr-4">
+                <FileCheck size={20} className="text-ocean" />
+              </div>
+              <div>
+                <p className="text-sm font-body font-bold text-primary">{selectedFile.name}</p>
+                <p className="text-[10px] font-mono text-charcoal/40">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={removeFile}
+              className="p-2 hover:bg-ocean/10 text-ocean/40 hover:text-ocean transition-colors duration-300"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        ) : (
           <div className="relative border-2 border-dashed border-ocean/20 p-12 text-center group hover:border-ocean transition-colors duration-300">
             <input
+              id="attachment"
               type="file"
               onChange={handleFileChange}
               className="absolute inset-0 opacity-0 cursor-pointer z-10"
@@ -199,25 +221,6 @@ export const QuoteForm = () => {
               </p>
               <p className="text-[10px] font-accent font-bold uppercase text-ocean/40 mt-2 tracking-widest">Max file size: 5MB</p>
             </div>
-          </div>
-        ) : (
-          <div className="flex items-center justify-between p-6 bg-ocean/5 border border-ocean/20">
-            <div className="flex items-center">
-              <div className="w-10 h-10 bg-ocean/10 flex items-center justify-center mr-4">
-                <FileCheck size={20} className="text-ocean" />
-              </div>
-              <div>
-                <p className="text-sm font-body font-bold text-primary">{selectedFile.name}</p>
-                <p className="text-[10px] font-mono text-charcoal/40">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
-              </div>
-            </div>
-            <button 
-              type="button" 
-              onClick={removeFile}
-              className="p-2 hover:bg-ocean/10 text-ocean/40 hover:text-ocean transition-colors duration-300"
-            >
-              <X size={18} />
-            </button>
           </div>
         )}
       </div>

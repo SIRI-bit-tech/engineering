@@ -7,9 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { PROJECTS } from "@/constants/constants";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Button } from "@/components/ui/Button";
-import { ArrowUpRight, MapPin, Calendar } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export const FeaturedProjects = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,96 +34,61 @@ export const FeaturedProjects = () => {
   }, { scope: containerRef });
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      className="bg-primary py-24 md:py-32 overflow-hidden"
+      className="py-32 bg-[#1D1F21] text-white overflow-hidden relative"
     >
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
-        <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
-          <SectionHeading
-            dark
-            badge="Case Studies"
-            title="Engineering Success Across the Continent"
-            description="Our projects demonstrate our commitment to delivering high-performance electrical infrastructure and renewable energy systems."
-            className="mb-0"
-          />
-          <Button href="/projects" variant="outline" className="mb-2 text-white border-white hover:bg-white hover:text-primary">
-            Browse All Projects
-          </Button>
+      <div className="container-wide relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
+          <div>
+            <span className="font-label text-secondary text-xs font-bold tracking-[0.3em] uppercase block mb-4">Portfolio</span>
+            <h2 className="font-headline text-5xl tracking-tight leading-tight">Infrastructural Impact</h2>
+          </div>
+          <div className="flex space-x-4">
+            <button className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all">
+              <ArrowLeft size={20} />
+            </button>
+            <button className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all">
+              <ArrowRight size={20} />
+            </button>
+          </div>
         </div>
 
-        <div className="projects-grid grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {PROJECTS.map((project) => (
-            <Link 
-              key={project.id}
-              href={`/projects/${project.slug}`}
-              className="project-card group relative bg-charcoal/30 border border-ocean/20 overflow-hidden"
-            >
-              {/* Image Layer */}
-              <div className="relative aspect-[16/10] overflow-hidden">
+        <div className="projects-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+          {PROJECTS.map((project, idx) => {
+            const PROJECT_IMAGES = [
+              "https://lh3.googleusercontent.com/aida-public/AB6AXuBLCcvVadarpxJ6nldK4-VxdLveUxDEwSlQB2wE5F1AkRTXX8pI4LCqUdESKZUKtD3Ywz9CFRtB7SbKzmAC6fthbUBpdHxXxvaqkcMmzX-QqYGstC_HIsVSoIfmnr6lmbLuGTekfQaXdV4PCw9kx1DpWBo3d3jgwBgahvD7bLxU3hF_rD-EJvAEEw1W3Cl5O_JvzyMq7KBiVSoFz_TnjRcPljvBywWSp75OyBbLMRD_1KLlAZ40xW-JdZOd7soJUlupglxz62wBAkL4",
+              "https://lh3.googleusercontent.com/aida-public/AB6AXuAcFj2FN7YWrRawlsszd4QgDYFhNsttOB0rnUWPFmxJ5HDoh2chQpRSwUTRaimIgeRDGR5v2-3T4arfgbrUQY6ZhSNOvx4YO_r_mO5nFjm2sA3kB2G0FIIj7sZMKRVB2L9A3SCtTDqSLf62fPYYrlyUpJ8pLsmyRNn4ez2qBl-rnWFoXCcU5RKbJHdPasrUk7Cqtd9OapNxcpRkc8gKKYYTmyODEeHpFrHK8t3qCe7peqHHBo38EeBqjlalllV6pD6RmzsC9S0tiz2q",
+              "https://lh3.googleusercontent.com/aida-public/AB6AXuAxfll1hNDrw9C2yGIiikUnWsQ4uVtM69a1VlRDVNM1j1Wlj9Lm597r7FqcI5LWXMeogF2Zs0HhddceQoOXIpHVrHfKUNKo2HAxwM115Oq7GsVthL2r5Y1qwVANJTLuaTEzYIsXNWhbxZa4CBx0MyP-WjrE0ZPoBbL2ECLXQMYTcRwq9oZrvGC33h0uPD7t0kzCaznUWh7dHV6rpPjiB-9vHa7j8eEErsT_035rLAGgdssKPqyrVZyU8N31MWCLa_jYsDm2Ai0b_mjP",
+            ];
+            const projectImage = PROJECT_IMAGES[idx] ?? PROJECT_IMAGES[2];
+
+            return (
+              <div
+                key={project.id}
+                className="group relative aspect-4/5 overflow-hidden project-card"
+              >
                 <Image
-                  src={project.mainImage}
+                  src={projectImage}
                   alt={project.title}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
-                {/* Rule 10: Project cards → dark overlay slides up from bottom with description + CTA */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-80" />
-                
-                {/* Category Badge */}
-                <div className="absolute top-6 left-6 z-10">
-                  <span className="px-4 py-1.5 bg-ocean text-white font-accent text-[10px] font-bold uppercase tracking-widest">
-                    {project.category}
-                  </span>
+                <div className="absolute inset-0 bg-linear-to-t from-primary via-transparent to-transparent opacity-80"></div>
+                <div className="absolute bottom-0 p-8 w-full">
+                  <span className="font-label text-secondary-container text-[10px] tracking-widest uppercase mb-2 block">{project.category}</span>
+                  <h4 className="font-headline text-2xl mb-6">{project.title}</h4>
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="font-label text-xs font-bold tracking-widest border-b border-secondary pb-1 group-hover:text-secondary-container transition-colors"
+                  >
+                    VIEW CASE STUDY
+                  </Link>
                 </div>
               </div>
-
-              {/* Content Layer */}
-              <div className="relative p-8 md:p-10 z-10">
-                <div className="flex justify-between items-start mb-6">
-                  <h3 className="text-2xl md:text-3xl font-heading font-bold text-white group-hover:text-ocean transition-colors duration-300 max-w-md leading-tight">
-                    {project.title}
-                  </h3>
-                  <div className="w-12 h-12 border border-ocean/30 flex items-center justify-center text-ocean group-hover:bg-ocean group-hover:text-white transition-all duration-300">
-                    <ArrowUpRight size={20} />
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-6 mb-8 text-white/50 font-mono text-xs uppercase tracking-widest">
-                  <div className="flex items-center">
-                    <MapPin size={14} className="mr-2 text-ocean" />
-                    {project.location}
-                  </div>
-                  <div className="flex items-center">
-                    <Calendar size={14} className="mr-2 text-ocean" />
-                    {project.completionDate}
-                  </div>
-                </div>
-
-                <p className="text-white/70 font-body mb-8 line-clamp-2 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Stats Row */}
-                {project.stats && (
-                  <div className="grid grid-cols-2 gap-8 pt-8 border-t border-ocean/10">
-                    {project.stats.map((stat) => (
-                      <div key={stat.label}>
-                        <div className="text-xl font-mono font-bold text-white mb-1">{stat.value}</div>
-                        <div className="text-[10px] font-accent font-semibold text-ocean uppercase tracking-widest">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Hover description reveal overlay - Slide up effect as per Rule 10 */}
-              <div className="absolute bottom-0 left-0 w-full bg-ocean translate-y-full transition-transform duration-500 ease-in-out group-hover:translate-y-0 p-8 flex justify-between items-center z-20">
-                <span className="text-white font-accent font-bold uppercase tracking-widest text-sm">View Full Technical Case Study</span>
-                <ArrowUpRight size={24} className="text-white" />
-              </div>
-            </Link>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

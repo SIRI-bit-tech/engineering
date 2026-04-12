@@ -1,4 +1,3 @@
-import React from "react";
 
 export const LinkedinIcon = ({ size = 20, className = "" }: { size?: number; className?: string }) => (
   <svg

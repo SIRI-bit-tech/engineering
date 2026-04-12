@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -32,29 +33,33 @@ export const ServiceCTA = () => {
   return (
     <section 
       ref={containerRef}
-      className="bg-primary py-24 md:py-32 overflow-hidden border-t border-ocean/20"
+      className="bg-charcoal py-24 md:py-32 overflow-hidden border-t border-white/10"
     >
       <div className="cta-content relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 text-center flex flex-col items-center">
         <SectionHeading
           dark
           badge="Ready to Begin?"
           title="Engineered for Your Specific Infrastructure Needs"
-          description="Whether you're looking for a full solar farm deployment or a simple energy audit, our certified engineering team is ready to deliver precision results."
+          description="Whether you're looking for utility-scale renewable integration or complex electrical design, our certified engineering team is ready to deliver precision results."
           align="center"
           className="mb-12"
         />
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto">
-          <Button href="/contact/get-a-quote" size="lg" className="w-full sm:w-auto">
-            Get Technical Quote
+          <Button 
+            asChild
+            size="lg" 
+            className="w-full sm:w-auto bg-ocean text-white hover:bg-ocean/90 font-accent font-bold uppercase tracking-wider"
+          >
+            <Link href="/contact/get-a-quote">Get Technical Quote</Link>
           </Button>
           <Button 
-            href="/contact" 
+            asChild
             variant="outline" 
             size="lg" 
-            className="w-full sm:w-auto text-white border-white hover:bg-white hover:text-primary"
+            className="w-full sm:w-auto text-white border-white/30 hover:bg-white hover:text-charcoal font-accent font-bold uppercase tracking-wider"
           >
-            Contact Engineering Support
+            <Link href="/contact">Contact Engineering Support</Link>
           </Button>
         </div>
       </div>

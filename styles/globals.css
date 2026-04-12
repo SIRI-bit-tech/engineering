@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #003B5C;
-  --color-ocean: #005F8D;
+  --color-primary: #00253B;
+  --color-ocean: #0e6492;
   --color-charcoal: #1D1F21;
-  --color-ice-blue: #E1F5FE;
-  --color-white: #FFFFFF;
+  --color-ice-blue: #cce5ff;
+  --color-white: #f9f9fc;
 
-  --font-display: var(--font-cormorant-garamond);
-  --font-heading: var(--font-syne);
-  --font-body: var(--font-dm-sans);
+  --font-display: var(--font-newsreader);
+  --font-heading: var(--font-newsreader);
+  --font-body: var(--font-manrope);
   --font-accent: var(--font-space-grotesk);
   --font-mono: var(--font-jetbrains-mono);
 
-  --shadow-default: 0 4px 20px rgba(0, 59, 92, 0.08);
-  --shadow-hover: 0 10px 30px rgba(0, 59, 92, 0.18);
-  --shadow-button: 0 4px 15px rgba(0, 95, 141, 0.30);
+  --shadow-default: 0 4px 20px rgba(0, 37, 59, 0.08);
+  --shadow-hover: 0 10px 30px rgba(0, 37, 59, 0.18);
+  --shadow-button: 0 4px 15px rgba(14, 100, 146, 0.30);
 }
 
 @layer base {
@@ -47,7 +47,7 @@
   }
 
   .container-wide {
-    @apply max-w-[1440px] mx-auto;
+    @apply max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24;
   }
 
   .btn-hover {

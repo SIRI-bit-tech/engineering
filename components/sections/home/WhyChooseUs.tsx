@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { REASONS } from "@/constants/constants";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Target, Award, ShieldCheck, Globe } from "lucide-react";
 
 export const WhyChooseUs = () => {
@@ -43,57 +43,64 @@ export const WhyChooseUs = () => {
   }, { scope: containerRef });
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      className="bg-white py-24 md:py-32"
+      className="py-32 bg-white overflow-hidden"
     >
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-          <div className="lg:w-1/2">
-            <SectionHeading
-              badge="Our Competitive Edge"
-              title="Why Industry Leaders Trust VoltaEdge"
-              description="We combine deep technical expertise with a commitment to innovation, ensuring every project meets the highest global engineering standards."
+      <div className="container-wide grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+        <div className="relative">
+          <div className="absolute -top-12 -left-12 w-64 h-64 bg-secondary/5 z-0"></div>
+          <div className="relative z-10 w-full aspect-square overflow-hidden">
+            <Image
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB53GBeWUP6xV_WeW-qhkEfYVsv8-FHd7F39tOKG-gLuPS_256XsQ1hEtwYxB_gc43jxdOfdhpfz0OTDDWnVgPY_Fq161Y_9TlZGWHLY1QkU59TgArQx_YQAenN5jpLnRahixpTx32l8FUdSPc6OGF8Vq6Hcm6a-OxFxsVd8KMfT5qNI9nuCPbxAW2izb7h0n-6Z-YzUbU359Q3slOZ025be9OZtT1Y2hOr9VZ5SqQ46EhbjVEjQ8UAcwgyKRDamdlTOTQzkcueoivA"
+              alt="High-voltage electrical transmission towers"
+              fill
+              className="object-cover"
             />
-            
-            <div className="reasons-grid grid grid-cols-1 sm:grid-cols-2 gap-8 mt-12">
-              {REASONS.map((reason) => (
-                <div 
-                  key={reason.title}
-                  className="reason-card group p-8 border border-ocean/5 bg-ice-blue/30 transition-all duration-300 hover:bg-white hover:shadow-hover hover:border-ocean/10"
-                >
-                  <div className="mb-6 p-3 bg-white w-fit shadow-sm group-hover:scale-110 transition-transform duration-300">
-                    {getIcon(reason.icon)}
-                  </div>
-                  <h4 className="text-xl font-heading font-bold text-primary mb-3 group-hover:text-ocean transition-colors duration-300">
-                    {reason.title}
-                  </h4>
-                  <p className="text-sm text-charcoal/70 font-body leading-relaxed">
-                    {reason.description}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
+          <div className="absolute -bottom-6 -right-6 bg-primary p-8 z-20">
+            <span className="font-mono text-white text-5xl block mb-2">20+</span>
+            <span className="font-label text-secondary-container text-xs tracking-widest uppercase">Years Experience</span>
+          </div>
+        </div>
 
-          <div className="lg:w-1/2 relative aspect-square w-full max-w-lg lg:max-w-none">
-            <div className="absolute inset-0 border-2 border-ocean/20 translate-x-6 translate-y-6" />
-            <div className="relative h-full w-full bg-primary overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop"
-                alt="Electrical engineering control systems"
-                className="object-cover h-full w-full opacity-60 grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/80 to-transparent" />
-              
-              <div className="absolute bottom-10 left-10 right-10 p-8 bg-white/10 backdrop-blur-md border border-white/20">
-                <div className="text-white font-display text-2xl font-bold mb-2">"Engineered for Reliability"</div>
-                <div className="text-ocean font-accent text-xs uppercase tracking-widest font-bold">Standard Operating Protocol</div>
+        <div>
+          <h2 className="accent-line font-headline text-4xl text-primary mb-12 tracking-tight leading-tight">
+            Precision Driven<br />Infrastructure Expertise
+          </h2>
+          <div className="reasons-grid space-y-8">
+            {REASONS.map((reason) => (
+              <div
+                key={reason.title}
+                className="flex items-start space-x-6 reason-card"
+              >
+                <div className="w-12 h-12 bg-surface-container-low flex items-center justify-center shrink-0">
+                  {getIcon(reason.icon)}
+                </div>
+                <div>
+                  <h4 className="font-label font-bold text-primary text-sm uppercase mb-2">{reason.title}</h4>
+                  <p className="text-on-surface-variant text-sm font-body">{reason.description}</p>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .accent-line {
+          position: relative;
+        }
+        .accent-line::before {
+          content: '';
+          position: absolute;
+          top: -8px;
+          left: 0;
+          width: 48px;
+          height: 3px;
+          background-color: #005F8D;
+        }
+      `}</style>
     </section>
   );
 };

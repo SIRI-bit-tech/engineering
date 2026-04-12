@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { SITE_EMAIL, SITE_PHONE, SITE_ADDRESS, SOCIAL_LINKS } from "@/constants/constants";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { SOCIAL_LINKS } from "@/constants/constants";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { LinkedinIcon, TwitterIcon, InstagramIcon } from "@/components/ui/BrandIcons";
 import Link from "next/link";
 
@@ -18,41 +18,63 @@ export const ContactInfo = () => {
 
   return (
     <div className="flex flex-col space-y-12">
-      <div>
-        <h4 className="text-xs font-accent font-semibold uppercase tracking-widest text-ocean mb-6">Contact Details</h4>
-        <ul className="space-y-8">
-          <li className="flex items-start group cursor-pointer">
-            <div className="w-12 h-12 bg-ocean/10 flex items-center justify-center rounded-sm mr-6 group-hover:bg-ocean transition-colors duration-300 shrink-0">
-              <Mail size={20} className="text-ocean group-hover:text-white transition-colors duration-300" />
-            </div>
-            <div>
-              <p className="text-xs font-accent text-ocean uppercase tracking-wider mb-1 font-bold">Email Us</p>
-              <p className="text-lg font-mono text-primary group-hover:text-ocean transition-colors duration-300">{SITE_EMAIL}</p>
-            </div>
-          </li>
-          <li className="flex items-start group cursor-pointer">
-            <div className="w-12 h-12 bg-ocean/10 flex items-center justify-center rounded-sm mr-6 group-hover:bg-ocean transition-colors duration-300 shrink-0">
-              <Phone size={20} className="text-ocean group-hover:text-white transition-colors duration-300" />
-            </div>
-            <div>
-              <p className="text-xs font-accent text-ocean uppercase tracking-wider mb-1 font-bold">Call Support</p>
-              <p className="text-lg font-mono text-primary group-hover:text-ocean transition-colors duration-300">{SITE_PHONE}</p>
-            </div>
-          </li>
-          <li className="flex items-start group cursor-pointer">
-            <div className="w-12 h-12 bg-ocean/10 flex items-center justify-center rounded-sm mr-6 group-hover:bg-ocean transition-colors duration-300 shrink-0">
-              <MapPin size={20} className="text-ocean group-hover:text-white transition-colors duration-300" />
-            </div>
-            <div>
-              <p className="text-xs font-accent text-ocean uppercase tracking-wider mb-1 font-bold">Office Address</p>
-              <p className="text-lg font-body text-primary leading-snug group-hover:text-ocean transition-colors duration-300">{SITE_ADDRESS}</p>
-            </div>
-          </li>
-        </ul>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Head Office */}
+        <div className="bg-white p-8 border border-platinum shadow-sm group hover:border-navy transition-colors duration-500">
+          <MapPin size={20} className="text-navy mb-6 group-hover:scale-110 transition-transform duration-500" />
+          <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Head Office</h4>
+          <p className="text-sm font-body text-navy leading-relaxed">
+            4400 Precision Way<br />
+            Technical District, CA 90210
+          </p>
+        </div>
+
+        {/* Phone */}
+        <div className="bg-white p-8 border border-platinum shadow-sm group hover:border-navy transition-colors duration-500">
+          <Phone size={20} className="text-navy mb-6 group-hover:scale-110 transition-transform duration-500" />
+          <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Phone</h4>
+          <p className="text-sm font-body text-navy leading-relaxed">
+            +1 (555) 010-8842<br />
+            +1 (555) 010-8843
+          </p>
+        </div>
+
+        {/* Email */}
+        <div className="bg-white p-8 border border-platinum shadow-sm group hover:border-navy transition-colors duration-500">
+          <Mail size={20} className="text-navy mb-6 group-hover:scale-110 transition-transform duration-500" />
+          <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Email</h4>
+          <p className="text-sm font-body text-navy leading-relaxed wrap-break-word">
+            engineering@voltaedge.com<br />
+            support@voltaedge.com
+          </p>
+        </div>
+
+        {/* Hours */}
+        <div className="bg-white p-8 border border-platinum shadow-sm group hover:border-navy transition-colors duration-500">
+          <Clock size={20} className="text-navy mb-6 group-hover:scale-110 transition-transform duration-500" />
+          <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Hours</h4>
+          <p className="text-sm font-body text-navy leading-relaxed">
+            Mon - Fri: 08:00 - 18:00<br />
+            Sat: By Appointment Only
+          </p>
+        </div>
       </div>
 
-      <div>
-        <h4 className="text-xs font-accent font-semibold uppercase tracking-widest text-ocean mb-6">Follow Our Engineering Insights</h4>
+      {/* Dark Themed Map Placeholder */}
+      <div className="w-full h-80 bg-navy relative overflow-hidden flex items-center justify-center grayscale opacity-90 group">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2066&auto=format&fit=crop')] bg-cover bg-center opacity-30 group-hover:scale-105 transition-transform duration-2000" />
+        <div className="relative z-10 flex flex-col items-center">
+          <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-4">
+            <MapPin size={24} className="text-white" />
+          </div>
+          <span className="text-[10px] font-label font-bold text-white uppercase tracking-[0.4em]">View Technical District Map</span>
+        </div>
+        {/* Abstract Grid Overlay */}
+        <div className="absolute inset-0 border-20 border-white/5 pointer-events-none" />
+      </div>
+
+      <div className="p-8 bg-slate-50 border-l-4 border-navy">
+        <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-navy mb-4">Engineering Insights</h4>
         <div className="flex space-x-4">
           {SOCIAL_LINKS.map((social) => (
             <Link
@@ -60,21 +82,13 @@ export const ContactInfo = () => {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-12 h-12 border border-ocean/20 rounded-sm flex items-center justify-center text-ocean/60 hover:text-white hover:bg-ocean hover:border-ocean transition-all duration-300"
+              className="w-10 h-10 bg-white border border-platinum flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all duration-300 shadow-sm"
               aria-label={social.label}
             >
               {getIcon(social.icon)}
             </Link>
           ))}
         </div>
-      </div>
-
-      <div className="p-8 bg-primary text-white border-l-4 border-ocean">
-        <h5 className="font-heading font-bold text-lg mb-4 leading-tight">Emergency Support?</h5>
-        <p className="text-sm text-white/70 font-body mb-6 leading-relaxed">
-          For critical electrical infrastructure failures or renewable energy system emergencies, contact our 24/7 technical team.
-        </p>
-        <p className="font-mono text-ocean font-bold text-lg">{SITE_PHONE}</p>
       </div>
     </div>
   );

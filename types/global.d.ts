@@ -87,6 +87,7 @@ declare global {
     role: string;
     bio: string;
     initials: string;
+    qualifications?: string[];
     socials?: {
       linkedin?: string;
       twitter?: string;

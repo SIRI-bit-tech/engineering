@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { PARTNERS } from "@/constants/constants";
@@ -10,7 +11,6 @@ export const PartnersSection = () => {
   const tickerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    // Rule 9: Partner logo ticker: infinite GSAP loop, no pause
     const ticker = tickerRef.current;
     if (!ticker) return;
 
@@ -25,7 +25,7 @@ export const PartnersSection = () => {
 
     gsap.to(ticker, {
       x: -tickerWidth,
-      duration: 30, // Adjust speed as needed
+      duration: 40,
       ease: "none",
       repeat: -1,
       paused: false,
@@ -44,44 +44,44 @@ export const PartnersSection = () => {
             <p className="text-sm font-body text-charcoal/60">Collaborating with global technology leaders for sustainable energy deployments.</p>
           </div>
           <div className="hidden lg:flex items-center space-x-4 text-[10px] font-mono font-medium text-ocean/40 uppercase tracking-widest">
-            <span>COREN CERTIFIED</span>
+            <span>IEEE FELLOWS</span>
             <span className="w-1.5 h-1.5 rounded-full bg-ocean/20" />
             <span>ISO 9001 COMPLIANT</span>
             <span className="w-1.5 h-1.5 rounded-full bg-ocean/20" />
-            <span>NEMSA ACCREDITED</span>
+            <span>LEED CERTIFIED</span>
           </div>
         </div>
       </div>
 
       <div className="relative w-full flex items-center">
         {/* Left Gradient Overlay */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10" />
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
         
         {/* Logo Ticker */}
         <div 
           ref={tickerRef}
-          className="flex items-center whitespace-nowrap py-4"
+          className="flex items-center whitespace-nowrap py-8"
         >
           {PARTNERS.map((partner, index) => (
             <div 
               key={`${partner.name}-${index}`}
-              className="logo-item flex flex-col items-center justify-center px-12 md:px-20 opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300 group cursor-pointer"
+              className="logo-item flex items-center justify-center px-16 md:px-24 opacity-50 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 group cursor-pointer"
             >
-              <div className="h-8 md:h-12 w-auto flex items-center justify-center mb-2">
-                {/* SVG Placeholders since we don't have real logos */}
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 md:w-8 md:h-8 bg-ocean/20 rounded-sm flex items-center justify-center group-hover:bg-ocean group-hover:text-white transition-colors duration-300">
-                    <span className="font-heading font-bold text-[8px] md:text-xs">{partner.name[0]}</span>
-                  </div>
-                  <span className="font-heading font-bold text-sm md:text-lg text-primary">{partner.name}</span>
-                </div>
+              <div className="relative h-16 md:h-20 w-32 md:w-48 flex items-center justify-center">
+                <Image
+                  src={partner.logo}
+                  alt={`${partner.name} logo`}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 128px, 192px"
+                />
               </div>
             </div>
           ))}
         </div>
 
         {/* Right Gradient Overlay */}
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
       </div>
     </section>
   );

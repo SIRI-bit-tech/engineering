@@ -66,20 +66,24 @@ export const SectionHeading = ({
         </Badge>
       )}
       
-      <h2
-        ref={titleRef}
-        className={cn(
-          "text-3xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight",
-          dark ? "text-white" : "text-primary"
-        )}
-      >
-        {title}
-      </h2>
+      <div className="relative inline-block mb-6">
+        <h2
+          ref={titleRef}
+          className={cn(
+            "text-3xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.1]",
+            dark ? "text-white" : "text-primary"
+          )}
+        >
+          {title}
+        </h2>
+        {/* 3px Ocean accent line positioned exactly 8px above the text baseline (simulated with relative positioning) */}
+        <div className="absolute -top-4 left-0 w-12 h-[3px] bg-ocean rounded-full" />
+      </div>
 
       {description && (
         <p
           className={cn(
-            "text-base md:text-lg font-body leading-relaxed",
+            "text-base md:text-xl font-body leading-relaxed max-w-2xl mt-4",
             dark ? "text-white/70" : "text-charcoal/70"
           )}
         >
