@@ -3,8 +3,8 @@
 export const SITE_NAME = "VoltaEdge Engineering";
 export const SITE_TAGLINE = "High-Performance Energy Infrastructure & Architecture";
 export const SITE_DESCRIPTION = "VoltaEdge Engineering provides elite electrical engineering, renewable energy integration, power distribution, and industrial automation services for the modern infrastructure.";
-export const SITE_EMAIL = "info@voltaedge.com";
-export const SITE_PHONE = "+1 (800) 865-8233";
+export const SITE_EMAIL = "[EMAIL_ADDRESS]";
+export const SITE_PHONE = "+1 (800)-VOLTAEDGE";
 export const SITE_ADDRESS = "United States, Canada, Mexico, Europe, Asia, Australia";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://voltaedge.com";
 
