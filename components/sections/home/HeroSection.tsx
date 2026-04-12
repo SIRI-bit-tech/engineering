@@ -121,7 +121,7 @@ export const HeroSection = () => {
         <div className="lg:col-span-6 relative h-[60vh] lg:h-[80vh] w-full">
           <div className="hero-image-container absolute inset-0 overflow-hidden rounded-none">
             <Image
-              src="https://images.unsplash.com/photo-1466611653911-95282fc3656b?q=80&w=2070&auto=format&fit=crop"
+              src="/images/hero/main.png"
               alt="High-voltage transmission lines representing broad electrical engineering"
               fill
               priority

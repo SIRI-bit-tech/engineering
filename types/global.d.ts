@@ -45,6 +45,8 @@ declare global {
     title: string;
     slug: string;
     description: string;
+    longDescription?: string;
+    technicalAnalysis?: string[];
     icon: string;
     features: string[];
     benefits: string[];

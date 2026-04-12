@@ -6,30 +6,10 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { BLOG_POSTS } from "@/constants/constants";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
-
-const BLOG_PREVIEW = [
-  {
-    title: "Navigating Renewable Transitions in Industrial Districts",
-    slug: "navigating-renewable-transitions-industrial",
-    excerpt: "Exploring how integrated renewable hubs are transforming power stability and grid resilience for manufacturing ecosystems.",
-    date: "2024-04-05",
-    category: "Infrastructure",
-    image: "https://images.unsplash.com/photo-1466611653911-95282fc3656b?q=80&w=2070&auto=format&fit=crop",
-    readTime: "6 min"
-  },
-  {
-    title: "Optimizing Power Quality for Industrial Automation",
-    slug: "optimizing-power-quality-automation",
-    excerpt: "A technical guide on mitigating voltage fluctuations to protect sensitive PLC and SCADA systems.",
-    date: "2024-03-28",
-    category: "Industrial Automation",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop",
-    readTime: "8 min"
-  }
-];
 
 export const BlogPreview = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -73,7 +53,7 @@ export const BlogPreview = () => {
         </div>
 
         <div className="blog-grid grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-          {BLOG_PREVIEW.map((post) => (
+          {BLOG_POSTS.slice(0, 2).map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}

@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { TESTIMONIALS } from "@/constants/constants";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Quote, ArrowLeft, ArrowRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 
@@ -51,7 +52,7 @@ export const TestimonialsCarousel = () => {
       emblaNode.addEventListener("mouseenter", stopAutoPlay);
       emblaNode.addEventListener("mouseleave", startAutoPlay);
     }
-    
+
     startAutoPlay();
 
     return () => {
@@ -101,7 +102,7 @@ export const TestimonialsCarousel = () => {
   }, { scope: containerRef });
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="py-32 bg-white overflow-hidden"
     >
@@ -109,17 +110,17 @@ export const TestimonialsCarousel = () => {
         <div className="testimonial-heading flex justify-between items-end mb-20">
           <div>
             <span className="font-label text-secondary text-xs font-bold tracking-[0.3em] uppercase block mb-4">Engineering Trust</span>
-            <h2 className="font-headline text-5xl text-primary tracking-tight leading-tight">Client Technical<br/>Validation</h2>
+            <h2 className="font-headline text-5xl text-primary tracking-tight leading-tight">Client Technical<br />Validation</h2>
           </div>
           <div className="flex space-x-4">
-            <button 
+            <button
               onClick={scrollPrev}
               className="w-14 h-14 rounded-full border border-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-500"
               aria-label="Previous testimonial"
             >
               <ArrowLeft size={20} />
             </button>
-            <button 
+            <button
               onClick={scrollNext}
               className="w-14 h-14 rounded-full border border-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-500"
               aria-label="Next testimonial"
@@ -131,26 +132,28 @@ export const TestimonialsCarousel = () => {
 
         <div className="embla overflow-hidden" ref={emblaRef}>
           <div className="embla__container flex">
-            {TESTIMONIALS.map((testimonial, idx) => (
-              <div 
-                key={idx}
+            {TESTIMONIALS.map((testimonial) => (
+              <div
+                key={testimonial.author}
                 className="embla__slide flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_40%] min-w-0 px-6"
               >
                 <div className="h-full bg-ice-blue/10 p-12 md:p-16 flex flex-col justify-between group hover:bg-white hover:shadow-hover transition-all duration-700 relative">
                   {/* Technical Accent */}
                   <div className="absolute top-0 right-0 w-24 h-24 bg-ocean/5 -mr-12 -mt-12 rounded-none group-hover:scale-150 transition-transform duration-700" />
-                  
+
                   <div>
                     <Quote size={48} className="text-secondary/20 mb-10 group-hover:text-secondary/40 transition-colors" />
                     <blockquote className="font-display italic text-2xl text-primary leading-relaxed mb-12">
-                      "{testimonial.quote}"
+                      &quot;{testimonial.quote}&quot;
                     </blockquote>
                   </div>
 
                   <div className="flex items-center space-x-6 pt-10 border-t border-charcoal/5">
-                    <div className="w-16 h-16 bg-primary flex items-center justify-center text-white font-headline text-xl group-hover:bg-secondary transition-colors duration-500">
-                      {testimonial.author.split(" ").map(n => n[0]).join("")}
-                    </div>
+                    <Avatar className="w-16 h-16 shadow-lg border border-primary/10">
+                      <AvatarFallback className="bg-primary text-white font-headline text-xl group-hover:bg-ocean transition-colors duration-500">
+                        {testimonial.author.split(" ").map(n => n[0]).join("")}
+                      </AvatarFallback>
+                    </Avatar>
                     <div>
                       <h4 className="font-headline text-xl text-primary mb-1">{testimonial.author}</h4>
                       <p className="font-label text-secondary text-[10px] font-bold tracking-widest uppercase">

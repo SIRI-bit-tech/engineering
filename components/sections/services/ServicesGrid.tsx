@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useRef } from "react";
-import Link from "next/image";
+import Image from "next/image";
 import NextLink from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { SERVICES } from "@/constants/constants";
-import { ArrowRight, CheckCircle2, DraftingCompass, Sun, Zap, ClipboardCheck, Cpu, BatteryCharging } from "lucide-react";
+import { ArrowRight, DraftingCompass, Sun, Zap, ClipboardCheck, Cpu, BatteryCharging } from "lucide-react";
 
 export const ServicesGrid = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -55,45 +55,58 @@ export const ServicesGrid = () => {
             <NextLink 
               key={service.id} 
               href={`/services/${service.slug}`}
-              className="service-card group relative flex flex-col bg-ice-blue/10 p-12 rounded-none hover:bg-white hover:shadow-hover hover:-translate-y-4 transition-all duration-700 overflow-hidden"
+              className="service-card group relative flex flex-col h-[600px] bg-primary rounded-none shadow-default hover:shadow-hover hover:-translate-y-4 transition-all duration-700 overflow-hidden"
             >
+              {/* Background Image with Hover Reveal */}
+              <div className="absolute inset-0 z-0">
+                <Image 
+                  src={service.imageUrl} 
+                  alt={service.title}
+                  fill
+                  className="object-cover opacity-40 group-hover:opacity-60 group-hover:scale-110 transition-all duration-1000"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-primary via-primary/40 to-transparent" />
+              </div>
+
               {/* Tonal Card Accents */}
-              <div className="absolute top-0 right-0 w-40 h-40 bg-ocean/5 -mr-20 -mt-20 rounded-none group-hover:scale-[3] transition-transform duration-1000" />
+              <div className="absolute top-0 right-0 w-40 h-40 bg-ocean/10 -mr-20 -mt-20 rounded-none group-hover:scale-[3] transition-transform duration-1000 z-10" />
               
-              {/* Technical Marker */}
-              <div className="relative z-10 font-mono text-[10px] tracking-[0.2em] text-charcoal/40 mb-12 flex items-center gap-4">
-                <span className="text-ocean font-bold">0{idx + 1}</span>
-                <div className="h-px w-8 bg-charcoal/10 group-hover:w-16 transition-all duration-700" />
-                <span>SPEC-ID: {service.id.toUpperCase()}</span>
-              </div>
-
-              <div className="relative z-10 w-16 h-16 bg-white rounded-none flex items-center justify-center mb-10 group-hover:bg-primary transition-all duration-700 shadow-sm group-hover:shadow-button">
-                <div className="text-primary group-hover:text-white transition-colors duration-500">
-                  {getIcon(idx)}
+              <div className="relative z-20 flex flex-col h-full p-12">
+                {/* Technical Marker */}
+                <div className="font-mono text-[10px] tracking-[0.2em] text-white/40 mb-12 flex items-center gap-4">
+                  <span className="text-ocean font-bold">0{idx + 1}</span>
+                  <div className="h-px w-8 bg-white/10 group-hover:w-16 transition-all duration-700" />
+                  <span>SPEC-ID: {service.id.toUpperCase()}</span>
                 </div>
-              </div>
 
-              <h3 className="relative z-10 text-2xl md:text-3xl font-display font-bold text-primary mb-6 leading-tight group-hover:text-ocean transition-colors duration-500">
-                {service.title}
-              </h3>
-              
-              <p className="relative z-10 text-base text-charcoal/60 font-body mb-12 leading-relaxed italic">
-                {service.description}
-              </p>
+                <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-none flex items-center justify-center mb-10 group-hover:bg-primary transition-all duration-700 shadow-sm border border-white/10">
+                  <div className="text-white">
+                    {getIcon(idx)}
+                  </div>
+                </div>
 
-              <div className="relative z-10 mt-auto">
-                <ul className="space-y-5 mb-14">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-start text-sm font-body text-charcoal/60">
-                      <div className="w-1.5 h-1.5 bg-ocean/30 mr-4 rounded-full mt-1.5 group-hover:bg-ocean transition-colors duration-500" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-6 leading-tight group-hover:text-ocean transition-colors duration-500">
+                  {service.title}
+                </h3>
+                
+                <p className="text-base text-white/70 font-body mb-12 leading-relaxed italic">
+                  {service.description}
+                </p>
 
-                <div className="inline-flex items-center text-ocean font-accent font-bold text-xs uppercase tracking-[0.3em] group/link">
-                  <span>View Technical Case Study</span>
-                  <ArrowRight size={14} className="ml-4 transition-transform duration-500 group-hover/link:translate-x-4" />
+                <div className="mt-auto">
+                  <ul className="space-y-4 mb-14">
+                    {service.features.slice(0, 3).map((feature) => (
+                      <li key={feature} className="flex items-start text-sm font-body text-white/60">
+                        <div className="w-1.5 h-1.5 bg-ocean/50 mr-4 rounded-full mt-1.5 group-hover:bg-ocean transition-colors duration-500" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="inline-flex items-center text-ocean font-accent font-bold text-xs uppercase tracking-[0.3em] group/link">
+                    <span>View Technical Protocol</span>
+                    <ArrowRight size={14} className="ml-4 transition-transform duration-500 group-hover/link:translate-x-4" />
+                  </div>
                 </div>
               </div>
             </NextLink>

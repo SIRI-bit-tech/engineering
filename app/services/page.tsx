@@ -32,7 +32,7 @@ export default function ServicesPage() {
         badge="Infrastructural Solutions"
         title="Full-Spectrum Electrical Engineering & Renewable Energy Services"
         description="We deliver high-performance energy infrastructure and automated systems designed for maximum reliability and industrial-grade scalability across the United States."
-        image="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop"
+        image="/images/services/design.png"
       />
 
       {/* Main Services Grid */}

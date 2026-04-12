@@ -48,9 +48,15 @@ export default async function ServiceDetailPage(props: Readonly<ServicePageProps
                 </h2>
               </div>
               <div className="space-y-8 text-charcoal/70 font-body leading-relaxed max-w-2xl">
-                <p className="text-xl italic font-display border-l-4 border-secondary pl-8 py-2">
-                  &quot;{service.description}&quot;
-                </p>
+                {service.longDescription ? (
+                  <p className="text-lg font-body border-l-4 border-secondary pl-8 py-2 text-primary/80">
+                    {service.longDescription}
+                  </p>
+                ) : (
+                  <p className="text-xl italic font-display border-l-4 border-secondary pl-8 py-2">
+                    &quot;{service.description}&quot;
+                  </p>
+                )}
                 <p>
                   Our engineering approach for {service.title} focuses on precision, scalability, and safety. Every system we design is built to meet global standards while addressing Africa&apos;s local energy infrastructure requirements.
                 </p>
@@ -64,6 +70,20 @@ export default async function ServiceDetailPage(props: Readonly<ServicePageProps
                     </li>
                   ))}
                 </ul>
+
+                {service.technicalAnalysis && (
+                  <>
+                    <h3 className="font-label text-xl font-bold text-primary pt-8 pb-6 uppercase tracking-tighter">Technical Diagnostic Protocol</h3>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                      {service.technicalAnalysis.map((item) => (
+                        <li key={item} className="flex items-start text-sm font-body text-charcoal/60 group">
+                          <div className="w-1.5 h-1.5 bg-ocean/30 mr-4 rounded-full mt-1.5 group-hover:bg-ocean transition-colors duration-300" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
 
                 <h3 className="font-label text-xl font-bold text-primary pt-8 pb-6 uppercase tracking-tighter">Operational Benefits</h3>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-8">

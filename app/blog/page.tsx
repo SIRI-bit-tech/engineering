@@ -18,7 +18,7 @@ export default function BlogPage() {
         badge="Technical Insights"
         title="Knowledge, Innovation & Industry Trends"
         description="Our elite engineers share deep-dive insights into renewable energy, industrial automation, and the future of American power infrastructure."
-        image="https://lh3.googleusercontent.com/aida-public/AB6AXuAYf6pC3p86pP198B7R9E2B-u4G1D237J281v9R8E3B6C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7a8b9c0d1e2f3g4h5i6j7k8l9m0n1o2p3q4r5s6t7u8v9w0x1y2z3A4B5C6D7E8F9G0H1I2J3K4L5M6N7O8P9Q0R1S2T3U4V5W6X7Y8Z9"
+        image="/images/blog/decarbonization.png"
       />
 
       <section className="bg-white py-24 md:py-40 overflow-hidden relative">

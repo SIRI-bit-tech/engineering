@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 import { TEAM_MEMBERS } from "@/constants/constants";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { LinkedinIcon, TwitterIcon } from "@/components/ui/BrandIcons";
 import Link from "next/link";
 
@@ -34,7 +35,7 @@ export const TeamSection = () => {
   }, { scope: containerRef });
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="bg-white py-24 md:py-40 relative overflow-hidden"
     >
@@ -49,7 +50,7 @@ export const TeamSection = () => {
 
         <div className="team-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16">
           {TEAM_MEMBERS.map((member, idx) => (
-            <div 
+            <div
               key={member.name}
               className="team-card group relative bg-ice-blue/10 p-12 rounded-none hover:bg-white hover:shadow-hover hover:-translate-y-4 transition-all duration-700 overflow-hidden"
             >
@@ -63,9 +64,11 @@ export const TeamSection = () => {
               </div>
 
               {/* Avatar - High-End Style */}
-              <div className="relative z-10 w-32 h-32 rounded-none bg-white flex items-center justify-center mb-10 mx-auto text-primary font-display font-bold text-4xl group-hover:bg-primary group-hover:text-white transition-all duration-700 shadow-sm group-hover:shadow-button transform group-hover:rotate-6">
-                {member.initials}
-              </div>
+              <Avatar className="w-32 h-32 rounded-none bg-white flex items-center justify-center mb-10 mx-auto group-hover:bg-primary transition-all duration-700 shadow-sm group-hover:shadow-button transform group-hover:rotate-6">
+                <AvatarFallback className="bg-white text-primary font-display font-bold text-4xl group-hover:bg-primary group-hover:text-white transition-all duration-700">
+                  {member.initials}
+                </AvatarFallback>
+              </Avatar>
 
               <div className="text-center relative z-10">
                 <h4 className="text-2xl font-display font-bold text-primary mb-3 group-hover:text-ocean transition-colors duration-500 leading-tight">
@@ -82,7 +85,7 @@ export const TeamSection = () => {
                   </div>
                 )}
                 <p className="text-base text-charcoal/60 font-body leading-relaxed mb-10 italic">
-                  "{member.bio}"
+                  &quot;{member.bio}&quot;
                 </p>
 
                 {/* Social Protocol Links */}

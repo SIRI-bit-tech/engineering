@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight } from "lucide-react";
 
@@ -65,9 +66,11 @@ export const TeamSnapshot = () => {
               key={member.name}
               className="team-item group flex items-center p-10 bg-ice-blue/30 border border-ocean/5 shadow-default hover:shadow-hover hover:-translate-y-2 transition-all duration-300"
             >
-              <div className="w-20 h-20 rounded-full bg-linear-to-tr from-primary to-ocean flex items-center justify-center text-white font-heading font-bold text-xl mr-8 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                {member.initials}
-              </div>
+              <Avatar className="h-20 w-20 mr-8 shadow-lg group-hover:scale-110 transition-transform duration-300 border-2 border-primary/10">
+                <AvatarFallback className="bg-linear-to-tr from-primary to-ocean text-white font-heading font-bold text-xl">
+                  {member.initials}
+                </AvatarFallback>
+              </Avatar>
               <div>
                 <h4 className="text-xl font-heading font-bold text-primary mb-2 group-hover:text-ocean transition-colors duration-300 leading-tight">
                   {member.name}

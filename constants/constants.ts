@@ -61,60 +61,198 @@ export const SERVICES: Service[] = [
     title: "Electrical System Design",
     slug: "electrical-design",
     description: "High-precision schematics and blueprint development for complex infrastructure projects.",
+    longDescription: "Our Electrical System Design department specializes in the architectural blueprinting of high-performance energy networks. Using advanced BIM (Building Information Modeling) and CAD software, we create scalable, safety-first electrical infrastructures for industrial complexes and commercial high-rises. Our designs prioritize future-proofing, allowing for seamless capacity upgrades as your operational needs evolve.",
+    technicalAnalysis: [
+      "BIM-Integrated Infrastructure Blueprinting",
+      "Short Circuit & Coordination Studies",
+      "Arc Flash Hazard Analysis (NFPA 70E)",
+      "Redundant Power Path Planning",
+      "Voltage Drop & Cable Sizing Optimization",
+      "Grounding & Lightning Protection Design"
+    ],
     icon: "architecture",
-    features: ["Load calculation", "Wiring diagrams", "Lighting design", "Safety audits"],
-    benefits: ["Optimized energy use", "Compliance with standards", "Future-proof systems"],
-    imageUrl: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+    features: [
+      "NEC/NFPA 70 Standard Compliance",
+      "Load Calculation & Demand Analysis",
+      "Three-Phase Logic Design",
+      "Emergency Standby System Planning",
+      "Lighting & Lux Level Optimization",
+      "Digital Twin Infrastructure Mapping"
+    ],
+    benefits: [
+      "Reduced Energy Loss via Optimized Circuitry",
+      "Minimized Downtime via Redundancy Planning",
+      "Total Regulatory & Safety Compliance",
+      "Scalable Infrastructure for Future Growth",
+      "Enhanced Reliability in Harsh Environments",
+      "Investment-Grade Blueprinting for Insurance"
+    ],
+    imageUrl: "/images/services/design.png",
   },
   {
     id: "renewable-integration",
     title: "Renewable Energy Integration",
     slug: "renewable-energy-integration",
     description: "Multi-source renewable solutions including solar, wind, and hydrothermal grid synchronization.",
+    longDescription: "As the global energy landscape transitions to sustainable sources, VoltaEdge provides the technical bridge for multi-source renewable integration. We design and deploy hybrid energy hubs that combine solar PV, wind turbine arrays, and hydrothermal systems into a single, cohesive industrial grid. Our focus is on stabilization—ensuring that intermittent renewable sources provide a steady, reliable current to sensitive industrial equipment.",
+    technicalAnalysis: [
+      "Grid Stability & Harmonic Distortion Testing",
+      "BESS (Battery Energy Storage Systems) Sizing",
+      "Solar Irradiancy & Wind Yield Modeling",
+      "Hydrothermal Thermal Gradient Analysis",
+      "Microgrid Controller Logic Development",
+      "Real-time Solar/Wind Hybrid Forecasting"
+    ],
     icon: "layers",
-    features: ["Wind & Solar integration", "Hybrid energy systems", "Grid synchronization", "Sustainable transition planning"],
-    benefits: ["Diverse energy portfolio", "Technical resilience", "Long-term sustainability"],
-    imageUrl: "https://images.unsplash.com/photo-1466611653911-95282fc3656b?q=80&w=2070&auto=format&fit=crop",
+    features: [
+      "Utility-Scale Solar PV Engineering",
+      "Wind Farm Grid Synchronization",
+      "Hybrid Battery Storage Solutions",
+      "Microgrid Autonomy Programming",
+      "Hydrothermal Thermal Hub Integration",
+      "Zero-Carbon Transition Roadmap"
+    ],
+    benefits: [
+      "Drastic Reduction in Scope 2 Emissions",
+      "Shielding from Grid Instability & Outages",
+      "Long-term Energy Price Certainty",
+      "Eligibility for Federal Green Incentives",
+      "Maximized ROI on Renewable Assets",
+      "Leadership in Corporate Sustainability (ESG)"
+    ],
+    imageUrl: "/images/services/renewable.png",
   },
   {
     id: "power-distribution",
     title: "Power Distribution",
     slug: "power-distribution",
     description: "Optimization of LV/MV/HV distribution networks and substation maintenance.",
+    longDescription: "Our Power Distribution services cover the entire lifecycle of industrial electrical delivery—from high-voltage substations to low-voltage localized distribution. We specialize in distribution network hardening, using state-of-the-art switchgear and monitoring systems to prevent cascading failures. Our engineers have extensive experience in both Greenfield deployments and the modernization of legacy utility assets.",
+    technicalAnalysis: [
+      "LV/MV/HV Network Load Flow Analysis",
+      "Substation Hardening & Physical Security",
+      "Transformer Oil & Dissolved Gas Analysis",
+      "Circuit Breaker Timing & Contact Resistance",
+      "Protection Relay Calibration & Testing",
+      "Underground Cable Fault Localization"
+    ],
     icon: "electric_bolt",
-    features: ["Substation design", "Switchgear installation", "Cable management", "Protection systems"],
-    benefits: ["Stable power supply", "Minimized downtime", "Scalable infrastructure"],
-    imageUrl: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop",
+    features: [
+      "Custom Substation Design & Build",
+      "Advanced Switchgear Installation",
+      "Smart Metering & Grid Edge Tech",
+      "Power Factor Correction (Capacitor Banks)",
+      "Automatic Transfer Switch (ATS) Integration",
+      "Underground Distribution Engineering"
+    ],
+    benefits: [
+      "Elimination of Costly Power Surges",
+      "Enhanced Grid Resiliency & Self-Healing",
+      "Optimized Voltage Delivery to Assets",
+      "Reduced Maintenance via Predictive Monitoring",
+      "Maximized Transformer Efficiency",
+      "Compliance with Utility-Scale Safety Protocols"
+    ],
+    imageUrl: "/images/services/distribution.png",
   },
   {
     id: "energy-audit",
-    title: "Energy Audit",
+    title: "Industrial Energy & Sustainability Audit",
     slug: "energy-audit",
-    description: "Comprehensive consumption analysis and efficiency strategy implementation for industrial plants.",
+    description: "Deep-dive technical auditing and sustainability mapping for industrial energy infrastructure. We perform comprehensive ASHRAE Level II & III audits to optimize consumption and drive high-performance decarbonization.",
+    longDescription: "Our Industrial Energy & Sustainability Audit is an investment-grade analysis designed for complex manufacturing and infrastructure environments. We go beyond simple consumption checks to provide a full-spectrum technical roadmap for grid modernization, energy resiliency, and multi-source transition. By combining advanced diagnostic tools with deep regulatory knowledge, we help partners meet both immediate ROI goals and long-term ESG (Environmental, Social, and Governance) targets.",
+    technicalAnalysis: [
+      "Dynamic Load Profiling & Predictive Modeling",
+      "Thermal Imaging for Building Envelope & HVAC Systems",
+      "Detailed Power Quality & Harmonic Distortion Mapping",
+      "Compressed Air System Efficiency Benchmarking",
+      "Steam & High-Pressure Fluid Leakage Detection",
+      "Voltage Stability & Transformer Health Assessment"
+    ],
     icon: "fact_check",
-    features: ["Efficiency analysis", "Thermal imaging", "Power quality analysis", "Cost-benefit reporting"],
-    benefits: ["Lower operational costs", "Improved equipment lifespan", "Regulatory compliance"],
-    imageUrl: "https://images.unsplash.com/photo-1516387012670-29a26390172d?q=80&w=2070&auto=format&fit=crop",
+    features: [
+      "ASHRAE Level II & III Compliance Audits",
+      "Carbon Footprint & Scope 1/2 Emission Mapping",
+      "Federal (EPA) & State Energy Reporting Compliance",
+      "Industrial Smart Grid Load Balancing Strategy",
+      "ISO 50001 Energy Management Pathway Design",
+      "Technical Cost-Benefit Analysis for CapEx Planning"
+    ],
+    benefits: [
+      "Operational Overhead Reduction (Up to 35% Yearly)",
+      "Extended Industrial Asset & Equipment Lifespan",
+      "Guaranteed Compliance with Environmental Regulations",
+      "Enhanced Corporate ESG & Sustainability Ratings",
+      "Risk Mitigation for Grid Instability & Peak Pricing",
+      "Eligibility for Federal Energy Efficiency Grants/Tax Credits"
+    ],
+    imageUrl: "/images/services/audit.png",
   },
   {
     id: "industrial-automation",
     title: "Industrial Automation",
     slug: "industrial-automation",
     description: "SCADA systems, PLC programming, and smart grid automation for real-time control.",
+    longDescription: "VoltaEdge leads the transition to Industry 4.0 by deploying sophisticated automation layers across the industrial spectrum. We design custom PLC (Programmable Logic Controller) architectures and SCADA (Supervisory Control and Data Acquisition) systems that provide granular, real-time control over every machine and sensor in your facility. Our goal is to replace manual inefficiency with predictive, data-driven operational excellence.",
+    technicalAnalysis: [
+      "Logic Flow & Control Loop Optimization",
+      "HMI (Human-Machine Interface) UX/UI Design",
+      "Predictive Failure Analysis Algorithm Design",
+      "Industrial IoT (IIoT) Sensor Network Mapping",
+      "Cybersecurity Hardening for OT (Operational Tech)",
+      "DCS (Distributed Control System) Architecture"
+    ],
     icon: "settings_suggest",
-    features: ["PLC programming", "SCADA systems", "Control panel design", "Robotics integration"],
-    benefits: ["Increased production speed", "Reduced manual errors", "Real-time monitoring"],
-    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop",
+    features: [
+      "Advanced PLC & HMI Programming",
+      "SCADA Enterprise Integration",
+      "Robotic Motion Control & Synchronization",
+      "Variable Frequency Drive (VFD) Optimization",
+      "Custom Control Panel Engineering",
+      "Remote Monitoring & Telemetry Systems"
+    ],
+    benefits: [
+      "Dramatic Increase in Theoretical Production Yield",
+      "Elimination of Human-Scale Operational Errors",
+      "Predictive Maintenance (Fixing BEFORE Failure)",
+      "Granular Real-Time Performance Analytics",
+      "Enhanced Workplace Safety via Autonomy",
+      "Lower Labor-Related Operational Costs"
+    ],
+    imageUrl: "/images/services/automation.png",
   },
   {
     id: "ev-charging",
-    title: "EV Charging Network",
+    title: "EV Charging Infrastructure",
     slug: "ev-charging",
     description: "Design and deployment of smart electric vehicle charging infrastructure for modern cities.",
+    longDescription: "The future of heavy-duty and commercial transport is electric. We provide the high-voltage infrastructure necessary to power fleet-scale EV charging operations. Our designs include smart load management to protect your existing facility grid from peak surges and V2G (Vehicle-to-Grid) readiness to allow your fleet to act as a battery for the facility during outages.",
+    technicalAnalysis: [
+      "Level 3 DC Fast Charge Heat Dissipation Analysis",
+      "Grid Capacity & Transformer Headroom Testing",
+      "Smart Load Management Algorithm Development",
+      "V2G (Vehicle-to-Grid) Bi-directional Testing",
+      "EVSE (EV Supply Equipment) Protocol Verification",
+      "Facility Load Shedding & Integration Stress Tests"
+    ],
     icon: "ev_station",
-    features: ["Fast charger installation", "Network management", "Solar-powered charging", "Fleet solutions"],
-    benefits: ["Support for green transit", "Attract EV owners", "Smart energy management"],
-    imageUrl: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop",
+    features: [
+      "High-Power DC Fast Charging (Level 3)",
+      "Commercial Fleet Charging Depots",
+      "V2G (Vehicle-to-Grid) Enabled Infrastructure",
+      "Dynamic Load Balancing Software",
+      "Cloud-Integrated Billing & Monitoring",
+      "Renewable-Powered Charging Hubs"
+    ],
+    benefits: [
+      "Future-Proofing for Electric Fleet Transitions",
+      "Lowest Total Cost of Fuel for Commercial Fleets",
+      "Avoidance of Costly Utility Demand Charges",
+      "Enhanced Property Value & ESG Metrics",
+      "Fleet Resilience during Local Grid Failures",
+      "Seamless Integration with On-site Solar Storage"
+    ],
+    imageUrl: "/images/services/ev.png",
   },
 ];
 
@@ -281,7 +419,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "12 OCT 2024",
     author: "Alistair Abernathy",
     category: "Infrastructure",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/blog/decarbonization.png",
     readTime: "8 min read"
   },
   {
@@ -292,7 +430,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "05 OCT 2024",
     author: "Julian Kwong",
     category: "Industrial Tech",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/blog/smart-grid.png",
     readTime: "10 min read"
   },
   {
@@ -303,7 +441,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "28 SEP 2024",
     author: "Lydia Thorne",
     category: "Automation",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/blog/urban-ev.png",
     readTime: "6 min read"
   }
 ];
@@ -320,7 +458,7 @@ export const PROJECTS: Project[] = [
     challenge: "Upgrading transmission infrastructure while integrating diverse renewable sources.",
     solution: "Custom high-voltage switchgear and AI-driven load balancing systems.",
     results: ["Enhanced grid stability for 1M+ consumers", "Integrated 500MW of diverse renewable energy", "20% reduction in transmission losses"],
-    mainImage: "https://images.unsplash.com/photo-1466611653911-95282fc3656b?q=80&w=2070&auto=format&fit=crop",
+    mainImage: "/images/projects/gulf-coast.png",
     stats: [
       { label: "Renewable Integration", value: "500MW" },
       { label: "Loss Reduction", value: "20%" }
@@ -337,7 +475,7 @@ export const PROJECTS: Project[] = [
     challenge: "Upgrading legacy power systems while maintaining 24/7 airport operations.",
     solution: "Phased implementation of smart distribution panels and redundant power backups.",
     results: ["99.99% power uptime achieved", "Modernized substation infrastructure", "Enhanced safety compliance"],
-    mainImage: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop",
+    mainImage: "/images/projects/ohare.png",
     stats: [
       { label: "Uptime", value: "99.99%" },
       { label: "Efficiency", value: "+25%" }
@@ -354,7 +492,7 @@ export const PROJECTS: Project[] = [
     challenge: "Providing reliable power to remote areas with limited grid access.",
     solution: "Hybrid solar-wind microgrid with community-wide distribution and smart metering.",
     results: ["Clean energy for 5,000+ homes", "Local economic growth stimulated", "Scalable model for rural power"],
-    mainImage: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=2070&auto=format&fit=crop",
+    mainImage: "/images/projects/arizona.png",
     stats: [
       { label: "Homes Powered", value: "5,000+" },
       { label: "Clean Energy", value: "100%" }
