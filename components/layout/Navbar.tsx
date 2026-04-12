@@ -42,20 +42,22 @@ export const Navbar = () => {
   return (
     <header
       ref={headerRef}
-      className="fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-primary/5 transition-all duration-500"
+      className={`fixed top-0 left-0 w-full z-100 transition-all duration-500 ${
+        isMobileMenuOpen ? "bg-primary border-b border-white/10" : "bg-white/70 backdrop-blur-xl border-b border-primary/5"
+      }`}
     >
       <nav className="container-wide h-24 flex items-center justify-between">
         {/* Logo (Industrial Architect Style) */}
         <Link href="/" className="flex items-center space-x-4 group">
-          <div className="relative w-12 h-12 flex items-center justify-center overflow-hidden rounded-xl bg-primary transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">
+          <div className="relative w-12 h-12 flex items-center justify-center overflow-hidden rounded-xl bg-primary border border-white/10 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">
             <span className="text-white font-display font-bold text-2xl z-10">V</span>
             <div className="absolute inset-0 bg-linear-to-tr from-ocean to-transparent opacity-50" />
           </div>
           <div className="flex flex-col">
-            <span className="text-primary font-display font-bold text-xl md:text-2xl tracking-tight leading-none">
+            <span className={`font-display font-bold text-xl md:text-2xl tracking-tight leading-none transition-colors duration-500 ${isMobileMenuOpen ? "text-white" : "text-primary"}`}>
               VoltaEdge
             </span>
-            <span className="text-ocean font-accent text-[10px] font-bold uppercase tracking-[0.3em] mt-1">
+            <span className="font-accent text-[10px] font-bold uppercase tracking-[0.3em] mt-1 text-ocean">
               Engineering
             </span>
           </div>
@@ -109,7 +111,7 @@ export const Navbar = () => {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="lg:hidden text-primary p-2 hover:bg-ocean/10 rounded-xl transition-colors duration-300"
+          className={`lg:hidden p-2 rounded-xl transition-all duration-300 ${isMobileMenuOpen ? "text-white bg-white/10" : "text-primary hover:bg-ocean/10"}`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -118,26 +120,38 @@ export const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 top-20 bg-primary z-40 lg:hidden transition-all duration-500 ease-in-out ${isMobileMenuOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+        className={`fixed inset-0 top-24 bg-primary z-40 lg:hidden transition-all duration-500 ease-in-out ${isMobileMenuOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
           }`}
       >
-        <ul className="flex flex-col p-8 space-y-6">
+        {/* Technical Grid Accent */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="mobile-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#mobile-grid)" />
+          </svg>
+        </div>
+
+        <ul className="relative z-10 flex flex-col p-8 space-y-8 h-full overflow-y-auto">
           {NAV_LINKS.map((link) => (
-            <li key={link.href} className="border-b border-ocean/10 pb-4">
+            <li key={link.href} className="border-b border-white/5 pb-6">
               <Link
                 href={link.href}
-                className="text-xl font-heading font-semibold text-white hover:text-ocean transition-colors duration-300"
+                className={`text-3xl font-display font-bold transition-colors duration-300 ${pathname === link.href ? "text-ocean" : "text-white hover:text-ocean"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
               </Link>
               {link.children && (
-                <ul className="mt-4 ml-4 space-y-4">
+                <ul className="mt-6 ml-6 space-y-4 border-l-2 border-ocean/20 pl-6">
                   {link.children.map((child) => (
                     <li key={child.href}>
                       <Link
                         href={child.href}
-                        className="text-white/60 hover:text-white transition-colors duration-300"
+                        className="text-white/60 text-lg font-body hover:text-white transition-colors duration-300"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         {child.label}
@@ -148,10 +162,10 @@ export const Navbar = () => {
               )}
             </li>
           ))}
-          <li className="pt-4">
-            <Button asChild className="w-full text-center py-4">
+          <li className="pt-8 mt-auto pb-12">
+            <Button asChild className="w-full text-center py-6 bg-ocean hover:bg-white hover:text-primary transition-all duration-500">
               <Link href="/contact/get-a-quote" onClick={() => setIsMobileMenuOpen(false)}>
-                Request Engineering Quote
+                INITIALIZE CONSULTATION
               </Link>
             </Button>
           </li>
