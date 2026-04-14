@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -50,15 +51,21 @@ export const Navbar = () => {
         <nav className="container-wide h-24 flex items-center justify-between relative z-1001">
           {/* Logo (Industrial Architect Style) */}
           <Link href="/" className="flex items-center space-x-4 group">
-            <div className="relative w-12 h-12 flex items-center justify-center overflow-hidden rounded-xl bg-primary border border-white/10 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">
-              <span className="text-white font-display font-bold text-2xl z-10">V</span>
-              <div className="absolute inset-0 bg-linear-to-tr from-ocean to-transparent opacity-50" />
+            <div className="relative w-16 h-16 flex items-center justify-center transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">
+              <Image 
+                src="/logo.png" 
+                alt="VoltaEdge Logo" 
+                width={64} 
+                height={64} 
+                className="object-contain" 
+                style={{ width: '100%', height: 'auto' }} 
+              />
             </div>
             <div className="flex flex-col">
-              <span className={`font-display font-bold text-xl md:text-2xl tracking-tight leading-none transition-colors duration-500 ${isMobileMenuOpen ? "text-white" : "text-primary"}`}>
+              <span className={`font-trajan font-bold text-xl md:text-2xl tracking-wider leading-none transition-colors duration-500 ${isMobileMenuOpen ? "text-white" : "text-primary"}`}>
                 VoltaEdge
               </span>
-              <span className="font-accent text-[10px] font-bold uppercase tracking-[0.3em] mt-1 text-ocean">
+              <span className="font-trajan text-[10px] font-bold uppercase tracking-[0.4em] mt-1 text-ocean">
                 Engineering
               </span>
             </div>
@@ -66,37 +73,45 @@ export const Navbar = () => {
 
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex items-center space-x-12">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href} className="relative group">
-                <Link
-                  href={link.href}
-                  className={`flex items-center space-x-1 font-accent font-bold text-[11px] uppercase tracking-[0.2em] transition-colors duration-500 ${pathname === link.href ? "text-ocean" : (isMobileMenuOpen ? "text-white/80 hover:text-white" : "text-charcoal/60 hover:text-primary")
-                    }`}
-                >
-                  <span>{link.label}</span>
-                  {link.children && <ChevronDown size={12} className={`group-hover:rotate-180 transition-transform duration-500 ${isMobileMenuOpen ? "text-white/60" : "text-ocean"}`} />}
-                </Link>
+            {NAV_LINKS.map((link) => {
+              let linkColorClass = "text-charcoal/60 hover:text-primary";
+              if (pathname === link.href) {
+                linkColorClass = "text-ocean";
+              } else if (isMobileMenuOpen) {
+                linkColorClass = "text-white/80 hover:text-white";
+              }
 
-                {/* Dropdown (Tonal Layering) */}
-                {link.children && (
-                  <ul className="absolute top-full left-0 mt-4 w-64 bg-white/95 backdrop-blur-2xl shadow-hover rounded-2xl p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500 translate-y-4 group-hover:translate-y-0 border border-primary/5">
-                    {link.children.map((child) => (
-                      <li key={child.href}>
-                        <Link
-                          href={child.href}
-                          className="block px-6 py-4 text-xs font-accent font-bold uppercase tracking-widest text-charcoal/60 hover:text-primary hover:bg-ice-blue/30 rounded-xl transition-all duration-300"
-                        >
-                          {child.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+              return (
+                <li key={link.href} className="relative group">
+                  <Link
+                    href={link.href}
+                    className={`flex items-center space-x-1 font-accent font-bold text-[11px] uppercase tracking-[0.2em] transition-colors duration-500 ${linkColorClass}`}
+                  >
+                    <span>{link.label}</span>
+                    {link.children && <ChevronDown size={12} className={`group-hover:rotate-180 transition-transform duration-500 ${isMobileMenuOpen ? "text-white/60" : "text-ocean"}`} />}
+                  </Link>
 
-                {/* Hover Indicator (3px Ocean line) */}
-                <span className={`absolute -bottom-8 left-0 h-[3px] bg-ocean transition-all duration-500 ${pathname === link.href ? "w-full" : "w-0 group-hover:w-full"}`} />
-              </li>
-            ))}
+                  {/* Dropdown (Tonal Layering) */}
+                  {link.children && (
+                    <ul className="absolute top-full left-0 mt-4 w-64 bg-white/95 backdrop-blur-2xl shadow-hover rounded-2xl p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500 translate-y-4 group-hover:translate-y-0 border border-primary/5">
+                      {link.children.map((child) => (
+                        <li key={child.href}>
+                          <Link
+                            href={child.href}
+                            className="block px-6 py-4 text-xs font-accent font-bold uppercase tracking-widest text-charcoal/60 hover:text-primary hover:bg-ice-blue/30 rounded-xl transition-all duration-300"
+                          >
+                            {child.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Hover Indicator (3px Ocean line) */}
+                  <span className={`absolute -bottom-8 left-0 h-[3px] bg-ocean transition-all duration-500 ${pathname === link.href ? "w-full" : "w-0 group-hover:w-full"}`} />
+                </li>
+              );
+            })}
           </ul>
 
           {/* CTA Button */}

@@ -124,13 +124,16 @@ export const ContactForm = () => {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full flex items-center justify-between px-10 py-5 bg-navy text-white rounded-none font-label font-bold uppercase tracking-widest hover:bg-navy/90 transition-all duration-300 group"
+        className="w-full flex items-center justify-between px-10 py-5 bg-primary text-white rounded-none font-bold uppercase tracking-widest hover:bg-ocean transition-all duration-300 group"
       >
         {isSubmitting ? (
-          <Loader2 size={18} className="animate-spin mx-auto" />
+          <div className="flex items-center justify-center w-full">
+            <Loader2 size={18} className="animate-spin mr-2" />
+            <span>Processing...</span>
+          </div>
         ) : (
           <>
-            <span>Initialize Consultation</span>
+            <span>Submit Engineering Inquiry</span>
             <Send size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
           </>
         )}

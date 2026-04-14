@@ -89,14 +89,14 @@ export const HeroSection = () => {
             ref={headlineRef}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold text-primary leading-[1.05] mb-6 sm:mb-8"
           >
-            Energy Systems & <br />Infrastructure <br />Power Engineering
+            Precision Power <br />& Energy <br />Engineering
           </h1>
 
           <p
             ref={subheadlineRef}
             className="text-base sm:text-lg md:text-xl text-charcoal/80 font-body mb-8 sm:mb-12 max-w-xl leading-relaxed"
           >
-            Delivering high-performance electrical design, renewable energy integration, and sustainable infrastructure across the United States and the world.
+            Architecting high-performance power distribution, industrial automation, and sustainable energy systems for global industries and large-scale infrastructure projects.
           </p>
 
           <div

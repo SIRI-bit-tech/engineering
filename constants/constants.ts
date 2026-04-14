@@ -1,12 +1,12 @@
 
 
 export const SITE_NAME = "VoltaEdge Engineering";
-export const SITE_TAGLINE = "High-Performance Energy Infrastructure & Architecture";
-export const SITE_DESCRIPTION = "VoltaEdge Engineering provides elite electrical engineering, renewable energy integration, power distribution, and industrial automation services for the modern infrastructure.";
-export const SITE_EMAIL = "[EMAIL_ADDRESS]";
+export const SITE_TAGLINE = "Precision Power & Energy Engineering";
+export const SITE_DESCRIPTION = "VoltaEdge Engineering delivers high-performance electrical design, renewable energy integration, power distribution, and industrial automation for global infrastructure and industry.";
+export const SITE_EMAIL = "contact@voltaeedge.com";
 export const SITE_PHONE = "+1 (800)-VOLTAEDGE";
 export const SITE_ADDRESS = "United States, Canada, Mexico, Europe, Asia, Australia";
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://voltaedge.com";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://voltaeedge.com";
 export const MISSION_STATEMENT = "To deliver elite-tier electrical engineering and renewable energy infrastructure through technical precision, innovative design, and unwavering integrity, architecting a resilient future for global industry.";
 export const VISION_STATEMENT = "To become the definitive global benchmark for technical authority in energy architecture, pioneering the transition to sustainable industrial autonomy through elite energy engineering.";
 
@@ -1040,8 +1040,8 @@ export const FOOTER_LINKS = {
     { label: "Careers", href: "/careers" },
   ],
   SERVICES: [
-    { label: "Structural Analysis", href: "/services/structural-analysis" },
-    { label: "Renewable Integration", href: "/services/solar-renewable-energy" },
+    { label: "Electrical Design", href: "/services/electrical-design" },
+    { label: "Renewable Integration", href: "/services/renewable-energy-integration" },
     { label: "Sustainability Audit", href: "/services/energy-audit" },
     { label: "Global Projects", href: "/projects" },
   ],
@@ -1052,11 +1052,7 @@ export const FOOTER_LINKS = {
   ],
 };
 
-export const SOCIAL_LINKS = [
-  { label: "LinkedIn", href: "https://linkedin.com/company/voltaedge", icon: "linkedin" },
-  { label: "Twitter", href: "https://twitter.com/voltaedge", icon: "twitter" },
-  { label: "Instagram", href: "https://instagram.com/voltaedge", icon: "instagram" },
-];
+export const SOCIAL_LINKS: { label: string; href: string; icon: string }[] = [];
 
 export const COMPANY_MILESTONES = [
   {

@@ -12,6 +12,7 @@
   --font-body: var(--font-manrope);
   --font-accent: var(--font-space-grotesk);
   --font-mono: var(--font-jetbrains-mono);
+  --font-trajan: var(--font-cinzel);
 
   --shadow-default: 0 4px 20px rgba(0, 37, 59, 0.08);
   --shadow-hover: 0 10px 30px rgba(0, 37, 59, 0.18);

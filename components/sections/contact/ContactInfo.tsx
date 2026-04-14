@@ -47,8 +47,8 @@ export const ContactInfo = () => {
           <Mail size={20} className="text-navy mb-6 group-hover:scale-110 transition-transform duration-500" />
           <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Email</h4>
           <p className="text-sm font-body text-navy leading-relaxed wrap-break-word">
-            engineering@voltaedge.com<br />
-            support@voltaedge.com
+            engineering@voltaeedge.com<br />
+            support@voltaeedge.com
           </p>
         </div>
 
@@ -76,23 +76,25 @@ export const ContactInfo = () => {
         <div className="absolute inset-0 border-20 border-white/5 pointer-events-none" />
       </div>
 
-      <div className="p-8 bg-slate-50 border-l-4 border-navy">
-        <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-navy mb-4">Engineering Insights</h4>
-        <div className="flex space-x-4">
-          {SOCIAL_LINKS.map((social) => (
-            <Link
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 bg-white border border-platinum flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all duration-300 shadow-sm"
-              aria-label={social.label}
-            >
-              {getIcon(social.icon)}
-            </Link>
-          ))}
+      {SOCIAL_LINKS.length > 0 && (
+        <div className="p-8 bg-slate-50 border-l-4 border-navy">
+          <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-navy mb-4">Engineering Insights</h4>
+          <div className="flex space-x-4">
+            {SOCIAL_LINKS.map((social) => (
+              <Link
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white border border-platinum flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all duration-300 shadow-sm"
+                aria-label={social.label}
+              >
+                {getIcon(social.icon)}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

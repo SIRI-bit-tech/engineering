@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   SITE_NAME,
   SITE_DESCRIPTION,
@@ -8,7 +9,7 @@ import {
   FOOTER_LINKS,
   SOCIAL_LINKS
 } from "@/constants/constants";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Phone, MapPin } from "lucide-react";
 import { LinkedinIcon, TwitterIcon, InstagramIcon } from "@/components/ui/BrandIcons";
 
 export const Footer = () => {
@@ -35,15 +36,21 @@ export const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center space-x-3 sm:space-x-4 mb-8 sm:mb-10 group">
-              <div className="relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center overflow-hidden rounded-xl bg-white transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">
-                <span className="text-primary font-display font-bold text-xl sm:text-2xl z-10">V</span>
-                <div className="absolute inset-0 bg-linear-to-tr from-ocean/20 to-transparent opacity-50" />
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">
+                <Image 
+                  src="/logo.png" 
+                  alt="VoltaEdge Logo" 
+                  width={64} 
+                  height={64} 
+                  className="object-contain" 
+                  style={{ width: '100%', height: 'auto' }} 
+                />
               </div>
               <div className="flex flex-col">
-                <span className="text-white font-display font-bold text-lg sm:text-xl md:text-2xl tracking-tight leading-none">
+                <span className="text-white font-trajan font-bold text-lg sm:text-xl md:text-2xl tracking-wider leading-none">
                   VoltaEdge
                 </span>
-                <span className="text-ocean font-accent text-[10px] font-bold uppercase tracking-[0.3em] mt-1">
+                <span className="text-ocean font-trajan text-[10px] font-bold uppercase tracking-[0.4em] mt-1">
                   Engineering
                 </span>
               </div>
@@ -123,7 +130,7 @@ export const Footer = () => {
               <div className="group cursor-pointer">
                 <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                   <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-ocean transition-all duration-500">
-                    <span className="text-ocean group-hover:text-white font-mono text-[10px] sm:text-xs font-bold">PH</span>
+                    <Phone size={16} className="text-ocean group-hover:text-white transition-colors duration-500" />
                   </div>
                   <p className="text-[8px] sm:text-[10px] font-accent font-bold text-ocean uppercase tracking-[0.2em]">Primary Contact</p>
                 </div>
@@ -133,7 +140,7 @@ export const Footer = () => {
               <div className="group cursor-pointer">
                 <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                   <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-ocean transition-all duration-500">
-                    <span className="text-ocean group-hover:text-white font-mono text-[10px] sm:text-xs font-bold">AD</span>
+                    <MapPin size={16} className="text-ocean group-hover:text-white transition-colors duration-500" />
                   </div>
                   <p className="text-[8px] sm:text-[10px] font-accent font-bold text-ocean uppercase tracking-[0.2em]">LOCATIONS</p>
                 </div>

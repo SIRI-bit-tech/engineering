@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { SITE_URL, PROJECTS, SERVICES } from "@/constants/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = SITE_URL || "https://voltaedge.com";
+  const baseUrl = SITE_URL || "https://voltaeedge.com";
 
   // Static routes
   const staticRoutes = [

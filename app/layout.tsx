@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
-import { Newsreader, Syne, Manrope, Space_Grotesk, JetBrains_Mono, Geist } from "next/font/google";
+import { Newsreader, Syne, Manrope, Space_Grotesk, JetBrains_Mono, Geist, Cinzel } from "next/font/google";
 import "@/styles/globals.css";
 import { SITE_NAME, SITE_DESCRIPTION, KEYWORDS } from "@/constants/constants";
 import { LenisProvider } from "@/components/layout/LenisProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-cinzel",
+  display: "swap",
+});
 
 const newsreader = Newsreader({
   subsets: ["latin"],
@@ -46,23 +54,38 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://voltaeedge.com'),
   title: {
     default: SITE_NAME,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
   keywords: KEYWORDS,
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon/favicon.ico" },
+      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon/favicon.ico",
+    apple: "/favicon/apple-touch-icon.png",
+  },
+  verification: {
+    google: "google-site-verification-placeholder",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://voltaedge.com",
+    url: "https://voltaeedge.com",
     siteName: SITE_NAME,
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: SITE_NAME,
@@ -73,7 +96,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    images: ["/og-image.jpg"],
+    images: ["/og-image.png"],
   },
 };
 
@@ -86,6 +109,7 @@ export default function RootLayout({
     <html lang="en" className={cn("scroll-smooth", "font-sans", geist.variable)}>
       <body
         className={`
+          ${cinzel.variable}
           ${newsreader.variable}
           ${syne.variable}
           ${manrope.variable}
@@ -100,6 +124,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <Toaster position="top-center" expand={true} richColors />
         </LenisProvider>
       </body>
     </html>

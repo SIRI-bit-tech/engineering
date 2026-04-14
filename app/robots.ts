@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: `${SITE_URL || "https://voltaedge.com"}/sitemap.xml`,
+    sitemap: `${SITE_URL || "https://voltaeedge.com"}/sitemap.xml`,
   };
 }
