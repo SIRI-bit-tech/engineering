@@ -1,8 +1,30 @@
-import { PROJECTS, SITE_NAME } from "@/constants/constants";
+import { SITE_NAME } from "@/constants/constants";
 import { notFound } from "next/navigation";
 import { MapPin, Zap, Battery, Wind, Gauge, Clock, Wrench, Leaf } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
+interface Project {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  location: string;
+  completionDate: string;
+  coverImage: string;
+  stats?: { label: string; value: string }[];
+  category?: {
+    name: string;
+    slug: string;
+  };
+  challenge?: string;
+  solution?: string;
+  results?: string[];
+  technicalAnalysis?: string[];
+  implementationTimeline?: string[];
+  keyTechnologies?: string[];
+  environmentalImpact?: string[];
+}
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -11,30 +33,54 @@ interface ProjectPageProps {
 export async function generateMetadata(props: Readonly<ProjectPageProps>) {
   const { params } = props;
   const { slug } = await params;
-  const project = PROJECTS.find((p) => p.slug === slug);
-  if (!project) return { title: "Project Not Found" };
+  
+  try {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/projects/${slug}`, {
+      cache: 'no-store'
+    });
+    
+    if (response.ok) {
+      const project: Project = await response.json();
+      return {
+        title: `${project.title} | ${SITE_NAME}`,
+        description: project.description,
+      };
+    }
+  } catch (error) {
+    console.error('Failed to fetch project for metadata:', error);
+  }
 
-  return {
-    title: `${project.title} | ${SITE_NAME}`,
-    description: project.description,
-  };
+  return { title: "Project Not Found" };
 }
 
 export default async function ProjectDetailPage(props: Readonly<ProjectPageProps>) {
   const { params } = props;
   const { slug } = await params;
-  const project = PROJECTS.find((p) => p.slug === slug);
-  if (!project) notFound();
-
+  
+  // Fetch project from database
+  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/projects/${slug}`, {
+    cache: 'no-store'
+  });
+  
+  if (!response.ok) {
+    notFound();
+  }
+  
+  const project: Project = await response.json();
+  
   // Get other projects for "Related Projects" section
-  const relatedProjects = PROJECTS.filter(p => p.slug !== slug).slice(0, 3);
+  const allProjectsResponse = await fetch(`${process.env.NEXTAUTH_URL}/api/projects?limit=3`, {
+    cache: 'no-store'
+  });
+  const allProjects: Project[] = allProjectsResponse.ok ? await allProjectsResponse.json() : [];
+  const relatedProjects = allProjects.filter((p: Project) => p.slug !== slug).slice(0, 3);
 
   return (
     <div className="flex flex-col bg-white">
       {/* Hero Section - Dynamic Technical Header */}
       <section className="relative min-h-[85vh] md:min-h-[95vh] bg-navy flex flex-col">
         <Image
-          src={project.mainImage}
+          src={project.coverImage || "/images/projects/placeholder.png"}
           alt={project.title}
           fill
           className="object-cover opacity-30 transition-opacity duration-1000"
@@ -50,7 +96,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-16">
               <div className="max-w-5xl">
                 <div className="inline-block px-4 py-1 bg-[#0e6492] text-white font-label text-[10px] font-bold uppercase tracking-[0.3em] mb-10">
-                  {project.category}
+                  {project.category?.name || 'Uncategorized'}
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-7xl font-headline font-bold text-white mb-12 leading-[1.05] tracking-tight uppercase">
                   {project.title}
@@ -85,10 +131,10 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                 <div className="text-3xl font-headline font-bold text-[#0e6492]">{stat.value}</div>
                 <div className="text-[10px] font-label font-bold text-slate-400 uppercase tracking-widest mt-1">{stat.label}</div>
               </div>
-            ))}
+            )) || []}
             <div className="flex flex-col">
               <div className="text-[10px] font-label font-bold text-slate-500 uppercase tracking-[0.3em] mb-4">Timeline</div>
-              <div className="text-2xl font-headline font-bold text-white uppercase">{project.completionDate}</div>
+              <div className="text-2xl font-headline font-bold text-white uppercase">{project.completionDate ? new Date(project.completionDate).getFullYear() : 'Ongoing'}</div>
             </div>
           </div>
         </div>
@@ -120,14 +166,14 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
               <div>
                 <h3 className="text-[10px] font-label font-bold text-[#0e6492] uppercase tracking-[0.4em] mb-8">01 / The Challenge</h3>
                 <p className="text-2xl font-body text-navy leading-relaxed font-light">
-                  {project.challenge}
+                  {project.challenge || ''}
                 </p>
               </div>
 
               <div>
                 <h3 className="text-[10px] font-label font-bold text-[#0e6492] uppercase tracking-[0.4em] mb-8">02 / The Solution</h3>
                 <p className="text-2xl font-body text-navy leading-relaxed font-light">
-                  {project.solution}
+                  {project.solution || ''}
                 </p>
               </div>
 
@@ -135,7 +181,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                 <div>
                   <h3 className="text-[10px] font-label font-bold text-[#0e6492] uppercase tracking-[0.4em] mb-12">03 / Key Outcomes</h3>
                   <ul className="space-y-8">
-                    {project.results.map((result, i) => (
+                    {project.results?.map((result, i) => (
                       <li key={result} className="flex items-start gap-6 group">
                         <div className="w-8 h-8 bg-navy text-white flex items-center justify-center shrink-0 font-label text-[10px] font-bold group-hover:bg-[#0e6492] transition-colors">
                           {i + 1}
@@ -147,7 +193,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                 </div>
                 <div className="relative h-96 group overflow-hidden">
                   <Image
-                    src={project.mainImage}
+                    src={project.coverImage || "/images/projects/placeholder.png"}
                     alt="Technical detail"
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -227,7 +273,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                   </div>
                   <p className="text-slate-700 font-body leading-relaxed">{item}</p>
                 </div>
-              ))}
+              )) || []}
             </div>
           </div>
         </section>
@@ -265,7 +311,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                     <p className="text-slate-700 font-body text-lg leading-relaxed">{phase}</p>
                   </div>
                 </div>
-              ))}
+              )) || []}
             </div>
           </div>
         </section>
@@ -299,7 +345,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                   </div>
                   <p className="text-slate-700 font-body text-sm leading-relaxed">{tech}</p>
                 </div>
-              ))}
+              )) || []}
             </div>
           </div>
         </section>
@@ -330,7 +376,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                   </div>
                   <p className="text-slate-700 font-body leading-relaxed">{impact}</p>
                 </div>
-              ))}
+              )) || []}
             </div>
           </div>
         </section>
@@ -366,7 +412,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
               >
                 <div className="relative aspect-video overflow-hidden">
                   <Image
-                    src={relatedProject.mainImage}
+                    src={relatedProject.coverImage || "/images/projects/placeholder.png"}
                     alt={relatedProject.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -374,7 +420,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                   />
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 bg-navy text-[9px] font-bold text-white uppercase tracking-widest">
-                      {relatedProject.category}
+                      {relatedProject.category?.name || 'Uncategorized'}
                     </span>
                   </div>
                 </div>

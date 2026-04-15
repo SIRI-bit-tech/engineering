@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String
+  name          String?
+  role          String    @default("admin")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  projects      Project[]
+}
+
+model ProjectCategory {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  projects    Project[]
+}
+
+model Project {
+  id              String           @id @default(cuid())
+  title           String
+  slug            String           @unique
+  category        ProjectCategory  @relation(fields: [categoryId], references: [id])
+  categoryId      String
+  location        String
+  status          String           @default("ongoing") // "ongoing" or "completed"
+  startDate       DateTime?        // Project start date (can be backdated)
+  completionDate  DateTime?        // Project completion date (only for completed projects)
+  description     String           @db.Text
+  challenge       String           @db.Text
+  solution        String           @db.Text
+  results         String[]
+  coverImage      String
+  additionalImages String[]
+  stats           Json?
+  
+  // Extended case study details
+  technicalAnalysis     String[]
+  implementationTimeline String[]
+  keyTechnologies       String[]
+  environmentalImpact    String[]
+
+  published       Boolean          @default(false)
+  createdBy       User             @relation(fields: [userId], references: [id])
+  userId          String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@index([published, createdAt])
+  @@index([categoryId])
+  @@index([status])
+}

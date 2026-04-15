@@ -18,6 +18,16 @@ const nextConfig: NextConfig = {
         hostname: "api.companyenrich.com",
         pathname: "/logo/**",
       },
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "okpeb08s48.ufs.sh",
+        pathname: "/**",
+      },
     ],
   },
 };

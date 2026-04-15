@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { Newsreader, Syne, Manrope, Space_Grotesk, JetBrains_Mono, Geist, Cinzel } from "next/font/google";
 import "@/styles/globals.css";
 import { SITE_NAME, SITE_DESCRIPTION, KEYWORDS } from "@/constants/constants";
-import { LenisProvider } from "@/components/layout/LenisProvider";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 
@@ -118,14 +115,8 @@ export default function RootLayout({
           antialiased
         `}
       >
-        <LenisProvider>
-          <Navbar />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
-          <Toaster position="top-center" expand={true} richColors />
-        </LenisProvider>
+        {children}
+        <Toaster position="top-center" expand={true} richColors />
       </body>
     </html>
   );
