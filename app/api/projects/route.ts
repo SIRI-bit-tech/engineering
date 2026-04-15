@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    const transformedDbProjects = dbProjects.map(project => ({
+    const transformedDbProjects = dbProjects.map((project: any) => ({
       ...project,
       mainImage: project.coverImage // Alias for compatibility
     }));
