@@ -15,7 +15,7 @@ interface Project {
   slug: string;
   description: string;
   location: string;
-  status: string;
+  status?: string;
   completionDate: string;
   coverImage: string;
   mainImage: string;

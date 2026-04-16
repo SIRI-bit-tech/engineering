@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { MapPin, Zap, Battery, Wind, Gauge, Clock, Wrench, Leaf } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ProjectGallery } from "@/components/sections/projects/ProjectGallery";
 
 interface Project {
   id: string;
@@ -10,9 +11,10 @@ interface Project {
   slug: string;
   description: string;
   location: string;
-  status: string;
+  status?: string;
   completionDate: string;
   coverImage: string;
+  additionalImages?: string[];
   stats?: { label: string; value: string }[];
   category?: {
     name: string;
@@ -379,6 +381,33 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                 </div>
               )) || []}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Project Execution Gallery */}
+      {project.additionalImages && project.additionalImages.length > 0 && (
+        <section className="bg-white py-24 md:py-40 border-t border-slate-100">
+          <div className="container-wide px-6 md:px-12 lg:px-24">
+            <div className="mb-24">
+              <div className="inline-flex items-center gap-4 mb-8">
+                <div className="w-12 h-1 bg-[#0e6492]" />
+                <span className="text-[10px] font-label font-bold uppercase tracking-[0.3em] text-[#0e6492]">Visual Record</span>
+                <div className="w-12 h-1 bg-[#0e6492]" />
+              </div>
+              <h2 className="text-3xl md:text-5xl font-headline font-bold text-primary mb-6 uppercase">
+                Project Execution Gallery
+              </h2>
+              <p className="text-lg text-slate-600 font-body max-w-3xl">
+                Visual documentation of the implementation phases and final technical deployment.
+              </p>
+            </div>
+            <ProjectGallery project={{
+              title: project.title,
+              mainImage: project.coverImage,
+              slug: project.slug,
+              gallery: project.additionalImages
+            }} />
           </div>
         </section>
       )}
