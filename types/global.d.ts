@@ -59,6 +59,7 @@ declare global {
     slug: string;
     category: string;
     location: string;
+    status: string;
     completionDate: string;
     description: string;
     challenge: string;

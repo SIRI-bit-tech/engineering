@@ -10,6 +10,7 @@ interface Project {
   slug: string;
   description: string;
   location: string;
+  status: string;
   completionDate: string;
   coverImage: string;
   stats?: { label: string; value: string }[];
@@ -78,7 +79,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
   return (
     <div className="flex flex-col bg-white">
       {/* Hero Section - Dynamic Technical Header */}
-      <section className="relative min-h-[85vh] md:min-h-[95vh] bg-navy flex flex-col">
+      <section className="relative min-h-[85vh] md:min-h-[95vh] bg-primary flex flex-col">
         <Image
           src={project.coverImage || "/images/projects/placeholder.png"}
           alt={project.title}
@@ -88,8 +89,8 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
           sizes="100vw"
         />
         {/* Maximum Contrast Multi-Layer Overlay */}
-        <div className="absolute inset-0 bg-navy/60" />
-        <div className="absolute inset-0 bg-linear-to-b from-navy via-transparent to-navy/90" />
+        <div className="absolute inset-0 bg-primary/60" />
+        <div className="absolute inset-0 bg-linear-to-b from-primary via-transparent to-primary/90" />
 
         <div className="relative z-10 pt-44 md:pt-60 pb-24 md:pb-40 grow">
           <div className="container-wide px-6 md:px-12 lg:px-24">
@@ -118,22 +119,22 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
 
 
       {/* Technical Indices Stats Bar */}
-      <section className="bg-navy border-t border-white/10 py-16">
+      <section className="bg-primary border-t border-white/10 py-16">
         <div className="container-wide px-6 md:px-12 lg:px-24">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
             <div className="flex flex-col">
-              <div className="text-[10px] font-label font-bold text-slate-500 uppercase tracking-[0.3em] mb-4">Project Status</div>
-              <div className="text-2xl font-headline font-bold text-white">COMMISSIONED</div>
+              <div className="text-[10px] font-label font-bold text-slate-400 uppercase tracking-[0.3em] mb-4">Project Status</div>
+              <div className="text-2xl font-headline font-bold text-white uppercase">{project.status || 'COMMISSIONED'}</div>
             </div>
             {project.stats?.map((stat, i) => (
               <div key={stat.label} className="flex flex-col">
-                <div className="text-[10px] font-label font-bold text-slate-500 uppercase tracking-[0.3em] mb-4">Metric {i + 1}</div>
+                <div className="text-[10px] font-label font-bold text-slate-400 uppercase tracking-[0.3em] mb-4">Metric {i + 1}</div>
                 <div className="text-3xl font-headline font-bold text-[#0e6492]">{stat.value}</div>
-                <div className="text-[10px] font-label font-bold text-slate-400 uppercase tracking-widest mt-1">{stat.label}</div>
+                <div className="text-[10px] font-label font-bold text-slate-300 uppercase tracking-widest mt-1">{stat.label}</div>
               </div>
             )) || []}
             <div className="flex flex-col">
-              <div className="text-[10px] font-label font-bold text-slate-500 uppercase tracking-[0.3em] mb-4">Timeline</div>
+              <div className="text-[10px] font-label font-bold text-slate-400 uppercase tracking-[0.3em] mb-4">Timeline</div>
               <div className="text-2xl font-headline font-bold text-white uppercase">{project.completionDate ? new Date(project.completionDate).getFullYear() : 'Ongoing'}</div>
             </div>
           </div>
@@ -151,7 +152,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                   <div className="w-12 h-1 bg-[#0e6492]" />
                   <span className="text-[10px] font-label font-bold uppercase tracking-[0.3em] text-[#0e6492]">Engineering Record</span>
                 </div>
-                <h2 className="text-3xl md:text-5xl font-headline font-bold text-navy mb-12 leading-tight uppercase">
+                <h2 className="text-3xl md:text-5xl font-headline font-bold text-primary mb-12 leading-tight uppercase">
                   Technical Case<br />Study Overview
                 </h2>
                 <div className="p-8 bg-slate-50 border-l-4 border-[#0e6492]">
@@ -165,14 +166,14 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
             <div className="lg:col-span-8 flex flex-col space-y-32">
               <div>
                 <h3 className="text-[10px] font-label font-bold text-[#0e6492] uppercase tracking-[0.4em] mb-8">01 / The Challenge</h3>
-                <p className="text-2xl font-body text-navy leading-relaxed font-light">
+                <p className="text-2xl font-body text-primary leading-relaxed font-light">
                   {project.challenge || ''}
                 </p>
               </div>
 
               <div>
                 <h3 className="text-[10px] font-label font-bold text-[#0e6492] uppercase tracking-[0.4em] mb-8">02 / The Solution</h3>
-                <p className="text-2xl font-body text-navy leading-relaxed font-light">
+                <p className="text-2xl font-body text-primary leading-relaxed font-light">
                   {project.solution || ''}
                 </p>
               </div>
@@ -183,7 +184,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                   <ul className="space-y-8">
                     {project.results?.map((result, i) => (
                       <li key={result} className="flex items-start gap-6 group">
-                        <div className="w-8 h-8 bg-navy text-white flex items-center justify-center shrink-0 font-label text-[10px] font-bold group-hover:bg-[#0e6492] transition-colors">
+                        <div className="w-8 h-8 bg-primary text-white flex items-center justify-center shrink-0 font-label text-[10px] font-bold group-hover:bg-[#0e6492] transition-colors">
                           {i + 1}
                         </div>
                         <span className="text-base font-body text-slate-600 leading-relaxed">{result}</span>
@@ -199,7 +200,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-navy/20 group-hover:opacity-0 transition-opacity" />
+                  <div className="absolute inset-0 bg-primary/20 group-hover:opacity-0 transition-opacity" />
                   <div className="absolute inset-0 border-24 border-white/10" />
                 </div>
               </div>
@@ -217,7 +218,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                 <div className="w-12 h-1 bg-[#0e6492]" />
                 <span className="text-[10px] font-label font-bold uppercase tracking-[0.3em] text-[#0e6492]">Technical Specification</span>
               </div>
-              <h2 className="text-3xl md:text-5xl font-headline font-bold text-navy leading-tight">
+              <h2 className="text-3xl md:text-5xl font-headline font-bold text-primary leading-tight">
                 Advanced Engineering Protocols & Systems
               </h2>
             </div>
@@ -233,10 +234,10 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
               { title: "Digital Twin", desc: "Real-time virtual modeling for predictive maintenance and performance optimization.", icon: Gauge },
             ].map((feature) => (
               <div key={feature.title} className="p-12 bg-white border-r border-b border-slate-200 hover:bg-slate-50 transition-all duration-500">
-                <div className="w-12 h-12 bg-navy/5 flex items-center justify-center mb-8">
+                <div className="w-12 h-12 bg-primary/5 flex items-center justify-center mb-8">
                   <feature.icon className="w-6 h-6 text-[#0e6492]" />
                 </div>
-                <h3 className="text-xl font-headline font-bold text-navy mb-6 uppercase tracking-tight">
+                <h3 className="text-xl font-headline font-bold text-primary mb-6 uppercase tracking-tight">
                   {feature.title}
                 </h3>
                 <p className="text-sm font-body text-slate-500 leading-relaxed">
@@ -258,7 +259,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                 <span className="text-[10px] font-label font-bold uppercase tracking-[0.3em] text-[#0e6492]">Technical Analysis</span>
                 <div className="w-12 h-1 bg-[#0e6492]" />
               </div>
-              <h2 className="text-3xl md:text-5xl font-headline font-bold text-navy mb-6 uppercase">
+              <h2 className="text-3xl md:text-5xl font-headline font-bold text-primary mb-6 uppercase">
                 Engineering Specifications
               </h2>
               <p className="text-lg text-slate-600 font-body max-w-3xl">
@@ -289,7 +290,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                 <span className="text-[10px] font-label font-bold uppercase tracking-[0.3em] text-[#0e6492]">Project Timeline</span>
                 <div className="w-12 h-1 bg-[#0e6492]" />
               </div>
-              <h2 className="text-3xl md:text-5xl font-headline font-bold text-navy mb-6 uppercase">
+              <h2 className="text-3xl md:text-5xl font-headline font-bold text-primary mb-6 uppercase">
                 Implementation Phases
               </h2>
               <p className="text-lg text-slate-600 font-body max-w-3xl">
@@ -327,7 +328,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                 <span className="text-[10px] font-label font-bold uppercase tracking-[0.3em] text-[#0e6492]">Technology Stack</span>
                 <div className="w-12 h-1 bg-[#0e6492]" />
               </div>
-              <h2 className="text-3xl md:text-5xl font-headline font-bold text-navy mb-6 uppercase">
+              <h2 className="text-3xl md:text-5xl font-headline font-bold text-primary mb-6 uppercase">
                 Key Technologies
               </h2>
               <p className="text-lg text-slate-600 font-body max-w-3xl">
@@ -361,7 +362,7 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                 <span className="text-[10px] font-label font-bold uppercase tracking-[0.3em] text-[#0e6492]">Sustainability</span>
                 <div className="w-12 h-1 bg-[#0e6492]" />
               </div>
-              <h2 className="text-3xl md:text-5xl font-headline font-bold text-navy mb-6 uppercase">
+              <h2 className="text-3xl md:text-5xl font-headline font-bold text-primary mb-6 uppercase">
                 Environmental Impact
               </h2>
               <p className="text-lg text-slate-600 font-body max-w-3xl">
@@ -388,16 +389,16 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-12">
             <div>
               <div className="inline-flex items-center gap-4 mb-8">
-                <div className="w-12 h-1 bg-navy" />
-                <span className="text-[10px] font-label font-bold uppercase tracking-[0.3em] text-navy">Exploration</span>
+                <div className="w-12 h-1 bg-primary" />
+                <span className="text-[10px] font-label font-bold uppercase tracking-[0.3em] text-primary">Exploration</span>
               </div>
-              <h2 className="text-3xl md:text-5xl font-headline font-bold text-navy leading-tight">
+              <h2 className="text-3xl md:text-5xl font-headline font-bold text-primary leading-tight">
                 Similar Infrastructure Records
               </h2>
             </div>
             <Link
               href="/projects"
-              className="text-[10px] font-label font-bold uppercase tracking-[0.4em] text-[#0e6492] hover:text-navy transition-colors pb-2 border-b-2 border-[#0e6492]/20"
+              className="text-[10px] font-label font-bold uppercase tracking-[0.4em] text-[#0e6492] hover:text-primary transition-colors pb-2 border-b-2 border-[#0e6492]/20"
             >
               Back to Portfolio
             </Link>
@@ -419,17 +420,17 @@ export default async function ProjectDetailPage(props: Readonly<ProjectPageProps
                     className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale-0"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-navy text-[9px] font-bold text-white uppercase tracking-widest">
+                    <span className="px-3 py-1 bg-primary text-[9px] font-bold text-white uppercase tracking-widest">
                       {relatedProject.category?.name || 'Uncategorized'}
                     </span>
                   </div>
                 </div>
                 <div className="p-10 flex flex-col grow">
-                  <h3 className="text-2xl font-display font-bold text-navy leading-tight mb-4 group-hover:text-[#0e6492] transition-colors">
+                  <h3 className="text-2xl font-display font-bold text-primary leading-tight mb-4 group-hover:text-[#0e6492] transition-colors">
                     {relatedProject.title}
                   </h3>
                   <div className="flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-auto pt-8 border-t border-slate-50">
-                    <MapPin size={12} className="mr-2 text-navy" />
+                    <MapPin size={12} className="mr-2 text-primary" />
                     {relatedProject.location}
                   </div>
                 </div>

@@ -15,6 +15,7 @@ interface Project {
   slug: string;
   description: string;
   location: string;
+  status: string;
   completionDate: string;
   coverImage: string;
   mainImage: string;
@@ -131,7 +132,7 @@ export const ProjectsGrid = () => {
 
           {/* Category Badge */}
           <div className="absolute top-4 sm:top-8 left-4 sm:left-8 z-10">
-            <span className="px-3 sm:px-6 py-1 sm:py-2 bg-white/95 backdrop-blur-md text-primary font-label text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.3em] rounded-none">
+            <span className="px-3 sm:px-6 py-1 sm:py-2 bg-white/95 backdrop-blur-md text-primary font-label text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] rounded-none shadow-sm">
               {project.category?.name || 'Uncategorized'}
             </span>
           </div>
@@ -143,12 +144,12 @@ export const ProjectsGrid = () => {
             <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold text-primary group-hover:text-ocean transition-colors duration-500 max-w-lg leading-[1.1]">
               {project.title}
             </h3>
-            <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 border border-primary/5 rounded-none flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:rotate-45">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 border border-primary/10 rounded-none flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:rotate-45">
               <ArrowUpRight size={16} className="sm:size-20 md:size-28" />
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-4 sm:gap-8 mb-6 sm:mb-10 text-charcoal/40 font-mono text-[8px] sm:text-[10px] uppercase tracking-[0.2em]">
+          <div className="flex flex-wrap gap-4 sm:gap-8 mb-6 sm:mb-10 text-charcoal/70 font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] font-semibold">
             <div className="flex items-center">
               <MapPin size={12} className="sm:size-14 mr-2 sm:mr-3 text-ocean" />
               {project.location}
@@ -156,6 +157,9 @@ export const ProjectsGrid = () => {
             <div className="flex items-center">
               <Calendar size={12} className="sm:size-14 mr-2 sm:mr-3 text-ocean" />
               {project.completionDate ? new Date(project.completionDate).getFullYear() : 'Ongoing'}
+            </div>
+            <div className="flex items-center px-2 py-0.5 bg-ocean/10 text-ocean rounded-none">
+              <span className="text-[8px] sm:text-[10px]">{project.status || 'COMMISSIONED'}</span>
             </div>
           </div>
 
@@ -169,7 +173,7 @@ export const ProjectsGrid = () => {
               {project.stats.map((stat) => (
                 <div key={stat.label}>
                   <div className="text-lg sm:text-2xl md:text-3xl font-mono font-bold text-primary mb-2">{stat.value}</div>
-                  <div className="text-[8px] sm:text-[10px] font-label font-bold text-ocean uppercase tracking-[0.3em]">{stat.label}</div>
+                  <div className="text-[10px] sm:text-xs font-label font-bold text-ocean uppercase tracking-[0.3em]">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -203,7 +207,7 @@ export const ProjectsGrid = () => {
             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-none bg-ocean/10 flex items-center justify-center">
               <Filter size={14} className="sm:size-16 text-ocean" />
             </div>
-            <span className="font-label font-bold uppercase tracking-[0.3em] text-[8px] sm:text-[10px]">Filter Portfolio</span>
+            <span className="font-label font-bold uppercase tracking-[0.3em] text-[10px] sm:text-[12px]">Filter Portfolio</span>
           </div>
 
           <div className="flex flex-wrap justify-center gap-3 sm:gap-6">
@@ -211,7 +215,7 @@ export const ProjectsGrid = () => {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 sm:px-6 py-2 sm:py-3 font-label text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.3em] transition-all duration-500 rounded-none ${activeCategory === cat
+                className={`px-4 sm:px-6 py-2 sm:py-3 font-label text-[10px] sm:text-[12px] font-bold uppercase tracking-[0.3em] transition-all duration-500 rounded-none ${activeCategory === cat
                   ? "bg-primary text-white shadow-button"
                   : "bg-ice-blue/30 text-charcoal/60 hover:bg-ocean hover:text-white"
                   }`}
