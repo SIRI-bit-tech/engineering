@@ -568,6 +568,37 @@ export function ProjectForm({ projectId, initialData }: ProjectFormProps) {
         </div>
       </div>
 
+      {/* Results */}
+      <div className="bg-white rounded-2xl p-8 shadow-default">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-display font-bold text-primary">Results</h3>
+          <Button type="button" variant="outline" size="sm" onClick={() => addArrayItem("results")}>
+            <Plus size={16} className="mr-2" />
+            Add Result
+          </Button>
+        </div>
+        <div className="space-y-3">
+          {formData.results.map((result, index) => (
+            <div key={index} className="flex gap-2">
+              <Input
+                value={result}
+                onChange={(e) => updateArrayItem("results", index, e.target.value)}
+                placeholder="e.g., Stable power for critical industrial operations"
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => removeArrayItem("results", index)}
+                className="text-red-500"
+              >
+                <Trash2 size={16} />
+              </Button>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Case Study Detailed Sections */}
       <div className="bg-white rounded-2xl p-8 shadow-default">
         <h3 className="text-xl font-display font-bold text-primary mb-6">Case Study Details</h3>
