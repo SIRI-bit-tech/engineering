@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/Button";
 import { Loader2, Send, Upload, FileCheck, X } from "lucide-react";
 import { SERVICES } from "@/constants/constants";
+import { useUploadThing } from "@/lib/uploadthing";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -26,6 +27,8 @@ type QuoteFormValues = z.infer<typeof quoteSchema>;
 export const QuoteForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const { startUpload } = useUploadThing("projectImage");
 
   const {
     register,
@@ -66,16 +69,31 @@ export const QuoteForm = () => {
   const onSubmit = async (data: QuoteFormValues) => {
     setIsSubmitting(true);
     try {
-      // In a real implementation, we would use FormData to send the file.
-      // For this sandbox, we'll simulate the successful submission.
-      const formData = new FormData();
-      Object.entries(data).forEach(([key, value]) => formData.append(key, value));
-      if (selectedFile) formData.append("attachment", selectedFile);
+      let attachmentUrl = "";
+      
+      // Upload file using UploadThing if selected
+      if (selectedFile) {
+        try {
+          const uploadResult = await startUpload([selectedFile]);
+          if (uploadResult && uploadResult.length > 0) {
+            attachmentUrl = uploadResult[0].url;
+          }
+        } catch (uploadError) {
+          console.error("File upload error:", uploadError);
+          toast.error("Failed to upload file. Please try again.");
+          setIsSubmitting(false);
+          return;
+        }
+      }
 
+      // Send data as JSON with file URL
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data), // Simple JSON for the demo API route
+        body: JSON.stringify({
+          ...data,
+          attachment: attachmentUrl
+        }),
       });
 
       if (response.ok) {
@@ -126,7 +144,6 @@ export const QuoteForm = () => {
             id="company"
             {...register("company")}
             className={`w-full bg-white border ${errors.company ? "border-red-500" : "border-ocean/20"} py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors`}
-            placeholder="Lagos Manufacturing Ltd"
           />
           {errors.company && <p className="text-[10px] text-red-500 font-accent uppercase font-bold">{errors.company.message}</p>}
         </div>
@@ -154,7 +171,6 @@ export const QuoteForm = () => {
             id="projectLocation"
             {...register("projectLocation")}
             className={`w-full bg-white border ${errors.projectLocation ? "border-red-500" : "border-ocean/20"} py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors`}
-            placeholder="Victoria Island, Lagos"
           />
           {errors.projectLocation && <p className="text-[10px] text-red-500 font-accent uppercase font-bold">{errors.projectLocation.message}</p>}
         </div>
@@ -165,7 +181,7 @@ export const QuoteForm = () => {
             id="estimatedBudget"
             {...register("estimatedBudget")}
             className="w-full bg-white border border-ocean/20 py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors"
-            placeholder="₦50,000,000+"
+            placeholder="$"
           />
         </div>
       </div>
