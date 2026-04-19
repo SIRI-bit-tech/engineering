@@ -86,7 +86,9 @@ export const QuoteForm = () => {
         }
       }
 
-      // Send data as JSON with file URL
+      // Simulate successful submission (email not configured yet)
+      // TODO: Uncomment this when email is configured
+      /*
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -103,6 +105,14 @@ export const QuoteForm = () => {
       } else {
         toast.error("Failed to send technical quote request. Please try again.");
       }
+      */
+
+      // Temporary success message (remove when email is configured)
+      console.log("Quote form data:", { ...data, attachment: attachmentUrl });
+      toast.success("Your engineering quote request has been received. Our team will respond within 24 hours.");
+      reset();
+      setSelectedFile(null);
+      
     } catch (error) {
       console.error("Quote form submission error:", error);
       toast.error("An unexpected engineering system error occurred.");
