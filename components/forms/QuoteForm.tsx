@@ -120,7 +120,6 @@ export const QuoteForm = () => {
             id="name"
             {...register("name")}
             className={`w-full bg-white border ${errors.name ? "border-red-500" : "border-ocean/20"} py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors`}
-            placeholder="John Engineer"
           />
           {errors.name && <p className="text-[10px] text-red-500 font-accent uppercase font-bold">{errors.name.message}</p>}
         </div>
@@ -131,7 +130,6 @@ export const QuoteForm = () => {
             id="email"
             {...register("email")}
             className={`w-full bg-white border ${errors.email ? "border-red-500" : "border-ocean/20"} py-4 px-6 font-body text-primary focus:outline-none focus:border-ocean transition-colors`}
-            placeholder="john@company.com"
           />
           {errors.email && <p className="text-[10px] text-red-500 font-accent uppercase font-bold">{errors.email.message}</p>}
         </div>
