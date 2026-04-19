@@ -252,7 +252,7 @@ export const QuoteForm = () => {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full flex items-center justify-center space-x-3 py-5"
+        className="w-full flex items-center justify-center space-x-3 py-5 text-white"
       >
         {isSubmitting ? (
           <Loader2 size={20} className="animate-spin" />
