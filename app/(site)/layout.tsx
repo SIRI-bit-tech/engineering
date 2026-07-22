@@ -1,4 +1,4 @@
-import { LenisProvider } from "@/components/layout/LenisProvider";
+import { ClientProviders } from "@/components/layout/ClientProviders";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
@@ -8,12 +8,12 @@ export default function SiteLayout({
   children: React.ReactNode;
 }) {
   return (
-    <LenisProvider>
+    <ClientProviders>
       <Navbar />
       <main className="min-h-screen">
         {children}
       </main>
       <Footer />
-    </LenisProvider>
+    </ClientProviders>
   );
 }

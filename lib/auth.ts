@@ -8,10 +8,35 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+        username: { label: "Username", type: "text" },
+        userId: { label: "User ID", type: "text" }
       },
       async authorize(credentials) {
+        // Staff Login
+        if (credentials?.username && credentials?.userId) {
+          const user = await prisma.user.findFirst({
+            where: {
+              username: credentials.username,
+              id: credentials.userId,
+              role: "user"
+            }
+          });
+
+          if (!user) {
+            throw new Error("Invalid credentials");
+          }
+
+          return {
+            id: user.id,
+            email: user.email || `${user.username}@voltaedge.com`,
+            name: user.name || user.username,
+            role: user.role,
+          };
+        }
+
+        // Admin Login
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials");
         }
@@ -20,7 +45,11 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials.email }
         });
 
-        if (!user) {
+        if (!user || user.role !== "admin") {
+          throw new Error("Invalid credentials");
+        }
+
+        if (!user.password) {
           throw new Error("Invalid credentials");
         }
 
@@ -35,8 +64,8 @@ export const authOptions: NextAuthOptions = {
 
         return {
           id: user.id,
-          email: user.email,
-          name: user.name,
+          email: user.email || "",
+          name: user.name || "",
           role: user.role,
         };
       }

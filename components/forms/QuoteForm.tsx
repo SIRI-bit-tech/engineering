@@ -28,7 +28,7 @@ export const QuoteForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const { startUpload } = useUploadThing("projectImage");
+  const { startUpload } = useUploadThing("quoteAttachment");
 
   const {
     register,
@@ -48,13 +48,11 @@ export const QuoteForm = () => {
       return;
     }
 
-    // Since .dwg might have inconsistent mime types across browsers,
-    // we'll check the extension as a fallback.
     const ext = file.name.split(".").pop()?.toLowerCase();
-    const validExtensions = ["pdf", "xlsx", "dwg"];
+    const validExtensions = ["pdf", "xlsx", "dwg", "jpg", "jpeg", "png"];
 
     if (!validExtensions.includes(ext || "")) {
-      toast.error("Invalid file type. Please upload .pdf, .dwg, or .xlsx only.");
+      toast.error("Invalid file type. Please upload .pdf, .dwg, .xlsx, or image only.");
       return;
     }
 
@@ -76,7 +74,7 @@ export const QuoteForm = () => {
         try {
           const uploadResult = await startUpload([selectedFile]);
           if (uploadResult && uploadResult.length > 0) {
-            attachmentUrl = uploadResult[0].url;
+            attachmentUrl = uploadResult[0].ufsUrl || uploadResult[0].url;
           }
         } catch (uploadError) {
           console.error("File upload error:", uploadError);

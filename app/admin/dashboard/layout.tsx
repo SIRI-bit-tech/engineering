@@ -3,7 +3,7 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { LayoutDashboard, FolderKanban, Tag, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, FolderKanban, Tag, Users, LogOut, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useState } from "react";
 
@@ -37,6 +37,7 @@ export default function AdminDashboardLayout({
     { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
     { name: "Projects", href: "/admin/dashboard/projects", icon: FolderKanban },
     { name: "Categories", href: "/admin/dashboard/categories", icon: Tag },
+    { name: "Users", href: "/admin/dashboard/users", icon: Users },
   ];
 
   const handleSignOut = async () => {

@@ -1,55 +1,77 @@
 "use client";
 
-import React, { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import { PROCESS_STEPS } from "@/constants/constants";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Activity, ShieldCheck, Compass, CheckCircle2 } from "lucide-react";
+
+const STEPS = [
+  {
+    number: "01",
+    title: "Feasibility & Load Flow Audit",
+    description: "Conducting thermal imaging, harmonic distortion analysis, and short-circuit coordination studies to baseline facility load profiles.",
+    icon: <Activity className="text-ocean" size={24} />,
+  },
+  {
+    number: "02",
+    title: "BIM & Schematics Blueprinting",
+    description: "Architecting three-phase CAD schematics and BIM digital twin models conforming to NEC and NFPA 70E standards.",
+    icon: <Compass className="text-ocean" size={24} />,
+  },
+  {
+    number: "03",
+    title: "Deployment & Grid Synchronization",
+    description: "Installing switchgear, high-voltage substations, and battery energy storage (BESS) while synchronizing with local TSOs.",
+    icon: <ShieldCheck className="text-ocean" size={24} />,
+  },
+  {
+    number: "04",
+    title: "Commissioning & SCADA Telemetry",
+    description: "Executing SCADA real-time monitoring, protective relay calibration, and issuing investment-grade compliance certification.",
+    icon: <CheckCircle2 className="text-ocean" size={24} />,
+  },
+];
 
 export const ProcessSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Staggered reveal for cards
-    gsap.fromTo(
-      ".process-card",
-      { y: 40, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".process-grid",
-          start: "top 80%",
-        },
-      }
-    );
-  }, { scope: containerRef });
-
   return (
-    <section 
-      ref={containerRef}
-      className="py-32 bg-[#E1F5FE]"
-    >
-      <div className="max-w-screen-2xl mx-auto px-12">
-        <div className="text-center mb-20">
-          <span className="font-label text-secondary text-xs font-bold tracking-[0.3em] uppercase block mb-4">Our Workflow</span>
-          <h2 className="font-headline text-5xl text-primary tracking-tight leading-tight">The VoltaEdge Blueprint</h2>
+    <section className="py-24 bg-[#00253B] text-white relative overflow-hidden">
+      <div className="container-wide relative z-10 space-y-16">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto space-y-4">
+          <span className="inline-block bg-ocean/20 text-ocean border border-ocean/30 px-4 py-1.5 rounded-full text-xs font-accent font-bold uppercase tracking-wider">
+            Engineering Methodology
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold uppercase tracking-wide text-balance">
+            Four-Phase Engineering Lifecycle
+          </h2>
+          <p className="text-sm text-white/70 font-body text-pretty leading-relaxed">
+            From preliminary grid flow audits to SCADA telemetry integration, our systematic workflow guarantees zero-outage execution.
+          </p>
         </div>
-        <div className="process-grid grid grid-cols-1 md:grid-cols-5 gap-px bg-secondary/10">
-          {PROCESS_STEPS.map((step, idx) => (
-            <div 
+
+        {/* 4-Step Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {STEPS.map((step) => (
+            <div
               key={step.number}
-              className="process-card bg-surface-container-lowest p-10 hover:bg-secondary group transition-all duration-300"
+              className="bg-white/5 backdrop-blur-xl border border-white/10 hover:border-ocean/40 rounded-3xl p-8 space-y-6 relative transition-all duration-300 group hover:-translate-y-1"
             >
-              <span className="font-mono text-4xl text-secondary/20 group-hover:text-white/20 block mb-8">{step.number}</span>
-              <h4 className="font-label font-bold text-primary group-hover:text-white mb-4 uppercase tracking-tighter">{step.title}</h4>
-              <p className="text-on-surface-variant group-hover:text-white/80 text-xs leading-relaxed font-body">{step.description}</p>
+              {/* Step Badge Header */}
+              <div className="flex items-center justify-between">
+                <span className="font-display font-bold text-3xl text-ocean">
+                  {step.number}
+                </span>
+                <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center group-hover:bg-ocean/20 transition-colors">
+                  {step.icon}
+                </div>
+              </div>
+
+              {/* Title & Description */}
+              <div className="space-y-2">
+                <h3 className="text-lg font-display font-bold uppercase tracking-wide text-white group-hover:text-ocean transition-colors">
+                  {step.title}
+                </h3>
+                <p className="text-xs text-white/70 font-body leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>

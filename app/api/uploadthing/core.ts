@@ -5,6 +5,18 @@ import { authOptions } from "@/lib/auth";
 const f = createUploadthing();
 
 export const ourFileRouter = {
+  profilePicture: f({ image: { maxFileSize: "2MB", maxFileCount: 1 } })
+    .middleware(async () => {
+      const session = await getServerSession(authOptions);
+      if (!session?.user) throw new Error("Unauthorized");
+      return { userId: session.user.id };
+    })
+    .onUploadComplete(async ({ metadata, file }) => {
+      console.log("Profile picture upload complete for userId:", metadata.userId);
+      console.log("file url", file.ufsUrl);
+      return { uploadedBy: metadata.userId, url: file.ufsUrl };
+    }),
+
   projectImage: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
     .middleware(async () => {
       const session = await getServerSession(authOptions);
@@ -29,14 +41,17 @@ export const ourFileRouter = {
       return { uploadedBy: metadata.userId, url: file.ufsUrl };
     }),
 
-  quoteAttachment: f({ image: { maxFileSize: "4MB", maxFileCount: 1 }, pdf: { maxFileSize: "4MB", maxFileCount: 1 } })
+  quoteAttachment: f({ 
+    image: { maxFileSize: "4MB", maxFileCount: 1 }, 
+    pdf: { maxFileSize: "4MB", maxFileCount: 1 } 
+  })
     .middleware(async () => {
+      // Allow public quote attachment uploads without requiring logged in session
       const session = await getServerSession(authOptions);
-      if (!session?.user) throw new Error("Unauthorized");
-      return { userId: session.user.id };
+      return { userId: session?.user?.id || "public_guest" };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log("Quote attachment upload complete for userId:", metadata.userId);
+      console.log("Quote attachment upload complete for:", metadata.userId);
       console.log("file url", file.ufsUrl);
       return { uploadedBy: metadata.userId, url: file.ufsUrl };
     }),
