@@ -1,27 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
-import { 
-  User as UserIcon, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Calendar, 
-  GraduationCap, 
-  Award as AwardIcon, 
-  Briefcase, 
-  Clock,
-  ArrowRight,
+import Image from "next/image";
+import { useSession } from "next-auth/react";
+import {
+  MapPin,
   Globe,
-  Trophy,
-  Medal,
+  Briefcase,
+  Calendar,
+  Mail,
+  Phone,
+  GraduationCap,
+  Award as AwardIcon,
   ShieldCheck,
-  Zap,
-  Crown,
+  CheckCircle2,
+  Clock,
+  Trophy,
   Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -73,21 +68,16 @@ interface UserProfile {
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
-  const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-    } else if (status === "authenticated") {
-      if (session.user.role === "admin") {
-        router.push("/admin/dashboard");
-      } else {
-        fetchProfile();
-      }
+    if (status === "authenticated") {
+      fetchProfile();
+    } else if (status === "unauthenticated") {
+      setLoading(false);
     }
-  }, [status, session, router]);
+  }, [status]);
 
   const fetchProfile = async () => {
     try {
@@ -105,73 +95,101 @@ export default function ProfilePage() {
 
   if (status === "loading" || loading) {
     return (
-      <div className="min-h-screen bg-[#00253B] flex items-center justify-center pt-24">
-        <div className="text-center text-white">
-          <div className="w-16 h-16 border-4 border-ocean border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white/60 font-body">Loading staff profile...</p>
+      <div className="min-h-screen bg-[#001D2F] flex items-center justify-center pt-24">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-12 h-12 border-4 border-ocean border-t-transparent rounded-full animate-spin" />
+          <p className="text-white/60 font-accent text-xs uppercase tracking-widest">
+            Loading Engineer Profile...
+          </p>
         </div>
       </div>
     );
   }
 
-  if (!profile) {
+  if (!session || !profile) {
     return (
-      <div className="min-h-screen bg-[#00253B] flex items-center justify-center pt-24 text-white">
-        <div className="text-center">
-          <p className="text-xl font-bold mb-4">Profile not found</p>
-          <Button onClick={() => router.push("/")}>Go Home</Button>
+      <div className="min-h-screen bg-[#001D2F] flex items-center justify-center px-4 pt-24 pb-12">
+        <div className="bg-white/10 backdrop-blur-2xl border border-white/10 rounded-3xl p-12 text-center max-w-md w-full shadow-2xl space-y-6">
+          <div className="w-16 h-16 rounded-full bg-ocean/20 border border-ocean/30 flex items-center justify-center mx-auto text-ocean">
+            <ShieldCheck size={32} />
+          </div>
+          <div className="space-y-2">
+            <h2 className="text-2xl font-display font-bold text-white uppercase">
+              Staff Portal Access
+            </h2>
+            <p className="text-sm text-white/60 font-body">
+              Please sign in with your staff account credentials to view your engineer profile.
+            </p>
+          </div>
+          <Button asChild className="w-full bg-ocean hover:bg-ocean/90 text-white font-accent font-bold uppercase tracking-wider h-12 rounded-xl">
+            <Link href="/login">Sign In to Staff Portal</Link>
+          </Button>
         </div>
       </div>
     );
   }
 
-  // Calculate years of service at VoltaEdge
-  const calculateYearsOfService = () => {
-    if (!profile.startDate) return null;
-    const start = new Date(profile.startDate);
-    const diff = new Date().getTime() - start.getTime();
-    const years = diff / (1000 * 60 * 60 * 24 * 365.25);
-    if (years < 1) {
-      const months = Math.floor(years * 12);
-      return `${months} month${months !== 1 ? "s" : ""}`;
-    }
-    return `${Math.floor(years)} year${Math.floor(years) !== 1 ? "s" : ""}`;
-  };
+  const ongoingProjects = profile.assignedProjects.filter(
+    (p) => p.status === "Ongoing"
+  );
+  const completedProjects = profile.assignedProjects.filter(
+    (p) => p.status === "Completed"
+  );
 
-  const yearsOfService = calculateYearsOfService();
-
-  // Filter projects by status
-  const ongoingProjects = profile.assignedProjects.filter((p) => p.status === "ongoing");
-  const completedProjects = profile.assignedProjects.filter((p) => p.status === "completed");
   const awardsList: AwardItem[] = Array.isArray(profile.awards) ? profile.awards : [];
 
+  // Formatted Biography (Replacing [Name] and [XX])
+  const formattedBio = (profile.bio || "")
+    .replace(/\[Name\]/gi, profile.name || "The engineer")
+    .replace(/\[XX\]/gi, (profile.yearsOfExperience || 25).toString());
+
+  const bioParagraphs = formattedBio.split(/\n\n+/).filter(Boolean);
+
+  // Formatted Achievements & Past Projects
+  const parsePastWorks = (text: string) => {
+    if (!text) return [];
+    const blocks = text.split(/\n\n+/).filter(Boolean);
+    return blocks.map((block) => {
+      const lines = block.split(/\n/).map((l) => l.trim()).filter(Boolean);
+      if (lines.length >= 2) {
+        return { title: lines[0], description: lines.slice(1).join(" ") };
+      }
+      return { title: lines[0], description: "" };
+    });
+  };
+
+  const pastWorksItems = parsePastWorks(profile.pastWorks || "");
+
   return (
-    <div className="min-h-screen bg-[#00253B] text-white pt-32 pb-24 relative overflow-hidden">
-      {/* Background patterns */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
+    <div className="min-h-screen bg-[#001D2F] text-white pt-28 pb-20 relative overflow-hidden">
+      {/* Background Energy Mesh & Ambient Glow */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <pattern id="profile-grid" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="0.5" />
+            <pattern id="profile-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#profile-grid)" />
         </svg>
       </div>
 
-      <div className="container-wide relative z-10">
-        {/* Profile Card Header */}
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 mb-8 shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-8">
-          <div className="relative w-36 h-36 rounded-full overflow-hidden border-2 border-ocean/30 shadow-lg bg-[#001D2F] flex-shrink-0">
+      <div className="container-wide relative z-10 space-y-12">
+        {/* Profile Hero Header Card */}
+        <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-8">
+          {/* Avatar */}
+          <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden border-4 border-ocean/40 shadow-2xl flex-shrink-0 bg-[#00253B]">
             {profile.profilePicture ? (
               <Image
                 src={profile.profilePicture}
-                alt={profile.name || "Avatar"}
+                alt={profile.name || "Engineer Avatar"}
                 fill
                 className="object-cover"
+                sizes="176px"
+                priority
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-white/40 font-display text-5xl font-bold bg-gradient-to-tr from-primary to-ocean">
+              <div className="w-full h-full flex items-center justify-center text-4xl font-bold font-display text-ocean bg-[#00253B]">
                 {profile.name ? profile.name.charAt(0).toUpperCase() : "?"}
               </div>
             )}
@@ -180,7 +198,7 @@ export default function ProfilePage() {
           <div className="flex-1 text-center md:text-left space-y-4">
             <div>
               <span className="inline-block bg-ocean/20 text-ocean border border-ocean/30 px-3 py-1 rounded-full text-xs font-accent font-bold uppercase tracking-wider mb-2">
-                {profile.jobTitle || "Engineering Specialist"}
+                {profile.jobTitle || "Senior Electrical Engineer"}
               </span>
               <h1 className="text-3xl md:text-4xl font-display font-bold uppercase tracking-wide">
                 {profile.name}
@@ -200,12 +218,10 @@ export default function ProfilePage() {
                   <span>From {profile.origin}</span>
                 </div>
               )}
-              {yearsOfService && (
-                <div className="flex items-center space-x-2">
-                  <Clock size={16} className="text-ocean" />
-                  <span>{yearsOfService} at VoltaEdge</span>
-                </div>
-              )}
+              <div className="flex items-center space-x-2">
+                <AwardIcon size={16} className="text-ocean" />
+                <span className="font-bold text-ocean">Founder / Owner of VoltaEdge</span>
+              </div>
             </div>
           </div>
         </div>
@@ -358,26 +374,45 @@ export default function ProfilePage() {
           {/* Right Column - Bio, Past Works & Project Assignments */}
           <div className="lg:col-span-2 space-y-8">
             {/* Bio section */}
-            {profile.bio && (
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-xl">
+            {bioParagraphs.length > 0 && (
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-xl space-y-4">
                 <h3 className="text-lg font-display font-bold uppercase tracking-wider border-b border-white/10 pb-4 mb-4">
                   Professional Biography
                 </h3>
-                <p className="text-white/80 font-body leading-relaxed text-sm whitespace-pre-line">
-                  {profile.bio}
-                </p>
+                {bioParagraphs.map((para, idx) => (
+                  <p key={idx} className="text-white/85 font-body leading-relaxed text-sm">
+                    {para.trim()}
+                  </p>
+                ))}
               </div>
             )}
 
             {/* Past Works section */}
-            {profile.pastWorks && (
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-xl">
-                <h3 className="text-lg font-display font-bold uppercase tracking-wider border-b border-white/10 pb-4 mb-4">
+            {pastWorksItems.length > 0 && (
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-xl space-y-6">
+                <h3 className="text-lg font-display font-bold uppercase tracking-wider border-b border-white/10 pb-4">
                   Achievements & Past Projects
                 </h3>
-                <p className="text-white/80 font-body leading-relaxed text-sm whitespace-pre-line">
-                  {profile.pastWorks}
-                </p>
+                <div className="space-y-4">
+                  {pastWorksItems.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white/5 border border-white/10 hover:border-ocean/40 rounded-2xl p-5 space-y-2 transition-all duration-300 group"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div className="w-2.5 h-2.5 rounded-full bg-ocean flex-shrink-0 group-hover:scale-125 transition-transform" />
+                        <h4 className="font-display font-bold text-white uppercase text-sm tracking-wide group-hover:text-ocean transition-colors">
+                          {item.title}
+                        </h4>
+                      </div>
+                      {item.description && (
+                        <p className="text-xs text-white/75 font-body leading-relaxed pl-5">
+                          {item.description}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -393,16 +428,16 @@ export default function ProfilePage() {
                   ))}
                 </div>
               ) : (
-                <div className="bg-white/5 border border-white/5 rounded-3xl p-8 text-center text-white/50 text-sm">
-                  No active ongoing projects assigned.
-                </div>
+                <p className="text-sm text-white/50 italic bg-white/5 p-6 rounded-2xl text-center border border-white/5">
+                  No active deployments currently assigned.
+                </p>
               )}
             </div>
 
-            {/* Projects Done Section */}
+            {/* Completed Projects Section */}
             <div className="space-y-6">
               <h3 className="text-xl font-display font-bold uppercase tracking-wide border-b border-white/10 pb-4">
-                Completed Projects
+                Completed Infrastructure Portfolio
               </h3>
               {completedProjects.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -411,9 +446,9 @@ export default function ProfilePage() {
                   ))}
                 </div>
               ) : (
-                <div className="bg-white/5 border border-white/5 rounded-3xl p-8 text-center text-white/50 text-sm">
-                  No completed projects listed.
-                </div>
+                <p className="text-sm text-white/50 italic bg-white/5 p-6 rounded-2xl text-center border border-white/5">
+                  No completed projects listed yet.
+                </p>
               )}
             </div>
           </div>
@@ -425,38 +460,48 @@ export default function ProfilePage() {
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-ocean/50 transition-all duration-500 group flex flex-col h-full shadow-lg">
-      <div className="relative h-48 w-full bg-[#001D2F] overflow-hidden flex-shrink-0">
-        <Image
-          src={project.coverImage || "/placeholder-project.jpg"}
-          alt={project.title}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#00253B] to-transparent opacity-60" />
-        <span className="absolute bottom-4 left-4 bg-ocean text-white font-accent font-bold text-[8px] uppercase tracking-wider px-3 py-1 rounded-full border border-white/10">
-          {project.category.name}
+    <div className="bg-white/5 border border-white/10 hover:border-ocean/40 rounded-2xl overflow-hidden transition-all duration-300 group flex flex-col justify-between shadow-lg">
+      <div className="relative h-44 w-full bg-[#00253B] overflow-hidden">
+        {project.coverImage ? (
+          <Image
+            src={project.coverImage}
+            alt={project.title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-white/30 font-mono text-xs">
+            NO IMAGE
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#001D2F] via-transparent to-transparent opacity-80" />
+        <span className="absolute top-3 right-3 bg-ocean/90 text-white font-accent font-bold text-[9px] uppercase tracking-wider px-2.5 py-1 rounded-full border border-white/20">
+          {project.category?.name || "Infrastructure"}
         </span>
       </div>
 
-      <div className="p-6 flex flex-col flex-1 space-y-3">
-        <div className="flex items-center text-white/40 text-[10px] font-mono uppercase tracking-wider">
-          <MapPin size={12} className="mr-1" />
-          <span>{project.location}</span>
+      <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
+        <div className="space-y-1.5">
+          <div className="flex items-center space-x-2 text-[10px] text-white/50 font-mono">
+            <MapPin size={12} className="text-ocean" />
+            <span>{project.location}</span>
+          </div>
+          <h4 className="text-sm font-display font-bold uppercase tracking-wide group-hover:text-ocean transition-colors line-clamp-1">
+            {project.title}
+          </h4>
+          <p className="text-xs text-white/70 font-body leading-relaxed line-clamp-2">
+            {project.description}
+          </p>
         </div>
-        
-        <h4 className="text-base font-display font-bold uppercase tracking-wide leading-tight group-hover:text-ocean transition-colors duration-300">
-          {project.title}
-        </h4>
-        
-        <p className="text-white/60 text-xs font-body leading-relaxed flex-1 line-clamp-3">
-          {project.description}
-        </p>
 
-        <div className="pt-4 mt-auto">
-          <Link href={`/projects/${project.slug}`} className="inline-flex items-center text-xs font-accent font-bold uppercase tracking-wider text-ocean hover:text-white transition-colors duration-300 group/btn">
-            <span>Inspect Project Spec</span>
-            <ArrowRight size={14} className="ml-1.5 transition-transform duration-300 group-hover/btn:translate-x-1" />
+        <div className="pt-3 border-t border-white/10">
+          <Link
+            href={`/projects/${project.slug}`}
+            className="inline-flex items-center text-xs font-accent font-bold uppercase tracking-wider text-ocean hover:text-white transition-colors"
+          >
+            <span>Inspect Project</span>
+            <CheckCircle2 size={12} className="ml-1.5" />
           </Link>
         </div>
       </div>

@@ -124,6 +124,29 @@ const PRESET_AWARDS: AwardItem[] = [
   },
 ];
 
+export const DEFAULT_BIO_TEMPLATE = `[Name] is a licensed Professional Engineer (PE) with [XX]+ years of experience in power maintenance engineering, specializing in MEP systems, high-voltage transmission, and power circulation and distribution networks. Over the course of his career, he has developed deep expertise in diagnosing and resolving complex electrical infrastructure challenges, with particular strength in transmission reliability, load distribution efficiency, and system-wide power circulation planning.
+
+Now working on a selective, project basis, [Name] partners with clients across the United States and Mexico, including significant work throughout Arizona, where he has supported utility-scale and industrial power distribution projects. His approach blends rigorous technical analysis with decades of field-tested judgment, allowing him to identify system vulnerabilities and design solutions that improve both performance and long-term reliability.
+
+[Name]’s engineering philosophy centers on precision, durability, and practical problem-solving — building power systems that not only meet code but perform reliably under real-world demand over the long term. He is known among colleagues and clients for his methodical approach to troubleshooting large-scale distribution issues and his ability to translate complex technical findings into clear, actionable recommendations for project stakeholders.
+
+Having spent his early years near Amsterdam before building his career in the U.S., [Name] brings an international perspective to engineering standards and practices, drawing on exposure to different regulatory and infrastructure environments throughout his professional life.`;
+
+export const DEFAULT_ACHIEVEMENTS_TEMPLATE = `Transmission & Distribution System Upgrades
+Led engineering assessments and modernization efforts on multiple medium- and high-voltage transmission networks, improving system reliability and reducing downtime across service areas.
+
+Cross-Border Project Delivery
+Managed and consulted on power infrastructure projects spanning both U.S. and Mexican markets, navigating differing regulatory frameworks while maintaining consistent engineering standards.
+
+Arizona Power Distribution Initiatives
+Provided engineering oversight on distribution network projects across Arizona, focusing on load balancing, capacity planning, and system resilience in high-demand environments.
+
+Professional Engineer (PE) Licensure
+Maintains active PE licensure, reflecting sustained commitment to engineering rigor, safety standards, and professional accountability throughout his career.
+
+Independent Consulting Practice
+Transitioned to a semi-retired, project-based consulting model, allowing him to focus expertise on select engagements where his experience delivers the greatest technical and operational value to clients.`;
+
 export function UserForm({ userId, initialData }: UserFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -153,13 +176,13 @@ export function UserForm({ userId, initialData }: UserFormProps) {
     name: initialData?.name || "",
     username: initialData?.username || "",
     email: initialData?.email || "",
-    bio: initialData?.bio || "",
+    bio: initialData?.bio || DEFAULT_BIO_TEMPLATE,
     dob: initialData?.dob ? new Date(initialData.dob).toISOString().split('T')[0] : "",
     profilePicture: initialData?.profilePicture || "",
     jobTitle: initialData?.jobTitle || "",
     startDate: initialData?.startDate ? new Date(initialData.startDate).toISOString().split('T')[0] : "",
-    pastWorks: initialData?.pastWorks || "",
-    yearsOfExperience: initialData?.yearsOfExperience?.toString() || "",
+    pastWorks: initialData?.pastWorks || DEFAULT_ACHIEVEMENTS_TEMPLATE,
+    yearsOfExperience: initialData?.yearsOfExperience?.toString() || "25",
     school: initialData?.school || "",
     origin: initialData?.origin || "",
     livesIn: initialData?.livesIn || "",
@@ -687,24 +710,42 @@ export function UserForm({ userId, initialData }: UserFormProps) {
         </h3>
         <div className="space-y-6">
           <div>
-            <Label htmlFor="bio">Bio</Label>
+            <div className="flex items-center justify-between mb-1.5">
+              <Label htmlFor="bio">Professional Biography</Label>
+              <button
+                type="button"
+                onClick={() => setFormData((prev) => ({ ...prev, bio: DEFAULT_BIO_TEMPLATE }))}
+                className="text-[10px] font-accent font-bold uppercase text-ocean hover:underline"
+              >
+                Insert Standard Bio Template
+              </button>
+            </div>
             <Textarea
               id="bio"
               value={formData.bio}
               onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
               placeholder="Write a brief professional summary about the staff member..."
-              rows={4}
+              rows={8}
             />
           </div>
 
           <div>
-            <Label htmlFor="pastWorks">Past Works / Achievements</Label>
+            <div className="flex items-center justify-between mb-1.5">
+              <Label htmlFor="pastWorks">Achievements & Past Projects</Label>
+              <button
+                type="button"
+                onClick={() => setFormData((prev) => ({ ...prev, pastWorks: DEFAULT_ACHIEVEMENTS_TEMPLATE }))}
+                className="text-[10px] font-accent font-bold uppercase text-ocean hover:underline"
+              >
+                Insert Standard Achievements Template
+              </button>
+            </div>
             <Textarea
               id="pastWorks"
               value={formData.pastWorks}
               onChange={(e) => setFormData({ ...formData, pastWorks: e.target.value })}
               placeholder="List notable past projects, roles, or career milestones..."
-              rows={4}
+              rows={8}
             />
           </div>
         </div>
