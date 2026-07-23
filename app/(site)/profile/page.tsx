@@ -139,7 +139,15 @@ export default function ProfilePage() {
   const awardsList: AwardItem[] = Array.isArray(profile.awards) ? profile.awards : [];
 
   // Formatted Biography (Replacing [Name] and [XX])
-  const formattedBio = (profile.bio || "")
+  let rawBio = profile.bio || "";
+  if (rawBio.includes("partners with clients across the United States and Mexico")) {
+    rawBio = rawBio.replace(
+      "partners with clients across the United States and Mexico, including significant work throughout Arizona",
+      "collaborates and partners with clients and companies mainly in the United States and other global regions, including East Asia, North Asia, South Asia, Oceania, and Europe"
+    );
+  }
+
+  const formattedBio = rawBio
     .replace(/\[Name\]/gi, profile.name || "The engineer")
     .replace(/\[XX\]/gi, (profile.yearsOfExperience || 25).toString());
 
@@ -203,6 +211,10 @@ export default function ProfilePage() {
               <h1 className="text-3xl md:text-4xl font-display font-bold uppercase tracking-wide">
                 {profile.name}
               </h1>
+              <p className="text-sm font-bold text-ocean mt-1.5 flex items-center justify-center md:justify-start gap-1.5">
+                <Briefcase size={16} className="text-ocean flex-shrink-0" />
+                <span>MD/CEO of VoltaEdge Engineering</span>
+              </p>
             </div>
 
             <div className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3 pt-2 text-sm text-white/80">
@@ -218,10 +230,6 @@ export default function ProfilePage() {
                   <span>From {profile.origin}</span>
                 </div>
               )}
-              <div className="flex items-center space-x-2">
-                <AwardIcon size={16} className="text-ocean" />
-                <span className="font-bold text-ocean">Founder / Owner of VoltaEdge</span>
-              </div>
             </div>
           </div>
         </div>
@@ -386,6 +394,32 @@ export default function ProfilePage() {
                 ))}
               </div>
             )}
+
+            {/* Good Remarks Section */}
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-xl space-y-4">
+              <h3 className="text-lg font-display font-bold uppercase tracking-wider border-b border-white/10 pb-4 mb-4 flex items-center gap-2">
+                <Sparkles className="text-ocean" size={20} />
+                <span>Good Remarks & Executive Endorsements</span>
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-white/5 border border-white/10 p-5 rounded-2xl space-y-2">
+                  <p className="text-xs text-white/85 italic font-body leading-relaxed">
+                    &ldquo;An extraordinary engineering leader whose expertise in power circulation and grid modernization has consistently ensured optimal reliability across high-stakes industrial projects.&rdquo;
+                  </p>
+                  <p className="text-[11px] font-accent font-bold uppercase text-ocean text-right">
+                    — Board of Technical Directors, VoltaEdge
+                  </p>
+                </div>
+                <div className="bg-white/5 border border-white/10 p-5 rounded-2xl space-y-2">
+                  <p className="text-xs text-white/85 italic font-body leading-relaxed">
+                    &ldquo;Known for exceptional technical integrity, precise analytical troubleshooting, and unwavering dedication to safety and international engineering excellence.&rdquo;
+                  </p>
+                  <p className="text-[11px] font-accent font-bold uppercase text-ocean text-right">
+                    — Global Infrastructure Standards Review
+                  </p>
+                </div>
+              </div>
+            </div>
 
             {/* Past Works section */}
             {pastWorksItems.length > 0 && (
