@@ -3,7 +3,7 @@
 export const SITE_NAME = "VoltaEdge Engineering";
 export const SITE_TAGLINE = "Precision Power & Energy Engineering";
 export const SITE_DESCRIPTION = "VoltaEdge Engineering delivers high-performance electrical design, renewable energy integration, power distribution, and industrial automation for global infrastructure and industry.";
-export const SITE_EMAIL = "contact@voltaeedge.com";
+export const SITE_EMAIL = "voltaedge@protonmail.com";
 export const SITE_PHONE = "+1 (800)-VOLTAEDGE";
 export const SITE_ADDRESS = "United States, Canada, Mexico, Europe, Asia, Australia";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://voltaeedge.com";

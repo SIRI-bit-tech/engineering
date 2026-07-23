@@ -47,8 +47,7 @@ export const ContactInfo = () => {
           <Mail size={20} className="text-navy mb-6 group-hover:scale-110 transition-transform duration-500" />
           <h4 className="font-label text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Email</h4>
           <p className="text-sm font-body text-navy leading-relaxed wrap-break-word">
-            engineering@voltaeedge.com<br />
-            support@voltaeedge.com
+            voltaedge@protonmail.com
           </p>
         </div>
 
