@@ -47,25 +47,21 @@ export const TimelineSection = () => {
           className="mb-24"
         />
 
-        <div className="milestones-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="milestones-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {COMPANY_MILESTONES.map((milestone, idx) => (
             <div
-              key={milestone.year}
-              className="milestone-item group relative bg-white p-12 rounded-none shadow-default hover:shadow-hover hover:-translate-y-4 transition-all duration-700"
+              key={milestone.stage || idx}
+              className="milestone-item group relative bg-white p-8 md:p-10 rounded-none shadow-default hover:shadow-hover hover:-translate-y-2 transition-all duration-500"
             >
-              {/* Technical Marker */}
-              <div className="font-mono text-[10px] tracking-[0.2em] text-ocean mb-8 flex items-center gap-4">
-                <span className="font-bold">STEP-0{idx + 1}</span>
-                <div className="h-px w-8 bg-ocean/20 group-hover:w-12 transition-all duration-700" />
+              {/* Stage Badge Marker */}
+              <div className="inline-block bg-ocean/10 text-ocean border border-ocean/20 px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider mb-6">
+                {milestone.stage || `STAGE 0${idx + 1}`}
               </div>
 
-              <div className="text-5xl md:text-6xl font-mono font-bold text-primary mb-8 group-hover:scale-110 transition-transform duration-700 origin-left">
-                {milestone.year}
-              </div>
-              <h4 className="text-2xl font-display font-bold text-primary mb-6 group-hover:text-ocean transition-colors duration-500">
+              <h4 className="text-xl font-display font-bold text-primary mb-4 group-hover:text-ocean transition-colors duration-500">
                 {milestone.title}
               </h4>
-              <p className="text-base text-charcoal/60 font-body leading-relaxed">
+              <p className="text-sm text-charcoal/70 font-body leading-relaxed">
                 {milestone.description}
               </p>
             </div>

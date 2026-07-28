@@ -1056,43 +1056,43 @@ export const SOCIAL_LINKS: { label: string; href: string; icon: string }[] = [];
 
 export const COMPANY_MILESTONES = [
   {
-    year: "2004",
-    title: "Foundation",
-    description: "Incorporation of VoltaEdge in Houston, focused on regional grid optimization."
+    stage: "STAGE 01",
+    title: "Foundation & Grid Design",
+    description: "Establishment of VoltaEdge in Houston, focusing on regional distribution engineering and power grid optimization."
   },
   {
-    year: "2007",
-    title: "Regional Expansion",
-    description: "First multi-state project launched across the Southwest, establishing our expansion strategy."
+    stage: "STAGE 02",
+    title: "High-Voltage Expansion",
+    description: "First multi-state infrastructure deployment launched across the Southwest, establishing our regional framework."
   },
   {
-    year: "2010",
-    title: "Transmission Lab",
-    description: "Opening of the High-Voltage Testing Facility, the first private lab of its kind."
+    stage: "STAGE 03",
+    title: "High-Voltage Testing Lab",
+    description: "Opening of our specialized High-Voltage Testing & Diagnostic Facility, delivering advanced load testing and safety verification."
   },
   {
-    year: "2013",
-    title: "Solar Integration",
-    description: "Deployment of the first large-scale solar synchronization hub in the Southwest."
+    stage: "STAGE 04",
+    title: "Utility Solar Integration",
+    description: "Deployment of utility-scale solar synchronization hubs to seamlessly integrate clean energy into high-voltage networks."
   },
   {
-    year: "2016",
-    title: "West Coast Hub",
-    description: "San Francisco headquarters established to manage renewable and hydro infrastructure projects."
+    stage: "STAGE 05",
+    title: "Renewable Hub Establishment",
+    description: "Expansion into regional operations to manage utility-scale solar, hydro, and wind power transmission infrastructure."
   },
   {
-    year: "2023",
-    title: "Storage Innovation",
-    description: "Pioneering the first utility-scale battery storage solution in the industrial sector."
+    stage: "STAGE 06",
+    title: "BESS Storage Innovation",
+    description: "Pioneering industrial battery energy storage systems (BESS) for grid stabilization and peak load management."
   },
   {
-    year: "2024",
-    title: "Digital Twin Tech",
-    description: "Launch of our proprietary predictive maintenance software for industrial asset management."
+    stage: "STAGE 07",
+    title: "Digital Twin & Analytics",
+    description: "Launch of our proprietary predictive asset management and digital twin monitoring software for industrial facilities."
   },
   {
-    year: "2025",
-    title: "Future-Proofing",
-    description: "Leading the transition to green hydrogen infrastructure across coastal regions."
-  }
+    stage: "STAGE 08",
+    title: "Autonomous Microgrids",
+    description: "Architecting autonomous microgrids and smart cross-border power distribution networks across North America, Europe, and Asia."
+  },
 ];

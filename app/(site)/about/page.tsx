@@ -3,6 +3,8 @@ import { PageHero } from "@/components/layout/PageHero";
 import { StorySection } from "@/components/sections/about/StorySection";
 import { TimelineSection } from "@/components/sections/about/TimelineSection";
 import { ValuesSection } from "@/components/sections/about/ValuesSection";
+import { CapabilitiesSection } from "@/components/sections/about/CapabilitiesSection";
+import { StandardsSection } from "@/components/sections/about/StandardsSection";
 import { SITE_NAME } from "@/constants/constants";
 import type { Metadata } from "next";
 
@@ -24,7 +26,11 @@ export default function AboutPage() {
 
       <StorySection />
 
+      <CapabilitiesSection />
+
       <TimelineSection />
+
+      <StandardsSection />
 
       <ValuesSection />
     </div>
