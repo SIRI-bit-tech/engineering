@@ -147,8 +147,11 @@ export default function ProfilePage() {
     );
   }
 
+  // Extract first name only for bio replacement (e.g. "Emuesiri Onovwiona" -> "Emuesiri")
+  const firstName = profile.name ? profile.name.trim().split(/\s+/)[0] : "The engineer";
+
   const formattedBio = rawBio
-    .replace(/\[Name\]/gi, profile.name || "The engineer")
+    .replace(/\[Name\]/gi, firstName)
     .replace(/\[XX\]/gi, (profile.yearsOfExperience || 25).toString());
 
   const bioParagraphs = formattedBio.split(/\n\n+/).filter(Boolean);
