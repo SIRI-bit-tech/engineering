@@ -186,7 +186,7 @@ export async function PATCH(
         dob: dob !== undefined ? (dob ? new Date(dob) : null) : undefined,
         profilePicture: profilePicture !== undefined ? (profilePicture || null) : undefined,
         jobTitle: jobTitle !== undefined ? (jobTitle || null) : undefined,
-        startDate: startDate !== undefined ? (startDate ? new Date(startDate) : null) : undefined,
+        startDate: startDate !== undefined ? (startDate ? new Date(String(startDate).length === 4 ? `${startDate}-01-01` : startDate) : null) : undefined,
         pastWorks: pastWorks !== undefined ? (pastWorks || null) : undefined,
         yearsOfExperience: yearsOfExperience !== undefined ? (yearsOfExperience ? parseInt(yearsOfExperience) : null) : undefined,
         school: school !== undefined ? (school || null) : undefined,

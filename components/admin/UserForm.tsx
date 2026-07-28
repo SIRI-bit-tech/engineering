@@ -180,7 +180,9 @@ export function UserForm({ userId, initialData }: UserFormProps) {
     dob: initialData?.dob ? new Date(initialData.dob).toISOString().split('T')[0] : "",
     profilePicture: initialData?.profilePicture || "",
     jobTitle: initialData?.jobTitle || "",
-    startDate: initialData?.startDate ? new Date(initialData.startDate).toISOString().split('T')[0] : "",
+    startDate: initialData?.startDate 
+      ? (isNaN(Date.parse(initialData.startDate)) ? initialData.startDate : new Date(initialData.startDate).getUTCFullYear().toString()) 
+      : "",
     pastWorks: initialData?.pastWorks || DEFAULT_ACHIEVEMENTS_TEMPLATE,
     yearsOfExperience: initialData?.yearsOfExperience?.toString() || "25",
     school: initialData?.school || "",
@@ -472,10 +474,12 @@ export function UserForm({ userId, initialData }: UserFormProps) {
           </div>
 
           <div>
-            <Label htmlFor="startDate">Start Date (VoltaEdge)</Label>
+            <Label htmlFor="startDate">Start Year (VoltaEdge)</Label>
             <Input
               id="startDate"
-              type="date"
+              type="text"
+              placeholder="e.g. 2004"
+              maxLength={4}
               value={formData.startDate}
               onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
             />

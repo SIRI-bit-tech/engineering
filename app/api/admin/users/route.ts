@@ -173,7 +173,7 @@ export async function POST(request: NextRequest) {
         dob: dob ? new Date(dob) : null,
         profilePicture: profilePicture || null,
         jobTitle: jobTitle || null,
-        startDate: startDate ? new Date(startDate) : null,
+        startDate: startDate ? new Date(String(startDate).length === 4 ? `${startDate}-01-01` : startDate) : null,
         pastWorks: pastWorks || null,
         yearsOfExperience: yearsOfExperience ? parseInt(yearsOfExperience) : null,
         school: school || null,

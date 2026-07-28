@@ -319,13 +319,10 @@ export default function ProfilePage() {
                     <Briefcase className="text-ocean mt-0.5 flex-shrink-0" size={18} />
                     <div>
                       <p className="text-[10px] text-white/40 font-accent uppercase tracking-wider leading-none mb-1">
-                        Company Commission Date
+                        Company Commission Year
                       </p>
                       <p className="text-sm font-body">
-                        {new Date(profile.startDate).toLocaleDateString("en-US", {
-                          month: "long",
-                          year: "numeric",
-                        })}
+                        {new Date(profile.startDate).getUTCFullYear()}
                       </p>
                     </div>
                   </li>
