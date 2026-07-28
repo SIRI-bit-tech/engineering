@@ -129,11 +129,11 @@ export default function ProfilePage() {
     );
   }
 
-  const ongoingProjects = profile.assignedProjects.filter(
-    (p) => p.status === "Ongoing"
+  const ongoingProjects = (profile.assignedProjects || []).filter(
+    (p) => p.status?.toLowerCase() === "ongoing"
   );
-  const completedProjects = profile.assignedProjects.filter(
-    (p) => p.status === "Completed"
+  const completedProjects = (profile.assignedProjects || []).filter(
+    (p) => p.status?.toLowerCase() !== "ongoing"
   );
 
   const awardsList: AwardItem[] = Array.isArray(profile.awards) ? profile.awards : [];
