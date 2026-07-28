@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { prisma, withPrismaRetry } from "@/lib/prisma";
 import { PROJECTS as STATIC_PROJECTS } from "@/constants/constants";
+
+async function generateShortUserId(): Promise<string> {
+  for (let i = 0; i < 10; i++) {
+    const candidateId = `VE-${Math.floor(1000 + Math.random() * 9000)}`;
+    const existing = await prisma.user.findUnique({ where: { id: candidateId } });
+    if (!existing) return candidateId;
+  }
+  return `VE-${Date.now().toString().slice(-4)}`;
+}
 
 async function ensureProjectsExist(projectIds: string[]) {
   if (!projectIds || projectIds.length === 0) return [];
@@ -60,6 +69,7 @@ async function ensureProjectsExist(projectIds: string[]) {
       }
     }
   }
+
   return validIds;
 }
 
@@ -134,66 +144,70 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if username already exists
-    const existingUsername = await prisma.user.findUnique({
-      where: { username },
-    });
-
-    if (existingUsername) {
-      return NextResponse.json(
-        { error: "A user with this username already exists" },
-        { status: 400 }
-      );
-    }
-
-    // Check if email already exists (if provided)
-    if (email) {
-      const existingEmail = await prisma.user.findUnique({
-        where: { email },
+    return await withPrismaRetry(async () => {
+      // Check if username already exists
+      const existingUsername = await prisma.user.findUnique({
+        where: { username },
       });
 
-      if (existingEmail) {
+      if (existingUsername) {
         return NextResponse.json(
-          { error: "A user with this email already exists" },
+          { error: "A user with this username already exists" },
           { status: 400 }
         );
       }
-    }
 
-    // Ensure all project IDs exist in DB
-    const validProjectIds = await ensureProjectsExist(projectIds || []);
+      // Check if email already exists (if provided)
+      if (email) {
+        const existingEmail = await prisma.user.findUnique({
+          where: { email },
+        });
 
-    // Create user
-    const newUser = await prisma.user.create({
-      data: {
-        name,
-        username,
-        email: email || null,
-        bio: bio || null,
-        dob: dob ? new Date(dob) : null,
-        profilePicture: profilePicture || null,
-        jobTitle: jobTitle || null,
-        startDate: startDate ? new Date(String(startDate).length === 4 ? `${startDate}-01-01` : startDate) : null,
-        pastWorks: pastWorks || null,
-        yearsOfExperience: yearsOfExperience ? parseInt(yearsOfExperience) : null,
-        school: school || null,
-        origin: origin || null,
-        livesIn: livesIn || null,
-        phoneNumber: phoneNumber || null,
-        awards: awards || null,
-        role: "user",
-        assignedProjects: validProjectIds.length > 0
-          ? {
-              connect: validProjectIds.map((id: string) => ({ id })),
-            }
-          : undefined,
-      },
-      include: {
-        assignedProjects: true,
-      },
+        if (existingEmail) {
+          return NextResponse.json(
+            { error: "A user with this email already exists" },
+            { status: 400 }
+          );
+        }
+      }
+
+      // Ensure all project IDs exist in DB
+      const validProjectIds = await ensureProjectsExist(projectIds || []);
+      const shortId = await generateShortUserId();
+
+      // Create user with clean short ID
+      const newUser = await prisma.user.create({
+        data: {
+          id: shortId,
+          name,
+          username,
+          email: email || null,
+          bio: bio || null,
+          dob: dob ? new Date(dob) : null,
+          profilePicture: profilePicture || null,
+          jobTitle: jobTitle || null,
+          startDate: startDate ? new Date(String(startDate).length === 4 ? `${startDate}-01-01` : startDate) : null,
+          pastWorks: pastWorks || null,
+          yearsOfExperience: yearsOfExperience ? parseInt(yearsOfExperience) : null,
+          school: school || null,
+          origin: origin || null,
+          livesIn: livesIn || null,
+          phoneNumber: phoneNumber || null,
+          awards: awards || null,
+          role: "user",
+          assignedProjects: validProjectIds.length > 0
+            ? {
+                connect: validProjectIds.map((id: string) => ({ id })),
+              }
+            : undefined,
+        },
+        include: {
+          assignedProjects: true,
+        },
+      });
+
+      return NextResponse.json(newUser, { status: 201 });
     });
-
-    return NextResponse.json(newUser, { status: 201 });
   } catch (error) {
     console.error("Error creating staff user:", error);
     return NextResponse.json(
