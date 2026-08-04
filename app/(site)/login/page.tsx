@@ -11,7 +11,6 @@ import Image from "next/image";
 
 export default function UserLoginPage() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,13 +20,12 @@ export default function UserLoginPage() {
 
     try {
       const result = await signIn("credentials", {
-        username: username.toLowerCase().trim(),
         userId: userId.trim(),
         redirect: false,
       });
 
       if (result?.error) {
-        toast.error("Invalid Username or User ID");
+        toast.error("Invalid User ID");
       } else {
         toast.success("Login successful");
         router.push("/profile");
@@ -71,39 +69,26 @@ export default function UserLoginPage() {
 
           <div className="text-center mb-8">
             <h1 className="text-2xl font-display font-bold text-white uppercase tracking-wider">
-              Staff Portal
+              ADMIN PORTAL
             </h1>
+            <p className="text-xs text-white/60 font-body mt-2">
+              Enter your assigned User ID to access your portal
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <Label htmlFor="username" className="text-xs font-accent font-bold uppercase tracking-[0.2em] text-white/80 mb-2 block">
-                Username
-              </Label>
-              <Input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="e.g. johndoe"
-                required
-                className="w-full bg-white/5 border-white/10 text-white placeholder-white/30 focus:border-ocean focus:ring-1 focus:ring-ocean rounded-xl h-12"
-                disabled={isLoading}
-              />
-            </div>
-
             <div>
               <Label htmlFor="userId" className="text-xs font-accent font-bold uppercase tracking-[0.2em] text-white/80 mb-2 block">
                 User ID
               </Label>
               <Input
                 id="userId"
-                type="password"
+                type="text"
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
-                placeholder="Enter your system-generated CUID"
+                placeholder="e.g. VE-8492"
                 required
-                className="w-full bg-white/5 border-white/10 text-white placeholder-white/30 focus:border-ocean focus:ring-1 focus:ring-ocean rounded-xl h-12"
+                className="w-full bg-white/5 border-white/10 text-white placeholder-white/30 focus:border-ocean focus:ring-1 focus:ring-ocean rounded-xl h-12 text-center text-lg font-mono font-bold tracking-wider"
                 disabled={isLoading}
               />
             </div>

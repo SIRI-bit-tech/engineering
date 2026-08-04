@@ -14,24 +14,28 @@ export const authOptions: NextAuthOptions = {
         userId: { label: "User ID", type: "text" }
       },
       async authorize(credentials) {
-        // Staff Login
-        if (credentials?.username && credentials?.userId) {
+        // User Login via User ID
+        if (credentials?.userId) {
+          const trimmedId = credentials.userId.trim();
           const user = await prisma.user.findFirst({
             where: {
-              username: credentials.username,
-              id: credentials.userId,
+              OR: [
+                { id: trimmedId },
+                { id: trimmedId.toUpperCase() },
+                { username: trimmedId.toLowerCase() }
+              ],
               role: "user"
             }
           });
 
           if (!user) {
-            throw new Error("Invalid credentials");
+            throw new Error("Invalid User ID");
           }
 
           return {
             id: user.id,
-            email: user.email || `${user.username}@voltaedge.com`,
-            name: user.name || user.username,
+            email: user.email || `${user.username || user.id}@voltaedge.com`,
+            name: user.name || user.username || user.id,
             role: user.role,
           };
         }
