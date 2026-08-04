@@ -153,7 +153,7 @@ export const Navbar = () => {
                 href="/login"
                 className="font-accent font-bold text-[11px] uppercase tracking-wider text-primary hover:text-ocean border border-primary/20 hover:border-ocean/40 px-5 py-2.5 rounded-xl transition-all duration-300"
               >
-                View Engineer
+                Executive Profile
               </Link>
             )}
           </div>
@@ -235,7 +235,7 @@ export const Navbar = () => {
                 className="block text-center font-accent font-bold text-xs uppercase tracking-wider text-white border border-white/20 py-3.5 rounded-xl hover:bg-white/10 transition-all duration-300"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                VIEW ENGINEER
+                EXECUTIVE PROFILE
               </Link>
             )}
           </li>
